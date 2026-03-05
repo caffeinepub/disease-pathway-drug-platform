@@ -52,9 +52,10 @@ export function Footer() {
           </p>
           <p
             style={{
-              fontSize: "0.55rem",
-              color: "oklch(0.55 0.12 198 / 0.5)",
-              letterSpacing: "0.03em",
+              fontSize: "0.6rem",
+              color: "oklch(0.72 0.16 198 / 0.75)",
+              letterSpacing: "0.05em",
+              fontWeight: 500,
             }}
           >
             Created by Suhasini
