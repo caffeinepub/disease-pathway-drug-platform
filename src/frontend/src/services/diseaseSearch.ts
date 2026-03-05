@@ -3013,73 +3013,195 @@ const DISEASE_KB: Record<string, DiseaseEntry> = {
     pathways: [
       {
         keggId: "hsa05220",
-        name: "Chronic myeloid leukemia",
+        name: "Chronic myeloid leukemia (CML)",
         description:
-          "BCR-ABL1 fusion kinase constitutively activates RAS, PI3K, and STAT5 in CML.",
+          "BCR-ABL1 fusion kinase from t(9;22) Philadelphia chromosome constitutively activates RAS, PI3K, JAK2/STAT5, and MAPK driving uncontrolled myeloid proliferation in CML.",
       },
       {
         keggId: "hsa05221",
-        name: "Acute myeloid leukemia",
+        name: "Acute myeloid leukemia (AML)",
         description:
-          "FLT3 ITD and IDH1/2 mutations drive proliferative and differentiation blocks in AML.",
+          "FLT3-ITD, NPM1, IDH1/2, and CEBPA mutations drive proliferative and differentiation blocks in AML; RAS/MAPK and PI3K/mTOR are primary downstream effectors.",
+      },
+      {
+        keggId: "hsa05202",
+        name: "Transcriptional misregulation in cancer",
+        description:
+          "AML1-ETO (t(8;21)) and PML-RARα (t(15;17)) fusion oncoproteins repress myeloid differentiation genes, a defining mechanism in AML subtypes M2 and M3 (APL).",
       },
       {
         keggId: "hsa04151",
         name: "PI3K-Akt signaling pathway",
         description:
-          "PI3K/Akt/mTOR downstream of BCR-ABL and FLT3 promotes leukemic cell survival.",
+          "PI3K/Akt/mTOR cascade activated downstream of BCR-ABL, FLT3-ITD, and KIT promotes leukemic cell survival and resistance to apoptosis.",
+      },
+      {
+        keggId: "hsa04630",
+        name: "JAK-STAT signaling pathway",
+        description:
+          "JAK2/STAT5 axis activated by BCR-ABL and cytokine receptors drives transcription of pro-survival and proliferative genes in CML and B-ALL.",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis pathway",
+        description:
+          "Overexpression of BCL-2 family anti-apoptotic proteins (BCL-2, BCL-XL, MCL-1) suppresses the mitochondrial apoptosis pathway, enabling leukemic cell survival.",
+      },
+      {
+        keggId: "hsa04110",
+        name: "Cell cycle (p53/RB checkpoint)",
+        description:
+          "Deletions of CDKN2A/B (p16, p14ARF) and TP53 mutations disable G1/S checkpoint, enabling unchecked leukemic proliferation particularly in ALL and CLL.",
+      },
+      {
+        keggId: "hsa04064",
+        name: "NF-κB signaling pathway",
+        description:
+          "Constitutive NF-κB activation in CLL and AML upregulates anti-apoptotic genes (BCL-2, XIAP) and cytokines promoting leukemic microenvironment survival signals.",
+      },
+      {
+        keggId: "hsa04340",
+        name: "Hedgehog signaling pathway",
+        description:
+          "SMO/GLI signaling maintains leukemic stem cell self-renewal in CML and AML; co-targeting BCR-ABL and Hedgehog overcomes TKI resistance.",
+      },
+      {
+        keggId: "hsa03460",
+        name: "Fanconi anemia pathway / DNA repair",
+        description:
+          "Impaired BRCA1/2 and Fanconi anemia DNA repair genes promote genomic instability and secondary mutations that drive leukemic transformation and progression.",
       },
     ],
     genes: [
       {
-        gene: "BCR",
-        protein: "Breakpoint cluster region protein",
+        gene: "BCR-ABL1",
+        protein: "Breakpoint cluster region – Abelson tyrosine kinase fusion",
         uniprotId: "P11274",
         function:
-          "BCR-ABL1 fusion from t(9;22) Philadelphia chromosome constitutively activates ABL1 tyrosine kinase in CML.",
-        drug: "Imatinib",
+          "t(9;22) Philadelphia chromosome creates BCR-ABL1 fusion; constitutively active ABL1 kinase drives CML in 95% of cases and ~25% of adult ALL.",
+        drug: "Imatinib (Gleevec)",
         drugMechanism:
-          "First BCR-ABL1 TKI blocking ATP binding; transformed CML treatment and prognosis.",
+          "First-generation BCR-ABL1 TKI; binds inactive ABL1 kinase domain blocking ATP, transforming CML from fatal to chronic disease.",
         drugApproval: "FDA Approved",
         pubchemId: "5291",
         chemblId: "CHEMBL941",
+      },
+      {
+        gene: "ABL1",
+        protein: "Tyrosine-protein kinase ABL1 (second/third-gen TKI target)",
+        uniprotId: "P00519",
+        function:
+          "Wild-type ABL1 is a regulated kinase; BCR-ABL1 resistance mutations (T315I 'gatekeeper', E255K) require next-generation TKIs.",
+        drug: "Ponatinib (Iclusig)",
+        drugMechanism:
+          "Third-generation TKI with activity against T315I BCR-ABL1 gatekeeper mutation and all other resistance mutations.",
+        drugApproval: "FDA Approved",
+        pubchemId: "24826002",
+        chemblId: "CHEMBL1934440",
       },
       {
         gene: "FLT3",
         protein: "FMS-like tyrosine kinase 3",
         uniprotId: "P36888",
         function:
-          "RTK; ITD mutations (~30% AML) constitutively activate STAT5/PI3K driving leukemic proliferation.",
-        drug: "Midostaurin",
+          "RTK mutated via ITD (~25%) or TKD (~7%) in AML; constitutively activates STAT5, PI3K, and MAPK driving leukemic proliferation and poor prognosis.",
+        drug: "Midostaurin (Rydapt)",
         drugMechanism:
-          "Multi-kinase FLT3 inhibitor combined with chemotherapy for FLT3-mutant AML.",
+          "Multi-kinase FLT3 inhibitor combined with induction chemotherapy for newly diagnosed FLT3-mutant AML (FDA 2017).",
         drugApproval: "FDA Approved",
         pubchemId: "9829523",
+        chemblId: "CHEMBL608",
+      },
+      {
+        gene: "FLT3",
+        protein: "FMS-like tyrosine kinase 3 (relapsed/refractory)",
+        uniprotId: "P36888",
+        function:
+          "FLT3-ITD mutations associated with high relapse rate; second-generation inhibitors with greater potency and selectivity needed.",
+        drug: "Gilteritinib (Xospata)",
+        drugMechanism:
+          "Highly selective FLT3/AXL inhibitor approved for relapsed/refractory FLT3-mutant AML (FDA 2018).",
+        drugApproval: "FDA Approved",
+        pubchemId: "49803313",
+        chemblId: "CHEMBL3301622",
+      },
+      {
+        gene: "IDH1",
+        protein: "Isocitrate dehydrogenase 1 (cytoplasmic)",
+        uniprotId: "O75874",
+        function:
+          "IDH1 R132H/C/S mutations (~7–10% AML) produce oncometabolite 2-hydroxyglutarate (2-HG), causing hypermethylation and blocking myeloid differentiation.",
+        drug: "Ivosidenib (Tibsovo)",
+        drugMechanism:
+          "IDH1 R132 mutant-specific inhibitor reducing 2-HG and restoring differentiation in IDH1-mutant AML (FDA 2018).",
+        drugApproval: "FDA Approved",
+        pubchemId: "135565415",
+        chemblId: "CHEMBL3989863",
       },
       {
         gene: "IDH2",
-        protein: "Isocitrate dehydrogenase [NADP], mitochondrial",
+        protein: "Isocitrate dehydrogenase 2 (mitochondrial)",
         uniprotId: "P48735",
         function:
-          "IDH2 R140Q/R172K mutations produce oncometabolite 2-HG blocking differentiation in AML.",
-        drug: "Enasidenib",
+          "IDH2 R140Q/R172K mutations (~12–15% AML) produce 2-HG in mitochondria blocking differentiation and epigenetically reprogramming leukemic blasts.",
+        drug: "Enasidenib (Idhifa)",
         drugMechanism:
-          "IDH2 mutant-specific inhibitor reducing 2-HG and inducing differentiation in IDH2-mutant AML.",
+          "IDH2 R140/R172 mutant-specific allosteric inhibitor reducing 2-HG and inducing blast differentiation in AML (FDA 2017).",
         drugApproval: "FDA Approved",
         pubchemId: "46909785",
+        chemblId: "CHEMBL3989855",
       },
       {
         gene: "BCL2",
         protein: "Apoptosis regulator Bcl-2",
         uniprotId: "P10415",
         function:
-          "Anti-apoptotic protein overexpressed in AML/CLL promoting leukemic cell survival.",
-        drug: "Venetoclax",
+          "Anti-apoptotic protein overexpressed in AML (~75%), CLL (~95%), and ALL; sequesters pro-apoptotic BAX/BAK blocking mitochondrial apoptosis.",
+        drug: "Venetoclax (Venclexta)",
         drugMechanism:
-          "BCL-2 BH3-mimetic inhibitor restoring apoptosis in CLL and AML.",
+          "BCL-2 selective BH3-mimetic displacing BAX/BAK; used with azacitidine or low-dose cytarabine for newly diagnosed AML and as single agent in CLL.",
         drugApproval: "FDA Approved",
         pubchemId: "49846579",
         chemblId: "CHEMBL3137245",
+      },
+      {
+        gene: "CD33",
+        protein: "Myeloid cell surface antigen CD33 (Siglec-3)",
+        uniprotId: "P20138",
+        function:
+          "Sialic acid-binding receptor expressed on ~85–90% AML blasts; provides selective surface target for antibody-drug conjugate therapy without targeting normal HSCs.",
+        drug: "Gemtuzumab ozogamicin (Mylotarg)",
+        drugMechanism:
+          "Anti-CD33 ADC conjugated to calicheamicin; internalised into AML blasts releasing DNA-cleaving toxin (FDA re-approved 2017).",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+        chemblId: "CHEMBL1201599",
+      },
+      {
+        gene: "CD20 (MS4A1)",
+        protein: "B-lymphocyte antigen CD20",
+        uniprotId: "P11836",
+        function:
+          "Transmembrane phosphoprotein expressed on B-cell precursors and mature B-cells; expressed in ~50% B-cell ALL and CLL; target for immunotherapy.",
+        drug: "Rituximab (Rituxan)",
+        drugMechanism:
+          "Anti-CD20 chimeric monoclonal antibody; mediates ADCC, CDC, and direct apoptosis in CLL and B-ALL (FDA approved CLL 2010).",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+        chemblId: "CHEMBL1201576",
+      },
+      {
+        gene: "BTK",
+        protein: "Bruton's tyrosine kinase",
+        uniprotId: "Q06187",
+        function:
+          "Key BCR signaling kinase in B-cells; constitutively active in CLL driving survival, proliferation, and tissue homing signals through NF-κB and MAPK.",
+        drug: "Ibrutinib (Imbruvica)",
+        drugMechanism:
+          "Irreversible BTK inhibitor blocking BCR signaling in CLL; first-line approved for CLL/SLL demonstrating superior PFS over chemotherapy (FDA 2014).",
+        drugApproval: "FDA Approved",
+        pubchemId: "24821094",
+        chemblId: "CHEMBL1873475",
       },
     ],
   },
@@ -6390,6 +6512,2025 @@ const DISEASE_KB: Record<string, DiseaseEntry> = {
     ],
   },
 
+  // ─── NEW DISEASES ──────────────────────────────────────────────────────────
+
+  migraine: {
+    pathways: [
+      {
+        keggId: "hsa04726",
+        name: "Serotonergic synapse",
+        description:
+          "Serotonin (5-HT) dysregulation triggers cortical spreading depression and trigeminal pain signaling in migraine.",
+        reactomeId: "R-HSA-112315",
+        wikiPathwaysId: "WP727",
+      },
+      {
+        keggId: "hsa04080",
+        name: "Neuroactive ligand–receptor interaction",
+        description:
+          "CGRP binds calcitonin receptor-like receptor (CLR/RAMP1) in trigeminal neurons driving vasodilation and pain.",
+      },
+      {
+        keggId: "hsa04010",
+        name: "MAPK signaling pathway",
+        description:
+          "Inflammatory sensitisation of trigeminal ganglion neurons via p38/ERK MAPK in migraine chronification.",
+      },
+      {
+        keggId: "hsa04020",
+        name: "Calcium signaling pathway",
+        description:
+          "Voltage-gated calcium channel mutations (CACNA1A) in familial hemiplegic migraine lower cortical spreading depression threshold.",
+      },
+    ],
+    genes: [
+      {
+        gene: "CALCA",
+        protein: "Calcitonin gene-related peptide 1 (CGRP)",
+        uniprotId: "P01258",
+        function:
+          "Potent vasodilatory neuropeptide released from trigeminal nerve endings; primary mediator of migraine headache.",
+        drug: "Erenumab",
+        drugMechanism:
+          "Anti-CGRP receptor monoclonal antibody preventing CGRP-mediated trigeminal activation; FDA-approved preventive migraine therapy.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+        chemblId: "CHEMBL4297450",
+      },
+      {
+        gene: "HTR1B",
+        protein: "5-hydroxytryptamine receptor 1B",
+        uniprotId: "P28222",
+        function:
+          "Serotonin receptor on trigeminal nerve terminals causing vasoconstriction and inhibiting CGRP release.",
+        drug: "Sumatriptan",
+        drugMechanism:
+          "5-HT1B/1D agonist (triptan) causing cranial vasoconstriction and inhibiting trigeminal CGRP release.",
+        drugApproval: "FDA Approved",
+        pubchemId: "5358,",
+        chemblId: "CHEMBL475",
+      },
+      {
+        gene: "HTR1F",
+        protein: "5-hydroxytryptamine receptor 1F",
+        uniprotId: "P30939",
+        function:
+          "Serotonin receptor expressed in trigeminal neurons; target of lasmiditan without causing vasoconstriction.",
+        drug: "Lasmiditan",
+        drugMechanism:
+          "Selective 5-HT1F agonist (ditan) inhibiting trigeminal nociception without vasoconstriction.",
+        drugApproval: "FDA Approved",
+        pubchemId: "135398513",
+      },
+      {
+        gene: "CACNA1A",
+        protein: "Voltage-dependent P/Q-type calcium channel subunit alpha-1A",
+        uniprotId: "O00555",
+        function:
+          "Presynaptic calcium channel; gain-of-function mutations cause familial hemiplegic migraine type 1.",
+        drug: "Valproate",
+        drugMechanism:
+          "Sodium/calcium channel modulator reducing cortical hyperexcitability; FDA-approved migraine prophylaxis.",
+        drugApproval: "FDA Approved",
+        pubchemId: "3121",
+      },
+      {
+        gene: "KCNK18",
+        protein: "Two-pore domain potassium channel TRESK",
+        uniprotId: "Q7Z418",
+        function:
+          "Background K+ channel in trigeminal neurons; loss-of-function frameshift mutation linked to migraine with aura.",
+        drug: "Rimegepant",
+        drugMechanism:
+          "CGRP receptor antagonist (gepant) providing acute migraine relief and preventive benefit.",
+        drugApproval: "FDA Approved",
+        pubchemId: "2311468",
+      },
+    ],
+  },
+
+  narcolepsy: {
+    pathways: [
+      {
+        keggId: "hsa04726",
+        name: "Serotonergic synapse",
+        description:
+          "Monoamine regulation of sleep-wake transitions; serotonin and norepinephrine pathways impaired in narcolepsy.",
+      },
+      {
+        keggId: "hsa04080",
+        name: "Neuroactive ligand–receptor interaction",
+        description:
+          "Orexin/hypocretin peptides (OX1R/OX2R) promote wakefulness via noradrenergic and dopaminergic pathways; lost in narcolepsy type 1.",
+      },
+      {
+        keggId: "hsa04660",
+        name: "T cell receptor signaling pathway",
+        description:
+          "HLA-DQB1*06:02-restricted autoimmune destruction of orexin-producing hypothalamic neurons in narcolepsy type 1.",
+      },
+      {
+        keggId: "hsa04728",
+        name: "Dopaminergic synapse",
+        description:
+          "Dopamine signaling dysregulation underlying excessive daytime sleepiness and cataplexy in narcolepsy.",
+      },
+    ],
+    genes: [
+      {
+        gene: "HCRT",
+        protein: "Orexin (hypocretin) precursor",
+        uniprotId: "O43612",
+        function:
+          "Hypothalamic neuropeptide promoting arousal and wakefulness; neurons selectively destroyed in narcolepsy type 1.",
+        drug: "Sodium oxybate",
+        drugMechanism:
+          "GABA-B agonist consolidating nocturnal sleep, reducing cataplexy and daytime sleepiness.",
+        drugApproval: "FDA Approved",
+        pubchemId: "5360515",
+      },
+      {
+        gene: "HCRTR2",
+        protein: "Orexin receptor type 2",
+        uniprotId: "O43614",
+        function:
+          "Hypothalamic and brainstem receptor for orexin-B; primary receptor mediating arousal maintenance.",
+        drug: "Pitolisant",
+        drugMechanism:
+          "Histamine H3 receptor inverse agonist increasing histaminergic tone and wakefulness.",
+        drugApproval: "FDA Approved",
+        pubchemId: "11972546",
+      },
+      {
+        gene: "SLC6A3",
+        protein: "Dopamine transporter (DAT)",
+        uniprotId: "Q01959",
+        function:
+          "Synaptic dopamine reuptake transporter; blocked by stimulants used to treat narcolepsy sleepiness.",
+        drug: "Modafinil",
+        drugMechanism:
+          "Dopamine reuptake inhibitor promoting wakefulness with lower abuse potential than amphetamines.",
+        drugApproval: "FDA Approved",
+        pubchemId: "4173",
+        chemblId: "CHEMBL1370",
+      },
+      {
+        gene: "HLA-DQB1",
+        protein: "HLA class II histocompatibility antigen, DQ beta 1 chain",
+        uniprotId: "P01920",
+        function:
+          "MHC class II allele DQB1*06:02 present in >90% of narcolepsy type 1 patients; mediates autoimmune recognition.",
+        drug: "Solriamfetol",
+        drugMechanism:
+          "Selective dopamine/norepinephrine reuptake inhibitor improving wakefulness in narcolepsy.",
+        drugApproval: "FDA Approved",
+        pubchemId: "11978640",
+      },
+    ],
+  },
+
+  "tourette syndrome": {
+    pathways: [
+      {
+        keggId: "hsa04728",
+        name: "Dopaminergic synapse",
+        description:
+          "Dopamine D2 receptor hypersensitivity in cortico-striato-thalamo-cortical circuits drives tic generation in Tourette syndrome.",
+        reactomeId: "R-HSA-112315",
+      },
+      {
+        keggId: "hsa04727",
+        name: "GABAergic synapse",
+        description:
+          "Reduced GABAergic interneuron activity in striatum reduces inhibitory control of motor output.",
+      },
+      {
+        keggId: "hsa04726",
+        name: "Serotonergic synapse",
+        description:
+          "Serotonin modulates corticostriatal activity; 5-HT abnormalities contribute to OCD-like comorbidities in Tourette.",
+      },
+      {
+        keggId: "hsa04010",
+        name: "MAPK signaling pathway",
+        description:
+          "Neuroinflammatory MAPK activation via microglial activation in basal ganglia implicated in Tourette pathology.",
+      },
+    ],
+    genes: [
+      {
+        gene: "DRD2",
+        protein: "D(2) dopamine receptor",
+        uniprotId: "P14416",
+        function:
+          "Striatal dopamine receptor mediating inhibitory postsynaptic responses; hypersensitivity drives tic generation.",
+        drug: "Aripiprazole",
+        drugMechanism:
+          "Partial D2/D3 agonist and 5-HT1A agonist reducing tic frequency with fewer metabolic side effects than typical antipsychotics.",
+        drugApproval: "FDA Approved",
+        pubchemId: "60795",
+        chemblId: "CHEMBL1677",
+      },
+      {
+        gene: "DRD4",
+        protein: "D(4) dopamine receptor",
+        uniprotId: "P21917",
+        function:
+          "Prefrontal dopamine receptor; VNTR polymorphisms in DRD4 are associated with Tourette and ADHD.",
+        drug: "Haloperidol",
+        drugMechanism:
+          "High-potency D2/D4 antagonist suppressing tics; used as second-line for severe refractory Tourette.",
+        drugApproval: "FDA Approved",
+        pubchemId: "3559",
+      },
+      {
+        gene: "SLITRK1",
+        protein: "SLIT and NTRK-like protein 1",
+        uniprotId: "O94933",
+        function:
+          "Neuronal leucine-rich repeat protein involved in neurite outgrowth; rare variants identified in Tourette patients.",
+        drug: "Fluphenazine",
+        drugMechanism:
+          "Typical antipsychotic D2 antagonist reducing tic severity in Tourette syndrome.",
+        drugApproval: "FDA Approved",
+        pubchemId: "3372",
+      },
+      {
+        gene: "HDC",
+        protein: "Histidine decarboxylase",
+        uniprotId: "P19113",
+        function:
+          "Rate-limiting enzyme in histamine synthesis; rare coding variants in HDC implicated in Tourette families.",
+        drug: "Clonidine",
+        drugMechanism:
+          "Alpha-2 adrenergic agonist reducing noradrenergic activation; modulates tics and ADHD comorbidity.",
+        drugApproval: "FDA Approved",
+        pubchemId: "2803",
+      },
+      {
+        gene: "CNTNAP2",
+        protein: "Contactin-associated protein-like 2",
+        uniprotId: "Q9UHC3",
+        function:
+          "Neurexin family protein regulating ion channel distribution; variants associated with Tourette and autism.",
+        drug: "Valbenazine",
+        drugMechanism:
+          "Vesicular monoamine transporter 2 (VMAT2) inhibitor reducing presynaptic dopamine release; approved for tardive dyskinesia and studied in Tourette.",
+        drugApproval: "FDA Approved (TD)",
+        pubchemId: "9810884",
+      },
+    ],
+  },
+
+  "myasthenia gravis": {
+    pathways: [
+      {
+        keggId: "hsa04612",
+        name: "Antigen processing and presentation",
+        description:
+          "HLA-mediated presentation of AChR peptides to autoreactive CD4+ T cells drives anti-AChR antibody production at the neuromuscular junction.",
+        reactomeId: "R-HSA-983169",
+      },
+      {
+        keggId: "hsa04060",
+        name: "Cytokine–cytokine receptor interaction",
+        description:
+          "IL-6 and BAFF-driven B cell activation supports anti-AChR and anti-MuSK IgG production.",
+      },
+      {
+        keggId: "hsa04630",
+        name: "JAK-STAT signaling pathway",
+        description:
+          "IL-6 JAK/STAT3 signaling drives pathogenic autoantibody-producing plasmablast differentiation in MG.",
+      },
+      {
+        keggId: "hsa04514",
+        name: "Cell adhesion molecules",
+        description:
+          "MuSK and LRP4 organise the neuromuscular junction; target antigens for antibody-mediated MG subtypes.",
+      },
+    ],
+    genes: [
+      {
+        gene: "CHRNA1",
+        protein: "Acetylcholine receptor subunit alpha (nAChR α1)",
+        uniprotId: "P02708",
+        function:
+          "Nicotinic acetylcholine receptor alpha subunit at the neuromuscular junction; primary autoantigen in ~85% of MG patients.",
+        drug: "Pyridostigmine",
+        drugMechanism:
+          "Reversible AChE inhibitor increasing synaptic acetylcholine availability to compensate for reduced AChR density.",
+        drugApproval: "FDA Approved",
+        pubchemId: "4991",
+      },
+      {
+        gene: "MUSK",
+        protein: "Muscle-specific kinase",
+        uniprotId: "O15146",
+        function:
+          "Receptor tyrosine kinase essential for NMJ formation; anti-MuSK IgG4 antibodies cause MG without anti-AChR.",
+        drug: "Eculizumab",
+        drugMechanism:
+          "Anti-complement C5 antibody preventing membrane attack complex formation at NMJ.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+        chemblId: "CHEMBL1201829",
+      },
+      {
+        gene: "FCGRT",
+        protein: "IgG Fc receptor (neonatal, FcRn)",
+        uniprotId: "P55899",
+        function:
+          "Salvage receptor recycling IgG; FcRn blockade reduces pathogenic anti-AChR antibody levels.",
+        drug: "Efgartigimod alfa",
+        drugMechanism:
+          "FcRn antagonist reducing circulating IgG levels including pathogenic anti-AChR antibodies.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "C5",
+        protein: "Complement component C5",
+        uniprotId: "P01031",
+        function:
+          "Central complement protein; C5b initiates membrane attack complex at AChR-antibody complexes on NMJ.",
+        drug: "Ravulizumab",
+        drugMechanism:
+          "Long-acting anti-C5 antibody preventing complement-mediated NMJ destruction.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "IL6",
+        protein: "Interleukin-6",
+        uniprotId: "P05231",
+        function:
+          "Cytokine supporting thymic pathology and antibody production in anti-AChR MG.",
+        drug: "Rozanolixizumab",
+        drugMechanism:
+          "Neonatal Fc receptor (FcRn) antagonist reducing pathogenic IgG half-life in generalized MG.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  sarcoidosis: {
+    pathways: [
+      {
+        keggId: "hsa05140",
+        name: "Leishmaniasis",
+        description:
+          "Granuloma formation pathways via Th1 macrophage activation and IFN-γ signaling are shared with sarcoidosis granulomatous inflammation.",
+      },
+      {
+        keggId: "hsa04630",
+        name: "JAK-STAT signaling pathway",
+        description:
+          "IFN-γ/JAK1-STAT1 axis drives macrophage activation and epithelioid granuloma formation in sarcoidosis.",
+        reactomeId: "R-HSA-1280215",
+        wikiPathwaysId: "WP2877",
+      },
+      {
+        keggId: "hsa04620",
+        name: "Toll-like receptor signaling pathway",
+        description:
+          "TLR2/TLR4 activation by mycobacterial and environmental antigens triggers innate granuloma nucleation.",
+        reactomeId: "R-HSA-168928",
+        wikiPathwaysId: "WP75",
+      },
+      {
+        keggId: "hsa04060",
+        name: "Cytokine–cytokine receptor interaction",
+        description:
+          "TNF-α, IL-12, IL-18 drive Th1 polarisation sustaining pulmonary granulomas.",
+      },
+    ],
+    genes: [
+      {
+        gene: "IFNG",
+        protein: "Interferon gamma",
+        uniprotId: "P01579",
+        function:
+          "Key Th1 cytokine driving macrophage activation and granuloma formation in sarcoidosis.",
+        drug: "Prednisone",
+        drugMechanism:
+          "Glucocorticoid suppressing granulomatous inflammation via NF-κB and AP-1 inhibition; first-line sarcoidosis therapy.",
+        drugApproval: "FDA Approved",
+        pubchemId: "5865",
+      },
+      {
+        gene: "TNF",
+        protein: "Tumor necrosis factor",
+        uniprotId: "P01375",
+        function:
+          "Central to granuloma maintenance; TNF blockers can reactivate sarcoidosis or paradoxically worsen it.",
+        drug: "Infliximab",
+        drugMechanism:
+          "Anti-TNFα monoclonal antibody for refractory pulmonary/ocular sarcoidosis not responsive to corticosteroids.",
+        drugApproval: "Off-label / Evidence-based",
+        pubchemId: "0",
+        chemblId: "CHEMBL1201581",
+      },
+      {
+        gene: "BTNL2",
+        protein: "Butyrophilin-like protein 2",
+        uniprotId: "Q9HCJ2",
+        function:
+          "B7-like co-stimulatory molecule; truncating variant rs2076530 is a major genetic risk factor for sarcoidosis.",
+        drug: "Methotrexate",
+        drugMechanism:
+          "Antifolate and anti-inflammatory agent; steroid-sparing second-line treatment for sarcoidosis.",
+        drugApproval: "FDA Approved",
+        pubchemId: "126941",
+        chemblId: "CHEMBL426",
+      },
+      {
+        gene: "JAK2",
+        protein: "Tyrosine-protein kinase JAK2",
+        uniprotId: "O60674",
+        function:
+          "Kinase mediating IFN-γ and IL-12 signaling in macrophage activation in sarcoidosis.",
+        drug: "Hydroxychloroquine",
+        drugMechanism:
+          "Antimalarial reducing lysosomal antigen presentation and Th1 activation; used in cutaneous/calcium sarcoidosis.",
+        drugApproval: "FDA Approved",
+        pubchemId: "3652",
+      },
+    ],
+  },
+
+  "pulmonary arterial hypertension": {
+    pathways: [
+      {
+        keggId: "hsa04022",
+        name: "cGMP-PKG signaling pathway",
+        description:
+          "Reduced NO-sGC-cGMP signaling causes pulmonary vascular smooth muscle contraction and remodelling in PAH.",
+        reactomeId: "R-HSA-418457",
+      },
+      {
+        keggId: "hsa04270",
+        name: "Vascular smooth muscle contraction",
+        description:
+          "Endothelin-1 via ETA/ETB receptors drives pulmonary vasoconstriction and smooth muscle proliferation.",
+      },
+      {
+        keggId: "hsa04350",
+        name: "TGF-beta signaling pathway",
+        description:
+          "BMPR2 loss-of-function mutations disrupt TGF-β/BMP anti-proliferative signaling in pulmonary arterial endothelium.",
+        reactomeId: "R-HSA-170834",
+        wikiPathwaysId: "WP560",
+      },
+      {
+        keggId: "hsa04151",
+        name: "PI3K-Akt signaling pathway",
+        description:
+          "mTOR/Akt activation drives pulmonary arterial smooth muscle cell proliferation in PAH.",
+      },
+    ],
+    genes: [
+      {
+        gene: "BMPR2",
+        protein: "Bone morphogenetic protein receptor type-2",
+        uniprotId: "Q13873",
+        function:
+          "Serine/threonine kinase receptor for BMPs; germline mutations in BMPR2 are the most common genetic cause of heritable PAH (~70%).",
+        drug: "Sotatercept",
+        drugMechanism:
+          "ActRIIA-Fc fusion protein rebalancing TGF-β/BMP signaling in pulmonary vasculature; FDA-approved 2024.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "EDN1",
+        protein: "Endothelin-1",
+        uniprotId: "P05305",
+        function:
+          "Potent vasoconstrictor peptide upregulated in PAH; activates ETA/ETB receptors causing pulmonary smooth muscle proliferation.",
+        drug: "Ambrisentan",
+        drugMechanism:
+          "Selective ETA receptor antagonist reducing endothelin-1-driven pulmonary vasoconstriction.",
+        drugApproval: "FDA Approved",
+        pubchemId: "9908089",
+      },
+      {
+        gene: "NOS3",
+        protein: "Endothelial nitric oxide synthase",
+        uniprotId: "P29474",
+        function:
+          "Produces vasodilatory NO; reduced eNOS activity contributes to PAH vasoconstriction.",
+        drug: "Sildenafil",
+        drugMechanism:
+          "PDE5 inhibitor preventing cGMP degradation, prolonging NO-mediated pulmonary vasodilation.",
+        drugApproval: "FDA Approved",
+        pubchemId: "135398513",
+        chemblId: "CHEMBL192",
+      },
+      {
+        gene: "PTGIS",
+        protein: "Prostacyclin synthase",
+        uniprotId: "Q16647",
+        function:
+          "Produces prostacyclin (PGI2), a potent pulmonary vasodilator and anti-aggregatory eicosanoid; deficient in PAH.",
+        drug: "Selexipag",
+        drugMechanism:
+          "Selective oral prostacyclin IP receptor agonist reducing pulmonary vascular resistance.",
+        drugApproval: "FDA Approved",
+        pubchemId: "11975740",
+      },
+      {
+        gene: "KCNK3",
+        protein:
+          "Two-pore domain potassium channel subfamily K member 3 (TASK1)",
+        uniprotId: "O14649",
+        function:
+          "Background K+ channel in pulmonary arterial smooth muscle cells; loss-of-function mutations cause heritable PAH.",
+        drug: "Macitentan",
+        drugMechanism:
+          "Dual ETA/ETB endothelin receptor antagonist reducing morbidity in PAH.",
+        drugApproval: "FDA Approved",
+        pubchemId: "9908093",
+      },
+    ],
+  },
+
+  "dengue fever": {
+    pathways: [
+      {
+        keggId: "hsa05164",
+        name: "Influenza A",
+        description:
+          "Viral RNA sensing by RIG-I and activation of NF-κB and IRF3/7 innate immune pathways are shared with dengue virus infection.",
+      },
+      {
+        keggId: "hsa04620",
+        name: "Toll-like receptor signaling pathway",
+        description:
+          "TLR3/7 detect dengue viral RNA activating innate antiviral type I interferon response.",
+        reactomeId: "R-HSA-168928",
+      },
+      {
+        keggId: "hsa04064",
+        name: "NF-kappa B signaling pathway",
+        description:
+          "Dengue NS5 activates NF-κB driving pro-inflammatory cytokine production implicated in dengue shock syndrome.",
+      },
+      {
+        keggId: "hsa04668",
+        name: "TNF signaling pathway",
+        description:
+          "Dengue-induced TNF-α contributes to vascular leakage and thrombocytopenia in severe dengue.",
+      },
+    ],
+    genes: [
+      {
+        gene: "IFNAR1",
+        protein: "Interferon alpha/beta receptor 1",
+        uniprotId: "P17181",
+        function:
+          "Type I interferon receptor mediating antiviral JAK/STAT signaling; dengue NS5 blocks IFNAR1 signaling.",
+        drug: "Dengvaxia (CYD-TDV)",
+        drugMechanism:
+          "Tetravalent live-attenuated dengue vaccine providing serotype-specific immunity (1–4).",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "TNF",
+        protein: "Tumor necrosis factor",
+        uniprotId: "P01375",
+        function:
+          "Pro-inflammatory cytokine elevated in dengue fever; drives vascular permeability and thrombocytopenia.",
+        drug: "Celecoxib",
+        drugMechanism:
+          "COX-2 inhibitor reducing dengue-associated prostaglandin-mediated fever and inflammation.",
+        drugApproval: "FDA Approved",
+        pubchemId: "2662",
+      },
+      {
+        gene: "AXL",
+        protein: "Tyrosine-protein kinase receptor UFO (AXL)",
+        uniprotId: "P30530",
+        function:
+          "TAM receptor tyrosine kinase that facilitates dengue virus entry into macrophages and dendritic cells.",
+        drug: "Bemcentinib (BGB324)",
+        drugMechanism:
+          "AXL receptor kinase inhibitor blocking dengue virus entry; in early clinical trials.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "25179388",
+      },
+      {
+        gene: "CLEC5A",
+        protein: "C-type lectin domain family 5 member A (MDL-1)",
+        uniprotId: "Q9ULV3",
+        function:
+          "Myeloid receptor binding dengue virus and activating neutrophil-driven vascular damage and cytokine release.",
+        drug: "Dexamethasone",
+        drugMechanism:
+          "Corticosteroid reducing dengue shock syndrome cytokine cascade (adjunctive supportive therapy).",
+        drugApproval: "FDA Approved",
+        pubchemId: "5743",
+      },
+    ],
+  },
+
+  "lyme disease": {
+    pathways: [
+      {
+        keggId: "hsa05134",
+        name: "Legionellosis",
+        description:
+          "Intracellular bacterial evasion of innate immunity and phagosomal killing pathways are shared with Borrelia burgdorferi mechanisms.",
+      },
+      {
+        keggId: "hsa04620",
+        name: "Toll-like receptor signaling pathway",
+        description:
+          "TLR2/TLR5 detect Borrelia burgdorferi lipoproteins and flagellin, activating NF-κB-driven inflammation.",
+        reactomeId: "R-HSA-168928",
+        wikiPathwaysId: "WP75",
+      },
+      {
+        keggId: "hsa04064",
+        name: "NF-kappa B signaling pathway",
+        description:
+          "NF-κB-driven production of TNF, IL-1β, and IL-6 drives synovitis and carditis in Lyme disease.",
+      },
+      {
+        keggId: "hsa04612",
+        name: "Antigen processing and presentation",
+        description:
+          "Adaptive immune responses to OspC and VlsE antigens; molecular mimicry may drive Lyme arthritis auto-immunity.",
+      },
+    ],
+    genes: [
+      {
+        gene: "TLR2",
+        protein: "Toll-like receptor 2",
+        uniprotId: "O60603",
+        function:
+          "Pattern recognition receptor detecting Borrelia lipoproteins; central to initiating innate immune response in Lyme disease.",
+        drug: "Doxycycline",
+        drugMechanism:
+          "Tetracycline antibiotic inhibiting bacterial 30S ribosomal protein synthesis; first-line Lyme treatment.",
+        drugApproval: "FDA Approved",
+        pubchemId: "54671203",
+        chemblId: "CHEMBL1465",
+      },
+      {
+        gene: "TNF",
+        protein: "Tumor necrosis factor",
+        uniprotId: "P01375",
+        function:
+          "Pro-inflammatory cytokine driving Lyme arthritis and Jarisch-Herxheimer reactions.",
+        drug: "Amoxicillin",
+        drugMechanism:
+          "Beta-lactam antibiotic inhibiting Borrelia cell wall synthesis; alternative to doxycycline in Lyme.",
+        drugApproval: "FDA Approved",
+        pubchemId: "33613",
+      },
+      {
+        gene: "IL6",
+        protein: "Interleukin-6",
+        uniprotId: "P05231",
+        function:
+          "Elevated in Lyme arthritis and neuroborreliosis; correlates with disease severity.",
+        drug: "Ceftriaxone",
+        drugMechanism:
+          "Third-generation cephalosporin used intravenously for disseminated or neurological Lyme disease.",
+        drugApproval: "FDA Approved",
+        pubchemId: "5479537",
+      },
+      {
+        gene: "MATRIX METALLOPROTEASE",
+        protein: "Matrix metalloproteinase-1 (MMP-1)",
+        uniprotId: "P03956",
+        function:
+          "Collagenase induced by Borrelia infection; drives joint destruction in antibiotic-refractory Lyme arthritis.",
+        drug: "Hydroxychloroquine",
+        drugMechanism:
+          "Antimalarial with anti-inflammatory properties; used for antibiotic-refractory Lyme arthritis.",
+        drugApproval: "FDA Approved",
+        pubchemId: "3652",
+      },
+    ],
+  },
+
+  "alopecia areata": {
+    pathways: [
+      {
+        keggId: "hsa04630",
+        name: "JAK-STAT signaling pathway",
+        description:
+          "IFN-γ and IL-15 signaling through JAK1/JAK3 activates CD8+ NKG2D+ T cells attacking hair follicle immune privilege.",
+        reactomeId: "R-HSA-1280215",
+        wikiPathwaysId: "WP2877",
+      },
+      {
+        keggId: "hsa04612",
+        name: "Antigen processing and presentation",
+        description:
+          "Collapse of hair follicle immune privilege via MHC class I upregulation exposes follicle antigens to autoimmune attack.",
+      },
+      {
+        keggId: "hsa04060",
+        name: "Cytokine–cytokine receptor interaction",
+        description:
+          "IL-2, IL-15, IFN-γ perifollicular cytokine environment recruits and activates NKG2D+ CD8+ T cells.",
+      },
+      {
+        keggId: "hsa04660",
+        name: "T cell receptor signaling pathway",
+        description:
+          "TCR-mediated recognition of hair follicle autoantigens by CD8+ T cells drives cyclic alopecia.",
+      },
+    ],
+    genes: [
+      {
+        gene: "JAK1",
+        protein: "Tyrosine-protein kinase JAK1",
+        uniprotId: "P23458",
+        function:
+          "Kinase mediating IFN-γ and IL-15 signaling in follicular immune privilege collapse; primary drug target in AA.",
+        drug: "Baricitinib",
+        drugMechanism:
+          "JAK1/2 inhibitor reducing IFN-γ/IL-15 signaling in CD8+ T cells; FDA-approved for severe alopecia areata.",
+        drugApproval: "FDA Approved",
+        pubchemId: "44205240",
+        chemblId: "CHEMBL3301610",
+      },
+      {
+        gene: "JAK3",
+        protein: "Tyrosine-protein kinase JAK3",
+        uniprotId: "P52333",
+        function:
+          "Kinase transducing IL-2/IL-15/IL-21 signaling in NKG2D+ T cells; co-target of ritlecitinib.",
+        drug: "Ritlecitinib",
+        drugMechanism:
+          "Irreversible JAK3/TEC family kinase inhibitor; FDA-approved for severe alopecia areata.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "IFNG",
+        protein: "Interferon gamma",
+        uniprotId: "P01579",
+        function:
+          "Primary cytokine collapsing hair follicle immune privilege via JAK-STAT1 signaling.",
+        drug: "Diphencyprone (DPCP)",
+        drugMechanism:
+          "Contact sensitizer modulating local immune response and promoting hair follicle immune privilege restoration.",
+        drugApproval: "Dermatological practice",
+        pubchemId: "0",
+      },
+      {
+        gene: "IL15",
+        protein: "Interleukin-15",
+        uniprotId: "P40933",
+        function:
+          "Cytokine driving NKG2D upregulation and NK/CD8+ T cell activation in perifollicular infiltrate.",
+        drug: "Tofacitinib",
+        drugMechanism:
+          "JAK1/3 inhibitor investigated for alopecia areata; reduces NKG2D+ T cell activation.",
+        drugApproval: "Off-label / Clinical Trial",
+        pubchemId: "9926791",
+        chemblId: "CHEMBL221959",
+      },
+    ],
+  },
+
+  vitiligo: {
+    pathways: [
+      {
+        keggId: "hsa04630",
+        name: "JAK-STAT signaling pathway",
+        description:
+          "IFN-γ-CXCL10 signaling axis recruits autoreactive CD8+ T cells to melanocyte-rich skin, driving melanocyte destruction.",
+        reactomeId: "R-HSA-1280215",
+      },
+      {
+        keggId: "hsa04612",
+        name: "Antigen processing and presentation",
+        description:
+          "MHC class I presentation of melanocyte antigens (MART-1, gp100) activates autoreactive CD8+ T cells in vitiligo.",
+      },
+      {
+        keggId: "hsa04660",
+        name: "T cell receptor signaling pathway",
+        description:
+          "HLA-A*02:01-restricted autoreactive T cells recognize melanocyte peptides initiating depigmentation.",
+      },
+      {
+        keggId: "hsa04141",
+        name: "Protein processing in ER",
+        description:
+          "ER stress in melanocytes from reactive oxygen species triggers UPR and auto-antigen exposure.",
+      },
+    ],
+    genes: [
+      {
+        gene: "JAK1",
+        protein: "Tyrosine-protein kinase JAK1",
+        uniprotId: "P23458",
+        function:
+          "IFN-γ receptor signal transducer driving CXCL10 expression and CD8+ T cell recruitment in vitiligo lesions.",
+        drug: "Ruxolitinib cream",
+        drugMechanism:
+          "Topical JAK1/2 inhibitor reducing IFN-γ/CXCL10 signaling in affected skin; first FDA-approved vitiligo treatment.",
+        drugApproval: "FDA Approved",
+        pubchemId: "25151352",
+      },
+      {
+        gene: "IFNG",
+        protein: "Interferon gamma",
+        uniprotId: "P01579",
+        function:
+          "Key driver of vitiligo; IFN-γ from autoreactive CD8+ T cells activates CXCL10 chemokine attracting more T cells.",
+        drug: "Tofacitinib",
+        drugMechanism:
+          "Oral JAK1/3 inhibitor investigated for extensive active vitiligo; reduces CXCL10 and T cell recruitment.",
+        drugApproval: "Off-label / Clinical Trial",
+        pubchemId: "9926791",
+        chemblId: "CHEMBL221959",
+      },
+      {
+        gene: "NLRP1",
+        protein: "NLR family pyrin domain-containing protein 1",
+        uniprotId: "P33176",
+        function:
+          "Inflammasome component; NLRP1 gain-of-function variants are associated with familial vitiligo and other autoimmune skin diseases.",
+        drug: "Tacrolimus ointment",
+        drugMechanism:
+          "Topical calcineurin inhibitor reducing T cell activation in vitiligo lesions on sensitive skin.",
+        drugApproval: "FDA Approved",
+        pubchemId: "445643",
+      },
+      {
+        gene: "PTPN22",
+        protein: "Tyrosine-protein phosphatase non-receptor type 22",
+        uniprotId: "Q9Y2R2",
+        function:
+          "T cell phosphatase; R620W gain-of-function variant is a shared risk allele for vitiligo and multiple autoimmune diseases.",
+        drug: "Afamelanotide",
+        drugMechanism:
+          "MC1R agonist stimulating melanocyte proliferation and migration to repigment vitiligo lesions; used adjunctively with NB-UVB.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "11370831",
+      },
+    ],
+  },
+
+  "pemphigus vulgaris": {
+    pathways: [
+      {
+        keggId: "hsa04514",
+        name: "Cell adhesion molecules",
+        description:
+          "Anti-desmoglein 1/3 IgG antibodies disrupt desmosomal adhesion causing keratinocyte acantholysis in pemphigus vulgaris.",
+      },
+      {
+        keggId: "hsa04630",
+        name: "JAK-STAT signaling pathway",
+        description:
+          "IL-4/IL-13 and Th2 cytokine signaling drives class-switching to pathogenic anti-desmoglein IgG4 antibodies.",
+      },
+      {
+        keggId: "hsa04660",
+        name: "T cell receptor signaling pathway",
+        description:
+          "HLA-DR4 and HLA-DQ8 present desmoglein peptides to autoreactive CD4+ T cells initiating autoantibody response.",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Anti-Dsg antibody binding activates caspase-3-mediated apoptosis of keratinocytes in pemphigus.",
+      },
+    ],
+    genes: [
+      {
+        gene: "DSG3",
+        protein: "Desmoglein-3",
+        uniprotId: "P32926",
+        function:
+          "Desmosomal cadherin at mucosal and skin desmosomes; primary autoantigen in mucocutaneous pemphigus vulgaris.",
+        drug: "Rituximab",
+        drugMechanism:
+          "Anti-CD20 B cell depletion therapy reducing anti-DSG3 IgG4 autoantibodies; FDA-approved first-line for moderate-severe PV.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+        chemblId: "CHEMBL1201576",
+      },
+      {
+        gene: "DSG1",
+        protein: "Desmoglein-1",
+        uniprotId: "Q02413",
+        function:
+          "Superficial skin desmosomal cadherin; anti-DSG1 IgG additionally targets superficial epidermis in pemphigus vulgaris.",
+        drug: "Prednisone",
+        drugMechanism:
+          "Systemic corticosteroid suppressing autoantibody production and keratinocyte inflammation; used as bridge therapy.",
+        drugApproval: "FDA Approved",
+        pubchemId: "5865",
+      },
+      {
+        gene: "FCGRT",
+        protein: "Neonatal Fc receptor (FcRn)",
+        uniprotId: "P55899",
+        function:
+          "IgG salvage receptor; blockade reduces pathogenic anti-desmoglein antibody half-life.",
+        drug: "Efgartigimod alfa",
+        drugMechanism:
+          "FcRn antagonist reducing IgG levels including anti-DSG3/DSG1 pathogenic antibodies.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "IL4",
+        protein: "Interleukin-4",
+        uniprotId: "P05112",
+        function:
+          "Th2 cytokine driving IgG4 class-switching to pathogenic anti-desmoglein autoantibodies.",
+        drug: "Mycophenolate mofetil",
+        drugMechanism:
+          "Purine synthesis inhibitor reducing B and T cell proliferation; corticosteroid-sparing in pemphigus.",
+        drugApproval: "FDA Approved",
+        pubchemId: "119032",
+      },
+    ],
+  },
+
+  "behcet's disease": {
+    pathways: [
+      {
+        keggId: "hsa04620",
+        name: "Toll-like receptor signaling pathway",
+        description:
+          "TLR2/4 activation by microbial antigens on HLA-B*51-bearing leukocytes initiates neutrophil-dominant inflammation in Behcet's disease.",
+        reactomeId: "R-HSA-168928",
+      },
+      {
+        keggId: "hsa04060",
+        name: "Cytokine–cytokine receptor interaction",
+        description:
+          "IL-1β, IL-17, IL-21 and TNF-α network drives oral and genital ulceration, uveitis, and vasculitis.",
+      },
+      {
+        keggId: "hsa04630",
+        name: "JAK-STAT signaling pathway",
+        description:
+          "IL-6/JAK-STAT3 promotes Th17 differentiation and neutrophil hyperactivation in Behcet's flares.",
+      },
+      {
+        keggId: "hsa04064",
+        name: "NF-kappa B signaling pathway",
+        description:
+          "NF-κB activation by HLA-B*51-mediated stress drives inflammatory cytokine production.",
+      },
+    ],
+    genes: [
+      {
+        gene: "IL1B",
+        protein: "Interleukin-1 beta",
+        uniprotId: "P01584",
+        function:
+          "NLRP3 inflammasome-processed pro-inflammatory cytokine central to mucosal ulceration in Behcet's disease.",
+        drug: "Apremilast",
+        drugMechanism:
+          "PDE4 inhibitor reducing IL-1β, TNF, and IL-17 production; FDA-approved for Behcet's oral ulcers.",
+        drugApproval: "FDA Approved",
+        pubchemId: "11285949",
+      },
+      {
+        gene: "TNF",
+        protein: "Tumor necrosis factor",
+        uniprotId: "P01375",
+        function:
+          "Drives vasculitis, uveitis, and systemic inflammation in Behcet's disease.",
+        drug: "Infliximab",
+        drugMechanism:
+          "Anti-TNFα antibody for Behcet's uveitis, vascular and GI manifestations refractory to colchicine.",
+        drugApproval: "Off-label / Evidence-based",
+        pubchemId: "0",
+        chemblId: "CHEMBL1201581",
+      },
+      {
+        gene: "IL17A",
+        protein: "Interleukin-17A",
+        uniprotId: "Q16552",
+        function:
+          "Th17 cytokine elevated in Behcet's lesions driving neutrophil recruitment and epithelial damage.",
+        drug: "Colchicine",
+        drugMechanism:
+          "Microtubule inhibitor blocking neutrophil chemotaxis and NLRP3 inflammasome; first-line for mucocutaneous Behcet's.",
+        drugApproval: "FDA Approved",
+        pubchemId: "6167",
+      },
+      {
+        gene: "ERAP1",
+        protein: "Endoplasmic reticulum aminopeptidase 1",
+        uniprotId: "Q9NZ08",
+        function:
+          "MHC class I peptide trimming enzyme; ERAP1 functional variants alter HLA-B*51 peptidome, influencing Behcet's risk.",
+        drug: "Secukinumab",
+        drugMechanism:
+          "IL-17A antibody for refractory uveitis and mucocutaneous Behcet's disease.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  galactosemia: {
+    pathways: [
+      {
+        keggId: "hsa00052",
+        name: "Galactose metabolism",
+        description:
+          "GALT enzyme deficiency blocks galactose-1-phosphate to glucose-1-phosphate conversion, causing toxic galactose-1-phosphate accumulation in liver, brain, and ovaries.",
+        reactomeId: "R-HSA-70370",
+        wikiPathwaysId: "WP14",
+      },
+      {
+        keggId: "hsa04141",
+        name: "Protein processing in ER",
+        description:
+          "Galactosylation defects in glycoprotein synthesis cause ER stress and impaired glycoprotein secretion in galactosemia.",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Galactose-1-phosphate accumulation induces mitochondrial dysfunction and apoptosis in hepatocytes and neurons.",
+      },
+      {
+        keggId: "hsa00051",
+        name: "Fructose and mannose metabolism",
+        description:
+          "Alternate galactose disposal pathway via sorbitol (aldose reductase) becomes pathologically active when GALT is deficient.",
+      },
+    ],
+    genes: [
+      {
+        gene: "GALT",
+        protein: "Galactose-1-phosphate uridylyltransferase",
+        uniprotId: "P07902",
+        function:
+          "Enzyme converting galactose-1-phosphate to glucose-1-phosphate; Q188R loss-of-function causes classic galactosemia.",
+        drug: "Galactose-restricted diet",
+        drugMechanism:
+          "Elimination of dietary galactose (lactose-free) prevents toxic galactose-1-phosphate accumulation; currently only standard treatment.",
+        drugApproval: "Standard of Care",
+        pubchemId: "0",
+      },
+      {
+        gene: "GALK1",
+        protein: "Galactokinase 1",
+        uniprotId: "P51570",
+        function:
+          "Phosphorylates galactose to galactose-1-phosphate; gain-of-function causes galactokinase deficiency (cataract-only phenotype).",
+        drug: "2-Deoxy-D-galactose",
+        drugMechanism:
+          "Investigational competitive substrate reducing toxic galactose phosphorylation in mild galactosemia variants.",
+        drugApproval: "Investigational",
+        pubchemId: "64689",
+      },
+      {
+        gene: "GALE",
+        protein: "UDP-galactose-4-epimerase",
+        uniprotId: "Q14376",
+        function:
+          "Interconverts UDP-galactose and UDP-glucose; GALE deficiency causes Duarte/peripheral galactosemia variant.",
+        drug: "Riboflavin (B2)",
+        drugMechanism:
+          "Cofactor supporting electron transport; supplementation reduces oxidative stress in galactosemia.",
+        drugApproval: "Investigational",
+        pubchemId: "493570",
+      },
+      {
+        gene: "AKR1B1",
+        protein: "Aldose reductase",
+        uniprotId: "P15121",
+        function:
+          "Converts galactose to galactitol via polyol pathway; galactitol accumulation in the lens causes galactosemia cataracts.",
+        drug: "AT-007 (govorestat)",
+        drugMechanism:
+          "CNS-penetrant aldose reductase inhibitor reducing galactitol accumulation; in Phase 2/3 trials for classic galactosemia.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  homocystinuria: {
+    pathways: [
+      {
+        keggId: "hsa00270",
+        name: "Cysteine and methionine metabolism",
+        description:
+          "CBS enzyme deficiency blocks transsulfuration of homocysteine to cystathionine, causing plasma homocysteine accumulation damaging vasculature, lens, and brain.",
+        reactomeId: "R-HSA-1614635",
+        wikiPathwaysId: "WP78",
+      },
+      {
+        keggId: "hsa00630",
+        name: "Glyoxylate and dicarboxylate metabolism",
+        description:
+          "Methylenetetrahydrofolate reductase (MTHFR) deficiency in the remethylation form of homocystinuria impairs folate cycle.",
+        wikiPathwaysId: "WP15",
+      },
+      {
+        keggId: "hsa04150",
+        name: "mTOR signaling pathway",
+        description:
+          "Elevated homocysteine activates mTOR-mediated endoplasmic reticulum stress in vascular endothelial cells.",
+      },
+      {
+        keggId: "hsa04064",
+        name: "NF-kappa B signaling pathway",
+        description:
+          "Hyperhomocysteinemia activates NF-κB in endothelium promoting atherothrombosis in homocystinuria.",
+      },
+    ],
+    genes: [
+      {
+        gene: "CBS",
+        protein: "Cystathionine beta-synthase",
+        uniprotId: "P35520",
+        function:
+          "Pyridoxal-5′-phosphate-dependent enzyme catalysing the first step of transsulfuration; loss-of-function causes classical homocystinuria.",
+        drug: "Pyridoxine (Vitamin B6)",
+        drugMechanism:
+          "Cofactor for CBS; responsive patients (B6-responsive homocystinuria) have 50%+ reduction in plasma homocysteine.",
+        drugApproval: "FDA Approved (off-label)",
+        pubchemId: "1054",
+      },
+      {
+        gene: "MTHFR",
+        protein: "Methylenetetrahydrofolate reductase",
+        uniprotId: "P42898",
+        function:
+          "Provides 5-methylTHF for homocysteine remethylation; severe MTHFR deficiency causes methyleneTHF reductase deficiency.",
+        drug: "Betaine",
+        drugMechanism:
+          "Methyl donor driving BHMT-catalysed remethylation of homocysteine to methionine when CBS or MTHFR is deficient.",
+        drugApproval: "FDA Approved",
+        pubchemId: "247",
+      },
+      {
+        gene: "MTR",
+        protein: "5-methyltetrahydrofolate-homocysteine methyltransferase (MS)",
+        uniprotId: "Q99707",
+        function:
+          "Vitamin B12-dependent remethylation of homocysteine; MTR mutations cause cobalamin G disorder.",
+        drug: "Hydroxocobalamin (B12)",
+        drugMechanism:
+          "Vitamin B12 cobalamin activating MTR and MMACHC, reducing plasma homocysteine in B12-remethylation defects.",
+        drugApproval: "FDA Approved",
+        pubchemId: "44475428",
+      },
+      {
+        gene: "DNMT",
+        protein: "DNA methyltransferase (SAM-dependent)",
+        uniprotId: "P26358",
+        function:
+          "Homocysteine metabolite SAH competitively inhibits DNMT, linking homocystinuria to epigenetic dysregulation.",
+        drug: "OT-58 (recombinant CBS enzyme)",
+        drugMechanism:
+          "Enzyme replacement therapy with pegylated CBS protein; in Phase 2 trials for CBS-deficient homocystinuria.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "batten disease": {
+    pathways: [
+      {
+        keggId: "hsa04142",
+        name: "Lysosome",
+        description:
+          "CLN gene deficiencies impair lysosomal ceroid/lipofuscin clearance causing progressive neuronal accumulation and autophagy failure in Batten disease.",
+        reactomeId: "R-HSA-9612973",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Lysosomal storage overload triggers mitochondrial apoptosis of neurons in the visual cortex, cerebellum, and hippocampus.",
+        reactomeId: "R-HSA-109581",
+      },
+      {
+        keggId: "hsa04140",
+        name: "Autophagy – animal",
+        description:
+          "Impaired autolysosomal degradation of ceroid pigments due to CLN5, CLN6, or CLN8 mutations causes neurodegeneration.",
+      },
+      {
+        keggId: "hsa04620",
+        name: "Toll-like receptor signaling pathway",
+        description:
+          "Microglial TLR signaling amplifies neuroinflammation secondary to lysosomal storage accumulation in CLN-disease.",
+      },
+    ],
+    genes: [
+      {
+        gene: "CLN2",
+        protein: "Lysosomal pepstatin-insensitive protease (TPP1)",
+        uniprotId: "O14773",
+        function:
+          "Lysosomal serine protease; CLN2 mutations cause late-infantile Batten disease (CLN2 disease) with rapid neurodegeneration.",
+        drug: "Cerliponase alfa (Brineura)",
+        drugMechanism:
+          "First FDA-approved ERT for Batten disease; recombinant human TPP1 delivered intracerebroventricularly slows neurodegeneration.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "CLN3",
+        protein: "Battenin (CLN3 protein)",
+        uniprotId: "Q13286",
+        function:
+          "Lysosomal transmembrane protein; most common CLN3 deletion (1kb exon 7–8) causes juvenile Batten disease.",
+        drug: "Cysteamine",
+        drugMechanism:
+          "Antioxidant reducing lipofuscin accumulation in CLN3 disease neurons; investigational.",
+        drugApproval: "Investigational",
+        pubchemId: "25453",
+      },
+      {
+        gene: "CLN6",
+        protein: "Ceroid-lipofuscinosis neuronal protein 6",
+        uniprotId: "Q9UBY8",
+        function:
+          "ER-resident transmembrane protein required for lysosomal function; CLN6 mutations cause variant late-infantile NCL.",
+        drug: "AAV9-CLN6 gene therapy",
+        drugMechanism:
+          "Intrathecal CNS gene therapy delivering functional CLN6 cDNA; Phase 1/2 clinical trial (NCT02725580).",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+      {
+        gene: "PPT1",
+        protein: "Palmitoyl-protein thioesterase 1",
+        uniprotId: "P50897",
+        function:
+          "Lysosomal enzyme removing fatty acid modifications from proteins; CLN1/PPT1 mutations cause infantile Batten disease.",
+        drug: "N-acetylcysteine",
+        drugMechanism:
+          "Antioxidant reducing neuroinflammatory oxidative stress in CLN1 disease; adjunctive investigational therapy.",
+        drugApproval: "Investigational",
+        pubchemId: "12035",
+      },
+    ],
+  },
+
+  "stargardt disease": {
+    pathways: [
+      {
+        keggId: "hsa00830",
+        name: "Retinol metabolism",
+        description:
+          "ABCA4 transports N-retinylidene-PE across photoreceptor disc membranes; deficiency causes bisretinoid (A2E) accumulation and progressive macular degeneration.",
+        reactomeId: "R-HSA-975634",
+      },
+      {
+        keggId: "hsa04142",
+        name: "Lysosome",
+        description:
+          "A2E bisretinoid accumulates in RPE lysosomes, impairing autophagy and causing progressive retinal pigment epithelium atrophy.",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Photoreceptor apoptosis secondary to RPE dysfunction from A2E toxicity.",
+        reactomeId: "R-HSA-109581",
+      },
+      {
+        keggId: "hsa04620",
+        name: "Complement and coagulation cascades",
+        description:
+          "Drusen-associated complement activation contributes to Stargardt-associated RPE degeneration.",
+      },
+    ],
+    genes: [
+      {
+        gene: "ABCA4",
+        protein: "Retinal-specific ATP-binding cassette transporter (ABCR)",
+        uniprotId: "P78363",
+        function:
+          "Photoreceptor outer segment flippase transporting N-retinylidene-phosphatidylethanolamine; >1200 disease-causing mutations cause Stargardt disease.",
+        drug: "CPCB-RPE1 (stem cell therapy)",
+        drugMechanism:
+          "hESC-derived RPE cell transplantation replacing atrophic RPE; Phase 2 trials in Stargardt disease.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+      {
+        gene: "ELOVL4",
+        protein: "Elongation of very long chain fatty acids protein 4",
+        uniprotId: "Q9GZR5",
+        function:
+          "Synthesises very long chain polyunsaturated fatty acids in photoreceptors; autosomal dominant Stargardt variant 3.",
+        drug: "Emixustat",
+        drugMechanism:
+          "Retinol isomerase (RPE65) inhibitor reducing visual cycle flux and A2E accumulation in ABCA4-Stargardt.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+      {
+        gene: "PRPH2",
+        protein: "Peripherin-2",
+        uniprotId: "P23942",
+        function:
+          "Outer segment membrane morphogenetic protein; PRPH2 mutations cause Stargardt-like macular dystrophy (STGD3).",
+        drug: "ALK-001 (C20-D3-vitamin A)",
+        drugMechanism:
+          "Deuterated vitamin A analog slowing bisretinoid condensation to reduce A2E accumulation in ABCA4 disease.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+      {
+        gene: "RPE65",
+        protein: "Retinal pigment epithelium-specific 65 kDa protein",
+        uniprotId: "P47804",
+        function:
+          "Isomerase in the visual cycle; secondarily impaired by A2E in Stargardt; primary mutation target in Leber congenital amaurosis.",
+        drug: "Voretigene neparvovec (Luxturna)",
+        drugMechanism:
+          "AAV2-RPE65 gene therapy restoring visual cycle; approved for RPE65 mutation-associated retinal dystrophy.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "usher syndrome": {
+    pathways: [
+      {
+        keggId: "hsa04740",
+        name: "Olfactory transduction",
+        description:
+          "Hair cell mechanoelectrical transduction pathways share molecular components with the USH protein interactome at the hair cell stereocilia.",
+      },
+      {
+        keggId: "hsa04810",
+        name: "Regulation of actin cytoskeleton",
+        description:
+          "USH proteins (MYO7A, HARMONIN, SANS) organise stereocilia actin bundles; their loss disrupts mechanoelectrical transduction.",
+        reactomeId: "R-HSA-5663213",
+      },
+      {
+        keggId: "hsa00830",
+        name: "Retinol metabolism",
+        description:
+          "USH2A/GPR98/DFNB31 scaffold complex maintains photoreceptor calyceal processes; its loss causes progressive rod–cone dystrophy.",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Photoreceptor and hair cell apoptosis secondary to loss of USH scaffold proteins.",
+      },
+    ],
+    genes: [
+      {
+        gene: "MYO7A",
+        protein: "Unconventional myosin-VIIa",
+        uniprotId: "Q13402",
+        function:
+          "Actin-based motor protein in cochlear hair cell stereocilia and RPE; mutations cause Usher syndrome type 1B (most common type).",
+        drug: "UshStat (SAR421869)",
+        drugMechanism:
+          "Lentiviral vector delivering MYO7A to RPE cells; Phase 2 trials for retinal component of Usher syndrome type 1B.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+      {
+        gene: "USH2A",
+        protein: "Usherin",
+        uniprotId: "O75445",
+        function:
+          "Large extracellular matrix protein of the hair cell ankle link complex and photoreceptor calyx; most common cause of Usher type 2.",
+        drug: "QR-421a (sepofarsen)",
+        drugMechanism:
+          "Antisense oligonucleotide skipping USH2A exon 13 (Cys759Phe mutation); Phase 2/3 for Usher syndrome type 2A.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+      {
+        gene: "CDH23",
+        protein: "Cadherin-23",
+        uniprotId: "Q9Y6N8",
+        function:
+          "Tip-link component in hair cell mechanoelectrical transduction; CDH23 mutations cause Usher type 1D.",
+        drug: "Cochlear implant (device)",
+        drugMechanism:
+          "Electronic device bypassing damaged hair cells to stimulate auditory nerve directly; standard of care for Usher-associated deafness.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "CLRN1",
+        protein: "Clarin-1",
+        uniprotId: "P58418",
+        function:
+          "Tetraspan membrane protein in inner ear and retina; mutations cause Usher type 3 with progressive hearing loss.",
+        drug: "AAV1-CLRN1 gene therapy",
+        drugMechanism:
+          "Intracochlear gene therapy restoring CLRN1 in hair cells; preclinical and Phase 1 studies.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "williams syndrome": {
+    pathways: [
+      {
+        keggId: "hsa04010",
+        name: "MAPK signaling pathway",
+        description:
+          "ELN deletion in the 7q11.23 chromosomal region disrupts elastin-integrin MAPK signaling causing supravalvular aortic stenosis.",
+      },
+      {
+        keggId: "hsa04350",
+        name: "TGF-beta signaling pathway",
+        description:
+          "Elastin haploinsufficiency alters TGF-β/LTBP signaling in arterial wall leading to cardiovascular disease in Williams syndrome.",
+        reactomeId: "R-HSA-170834",
+        wikiPathwaysId: "WP560",
+      },
+      {
+        keggId: "hsa04724",
+        name: "Glutamatergic synapse",
+        description:
+          "LIMK1 haploinsufficiency impairs actin dynamics in dendritic spines, contributing to visuospatial cognitive deficits in Williams syndrome.",
+      },
+      {
+        keggId: "hsa04614",
+        name: "Renin–angiotensin system",
+        description:
+          "Idiopathic hypercalcaemia in Williams syndrome involves CYP24A1 and VDR dysregulation in the vitamin D/calcium axis.",
+      },
+    ],
+    genes: [
+      {
+        gene: "ELN",
+        protein: "Elastin",
+        uniprotId: "P15502",
+        function:
+          "Extracellular matrix protein providing arterial wall elasticity; hemizygous deletion causes supravalvular aortic stenosis in Williams syndrome.",
+        drug: "Surgical valve repair / balloon dilation",
+        drugMechanism:
+          "Surgical or catheter-based intervention for SVAS; no approved pharmacological restoration of elastin.",
+        drugApproval: "Standard of Care",
+        pubchemId: "0",
+      },
+      {
+        gene: "LIMK1",
+        protein: "LIM domain kinase 1",
+        uniprotId: "P53667",
+        function:
+          "Neuronal actin-regulatory kinase; haploinsufficiency contributes to visuospatial deficits and unique social cognition in Williams syndrome.",
+        drug: "Antihypertensive therapy",
+        drugMechanism:
+          "ACE inhibitors or calcium channel blockers managing secondary hypertension from renovascular effects of Williams syndrome.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "GTF2I",
+        protein: "General transcription factor II-I",
+        uniprotId: "P78347",
+        function:
+          "Transcription factor deleted in Williams syndrome; associated with hypersociability, language strength, and anxiety.",
+        drug: "GABA-A modulation",
+        drugMechanism:
+          "GABAergic drugs investigated for anxiety and hyperacusis in Williams syndrome; no approved therapy.",
+        drugApproval: "Investigational",
+        pubchemId: "0",
+      },
+      {
+        gene: "NCF1",
+        protein: "Neutrophil cytosol factor 1 (p47-phox)",
+        uniprotId: "P14598",
+        function:
+          "Copy number of NCF1 at 7q11.23 is a modifier of hypertension risk and autoimmunity susceptibility in Williams syndrome.",
+        drug: "Atenolol",
+        drugMechanism:
+          "Beta-1 blocker managing Williams syndrome-associated supravalvular aortic stenosis-related cardiac strain.",
+        drugApproval: "FDA Approved",
+        pubchemId: "2249",
+      },
+    ],
+  },
+
+  "alport syndrome": {
+    pathways: [
+      {
+        keggId: "hsa04510",
+        name: "Focal adhesion",
+        description:
+          "Collagen IV α3/α4/α5 network disruption in glomerular basement membrane impairs podocyte-GBM adhesion and filtration barrier integrity in Alport syndrome.",
+        reactomeId: "R-HSA-9612973",
+      },
+      {
+        keggId: "hsa04350",
+        name: "TGF-beta signaling pathway",
+        description:
+          "Dysfunctional GBM activates TGF-β1 in podocytes and mesangial cells driving renal fibrosis progression in Alport syndrome.",
+        reactomeId: "R-HSA-170834",
+        wikiPathwaysId: "WP560",
+      },
+      {
+        keggId: "hsa04614",
+        name: "Renin–angiotensin system",
+        description:
+          "RAAS activation drives glomerular hypertension and progression to ESKD; ACE inhibition slows Alport progression.",
+      },
+      {
+        keggId: "hsa04060",
+        name: "Cytokine–cytokine receptor interaction",
+        description:
+          "TGF-β and PDGF-driven mesangial and interstitial fibrosis in Alport syndrome kidney.",
+      },
+    ],
+    genes: [
+      {
+        gene: "COL4A5",
+        protein: "Collagen alpha-5(IV) chain",
+        uniprotId: "P29400",
+        function:
+          "Major component of glomerular basement membrane; X-linked Alport syndrome (XLAS) caused by hemizygous COL4A5 mutations (~85% of cases).",
+        drug: "Sparsentan",
+        drugMechanism:
+          "Dual endothelin A receptor and angiotensin II receptor blocker reducing proteinuria and fibrosis; FDA-approved for IgA nephropathy, in trials for Alport syndrome.",
+        drugApproval: "FDA Approved (IgAN)",
+        pubchemId: "9951844",
+      },
+      {
+        gene: "COL4A3",
+        protein: "Collagen alpha-3(IV) chain",
+        uniprotId: "Q01955",
+        function:
+          "GBM type IV collagen network component; biallelic COL4A3 mutations cause autosomal recessive Alport syndrome.",
+        drug: "Ramipril",
+        drugMechanism:
+          "ACE inhibitor reducing glomerular hypertension and slowing ESKD progression; standard of care in Alport syndrome.",
+        drugApproval: "FDA Approved",
+        pubchemId: "5362129",
+        chemblId: "CHEMBL1025",
+      },
+      {
+        gene: "COL4A4",
+        protein: "Collagen alpha-4(IV) chain",
+        uniprotId: "P53420",
+        function:
+          "GBM structural collagen; heterozygous COL4A4 mutations cause thin basement membrane nephropathy and mild Alport.",
+        drug: "Losartan",
+        drugMechanism:
+          "ARB reducing angiotensin II-mediated glomerular injury and TGF-β1-driven fibrosis in Alport syndrome.",
+        drugApproval: "FDA Approved",
+        pubchemId: "3961",
+      },
+      {
+        gene: "TGFB1",
+        protein: "Transforming growth factor beta-1",
+        uniprotId: "P01137",
+        function:
+          "Pro-fibrotic cytokine activated by GBM defects driving tubulointerstitial fibrosis and podocyte loss in Alport syndrome.",
+        drug: "Bardoxolone methyl",
+        drugMechanism:
+          "Nrf2/ARE activator reducing renal oxidative stress and inflammation; in clinical trials for Alport nephropathy.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "5326375",
+      },
+    ],
+  },
+
+  "cerebral palsy": {
+    pathways: [
+      {
+        keggId: "hsa04724",
+        name: "Glutamatergic synapse",
+        description:
+          "Perinatal hypoxic-ischemia causes excitotoxic NMDAR overactivation and neuronal injury in developing motor cortex.",
+        reactomeId: "R-HSA-9612973",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Caspase-mediated neuronal apoptosis in periventricular white matter during critical developmental windows.",
+        reactomeId: "R-HSA-109581",
+      },
+      {
+        keggId: "hsa04727",
+        name: "GABAergic synapse",
+        description:
+          "GABAergic inhibitory circuit maturation impaired by perinatal brain injury; GABA targeting therapies reduce spasticity.",
+      },
+      {
+        keggId: "hsa04668",
+        name: "TNF signaling pathway",
+        description:
+          "Neuroinflammatory TNF-α and IL-1β from activated microglia contribute to periventricular leukomalacia.",
+      },
+    ],
+    genes: [
+      {
+        gene: "GABRA1",
+        protein: "GABA-A receptor subunit alpha-1",
+        uniprotId: "P14867",
+        function:
+          "GABAergic inhibitory neurotransmission; spasticity in CP arises from reduced cortical GABAergic inhibition of spinal motor neurons.",
+        drug: "Baclofen (intrathecal)",
+        drugMechanism:
+          "GABA-B agonist reducing spinal motor neuron excitability; intrathecal delivery for severe spasticity in CP.",
+        drugApproval: "FDA Approved",
+        pubchemId: "2284",
+      },
+      {
+        gene: "SLC6A5",
+        protein: "Glycine transporter 2 (GlyT2)",
+        uniprotId: "P48067",
+        function:
+          "Spinal cord glycine reuptake transporter; glycinergic inhibitory tone loss contributes to hypertonicity in CP.",
+        drug: "Botulinum toxin A",
+        drugMechanism:
+          "SNAP-25 cleavage blocking acetylcholine release at neuromuscular junction; reduces focal spasticity in CP.",
+        drugApproval: "FDA Approved",
+        pubchemId: "5311365",
+      },
+      {
+        gene: "GRIN2A",
+        protein: "Glutamate receptor ionotropic NMDA type subunit 2A",
+        uniprotId: "Q12832",
+        function:
+          "NMDA receptor subunit mediating synaptic plasticity; variants associated with epilepsy-aphasia spectrum comorbid with CP.",
+        drug: "Diazepam",
+        drugMechanism:
+          "Benzodiazepine GABA-A positive allosteric modulator reducing spasticity and seizure comorbidity in CP.",
+        drugApproval: "FDA Approved",
+        pubchemId: "3016",
+      },
+      {
+        gene: "COL4A1",
+        protein: "Collagen alpha-1(IV) chain",
+        uniprotId: "P02462",
+        function:
+          "Vascular basement membrane structural protein; COL4A1 mutations cause perinatal porencephaly and congenital hemiplegia.",
+        drug: "Stem cell therapy (autologous cord blood)",
+        drugMechanism:
+          "Autologous umbilical cord blood infusion promoting neural repair; Phase 2 trials showing modest motor benefit in young CP patients.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "hepatitis a": {
+    pathways: [
+      {
+        keggId: "hsa05161",
+        name: "Hepatitis B",
+        description:
+          "Hepatocyte viral replication and innate immune activation pathways (TLR, RIG-I, IFN) are shared between HAV and HBV liver infection.",
+      },
+      {
+        keggId: "hsa04620",
+        name: "Toll-like receptor signaling pathway",
+        description:
+          "TLR7/8 detect HAV RNA in endosomes activating NF-κB and interferon regulatory factors in Kupffer cells.",
+        reactomeId: "R-HSA-168928",
+        wikiPathwaysId: "WP75",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Fas/FasL-mediated hepatocyte apoptosis driven by cytotoxic T cells during acute HAV infection causes transaminase elevation.",
+      },
+      {
+        keggId: "hsa04630",
+        name: "JAK-STAT signaling pathway",
+        description:
+          "Type I and III interferon responses via JAK1/TYK2-STAT1/2 provide innate antiviral defense against HAV.",
+      },
+    ],
+    genes: [
+      {
+        gene: "HAVCR1",
+        protein: "Hepatitis A virus cellular receptor 1 (TIM-1)",
+        uniprotId: "Q96D42",
+        function:
+          "Primary HAV entry receptor on hepatocytes; TIM-1 phosphatidylserine binding also regulates T cell immunity.",
+        drug: "Hepatitis A vaccine (Havrix/Vaqta)",
+        drugMechanism:
+          "Inactivated HAV vaccine inducing anti-HAV IgG providing long-term protective immunity; >95% efficacy.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "IFNL3",
+        protein: "Interferon lambda-3 (IL-28B)",
+        uniprotId: "Q8IZJ0",
+        function:
+          "Type III interferon providing hepatocyte-specific antiviral defense; IFNL3/4 polymorphisms influence HAV clearance kinetics.",
+        drug: "Supportive care / Hydration",
+        drugMechanism:
+          "HAV is self-limited in immunocompetent individuals; IV fluids and rest are standard management for acute hepatitis A.",
+        drugApproval: "Standard of Care",
+        pubchemId: "0",
+      },
+      {
+        gene: "IL10",
+        protein: "Interleukin-10",
+        uniprotId: "P22301",
+        function:
+          "Anti-inflammatory cytokine limiting hepatocyte immunopathology during acute HAV; promotes resolution of acute hepatitis.",
+        drug: "Immune globulin (IGIM)",
+        drugMechanism:
+          "Passive anti-HAV antibody immunoprophylaxis for post-exposure prevention within 2 weeks of exposure.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "ALT1",
+        protein: "Alanine aminotransferase (ALT/GPT)",
+        uniprotId: "P24298",
+        function:
+          "Hepatocyte enzyme released during cell injury; elevated ALT is the primary biomarker of hepatocyte damage in HAV.",
+        drug: "N-acetylcysteine",
+        drugMechanism:
+          "Antioxidant and glutathione replenisher; used in severe fulminant HAV hepatitis to reduce oxidative hepatocyte injury.",
+        drugApproval: "FDA Approved",
+        pubchemId: "12035",
+      },
+    ],
+  },
+
+  "spinal cord injury": {
+    pathways: [
+      {
+        keggId: "hsa04724",
+        name: "Glutamatergic synapse",
+        description:
+          "Traumatic disruption releases excess glutamate activating NMDA receptors causing excitotoxic secondary injury in peri-injury spinal cord.",
+        reactomeId: "R-HSA-9612973",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Mitochondrial pathway of oligodendrocyte and neuron apoptosis propagates secondary injury hours-to-days after SCI.",
+        reactomeId: "R-HSA-109581",
+        wikiPathwaysId: "WP254",
+      },
+      {
+        keggId: "hsa04064",
+        name: "NF-kappa B signaling pathway",
+        description:
+          "Microglial NF-κB drives pro-inflammatory cytokine production amplifying secondary injury and glial scar formation.",
+      },
+      {
+        keggId: "hsa04350",
+        name: "TGF-beta signaling pathway",
+        description:
+          "TGF-β and chondroitin sulfate proteoglycan signaling via PTPσ drives glial scar formation inhibiting axon regeneration.",
+        reactomeId: "R-HSA-170834",
+        wikiPathwaysId: "WP560",
+      },
+    ],
+    genes: [
+      {
+        gene: "NOGO",
+        protein: "Reticulon-4 (Nogo-A)",
+        uniprotId: "Q9NQC3",
+        function:
+          "Myelin-associated axon growth inhibitor activating NgR1/p75 to block axonal regeneration after SCI.",
+        drug: "Riluzole",
+        drugMechanism:
+          "Sodium/glutamate release inhibitor reducing excitotoxic secondary SCI injury; Phase 2 trials showing neuroprotection.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "5070",
+        chemblId: "CHEMBL744",
+      },
+      {
+        gene: "PTEN",
+        protein: "Phosphatase and tensin homolog",
+        uniprotId: "P60484",
+        function:
+          "mTOR pathway suppressor in neurons; PTEN deletion promotes axon regeneration after SCI in animal models.",
+        drug: "Methylprednisolone",
+        drugMechanism:
+          "High-dose corticosteroid reducing lipid peroxidation and inflammation; standard acute SCI neuroprotective protocol.",
+        drugApproval: "FDA Approved",
+        pubchemId: "6741",
+      },
+      {
+        gene: "RHOA",
+        protein: "Transforming protein RhoA",
+        uniprotId: "P61586",
+        function:
+          "GTPase mediating myelin inhibitor signals from Nogo-A, MAG, OMgp to collapse axon growth cones after SCI.",
+        drug: "Cethrin (VX-210 / BA-210)",
+        drugMechanism:
+          "RhoA inhibitor (recombinant C3 transferase) applied epidurally at injury site; Phase 2 trials showing limb recovery trends.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+      {
+        gene: "BDNF",
+        protein: "Brain-derived neurotrophic factor",
+        uniprotId: "P23560",
+        function:
+          "Neurotrophin promoting motoneuron and sensory neuron survival and synaptic plasticity; depleted below SCI level.",
+        drug: "Sygen (GM-1 ganglioside)",
+        drugMechanism:
+          "Neurotrophin-mimetic ganglioside promoting axon sprouting and neuroprotection; used in acute/subacute SCI studies.",
+        drugApproval: "Investigational",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "von hippel-lindau disease": {
+    pathways: [
+      {
+        keggId: "hsa04066",
+        name: "HIF-1 signaling pathway",
+        description:
+          "VHL loss prevents HIF-1α/HIF-2α proteasomal degradation, causing constitutive hypoxia-response gene activation (VEGF, PDGF, EPO) driving VHL-associated tumours.",
+        reactomeId: "R-HSA-1234174",
+        wikiPathwaysId: "WP1971",
+      },
+      {
+        keggId: "hsa04151",
+        name: "PI3K-Akt signaling pathway",
+        description:
+          "mTOR pathway activation downstream of HIF-2α drives clear cell RCC proliferation in VHL disease.",
+        reactomeId: "R-HSA-9006831",
+        wikiPathwaysId: "WP4172",
+      },
+      {
+        keggId: "hsa05211",
+        name: "Renal cell carcinoma",
+        description:
+          "VHL mutation is the primary driver of clear cell RCC; 60–80% of sporadic ccRCC also have VHL loss.",
+        reactomeId: "R-HSA-9634638",
+      },
+      {
+        keggId: "hsa04370",
+        name: "VEGF signaling pathway",
+        description:
+          "VEGF overexpression from VHL-null cells drives haemangioblastoma and retinal angioma formation.",
+        reactomeId: "R-HSA-4420097",
+      },
+    ],
+    genes: [
+      {
+        gene: "VHL",
+        protein: "Von Hippel-Lindau tumor suppressor",
+        uniprotId: "P40337",
+        function:
+          "E3 ubiquitin ligase substrate receptor targeting HIF-α for proteasomal degradation under normoxia; loss-of-function mutations cause VHL disease.",
+        drug: "Belzutifan",
+        drugMechanism:
+          "First-in-class HIF-2α inhibitor (FDA-approved 2021) for VHL disease-associated ccRCC, CNS haemangioblastomas, and pancreatic tumours.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "HIF2A",
+        protein: "Endothelial PAS domain-containing protein 1 (HIF-2α, EPAS1)",
+        uniprotId: "Q99814",
+        function:
+          "HIF-2α transcription factor constitutively active in VHL-null cells; primary driver of ccRCC and erythrocytosis.",
+        drug: "Sunitinib",
+        drugMechanism:
+          "Multi-kinase inhibitor (VEGFR/PDGFR/c-Kit) targeting angiogenic signalling downstream of VHL/HIF-2α.",
+        drugApproval: "FDA Approved",
+        pubchemId: "5329102",
+        chemblId: "CHEMBL535",
+      },
+      {
+        gene: "VEGFA",
+        protein: "Vascular endothelial growth factor A",
+        uniprotId: "P15692",
+        function:
+          "Angiogenic factor massively overexpressed in VHL-null tumours; drives haemangioblastoma and retinal angioma vascularisation.",
+        drug: "Bevacizumab",
+        drugMechanism:
+          "Anti-VEGF monoclonal antibody reducing tumour angiogenesis; used in VHL-associated haemangioblastomas.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+        chemblId: "CHEMBL1201583",
+      },
+      {
+        gene: "MTOR",
+        protein: "Serine/threonine-protein kinase mTOR",
+        uniprotId: "P42345",
+        function:
+          "mTORC1/2 activation downstream of HIF-2α in VHL-null ccRCC; targeted by mTOR inhibitors.",
+        drug: "Everolimus",
+        drugMechanism:
+          "mTORC1 inhibitor reducing VHL/HIF-driven mTOR-dependent tumour proliferation.",
+        drugApproval: "FDA Approved",
+        pubchemId: "5284616",
+      },
+    ],
+  },
+
+  "antiphospholipid syndrome": {
+    pathways: [
+      {
+        keggId: "hsa04610",
+        name: "Complement and coagulation cascades",
+        description:
+          "Anti-β2GPI and anti-prothrombin antibodies activate complement and promote thrombin generation causing thrombosis in APS.",
+        reactomeId: "R-HSA-140877",
+      },
+      {
+        keggId: "hsa04064",
+        name: "NF-kappa B signaling pathway",
+        description:
+          "Anti-β2GPI antibodies activate NF-κB in endothelial cells and monocytes upregulating TF and adhesion molecules.",
+      },
+      {
+        keggId: "hsa04620",
+        name: "Toll-like receptor signaling pathway",
+        description:
+          "TLR4 activation by anti-β2GPI/β2GPI complexes triggers innate thromboinflammatory cascade in APS.",
+        reactomeId: "R-HSA-168928",
+        wikiPathwaysId: "WP75",
+      },
+      {
+        keggId: "hsa04660",
+        name: "T cell receptor signaling pathway",
+        description:
+          "HLA-DR7/DR53 restricted CD4+ T cells provide help for anti-β2GPI autoantibody production in primary APS.",
+      },
+    ],
+    genes: [
+      {
+        gene: "B2M",
+        protein: "Beta-2-microglobulin (proxy for β2GPI/APOH autoantigen)",
+        uniprotId: "P61769",
+        function:
+          "MHC class I β chain; structurally related domain organisation to β2-glycoprotein I (APOH), the primary APS autoantigen.",
+        drug: "Warfarin",
+        drugMechanism:
+          "Vitamin K antagonist anticoagulant; long-term anticoagulation is the cornerstone of APS thrombosis prevention.",
+        drugApproval: "FDA Approved",
+        pubchemId: "54678486",
+        chemblId: "CHEMBL1546",
+      },
+      {
+        gene: "F2",
+        protein: "Prothrombin",
+        uniprotId: "P00734",
+        function:
+          "Coagulation zymogen; anti-prothrombin antibodies are a major APS laboratory criterion and drive thrombin hyperactivation.",
+        drug: "Rivaroxaban",
+        drugMechanism:
+          "Direct factor Xa inhibitor; used in APS though inferior to warfarin in high-risk triple-positive patients.",
+        drugApproval: "FDA Approved",
+        pubchemId: "9875401",
+        chemblId: "CHEMBL198362",
+      },
+      {
+        gene: "APOH",
+        protein: "Apolipoprotein H (Beta-2-glycoprotein I)",
+        uniprotId: "P02749",
+        function:
+          "Primary APS autoantigen; domain I of β2GPI is the main epitope for pathogenic anti-β2GPI IgG antibodies.",
+        drug: "Hydroxychloroquine",
+        drugMechanism:
+          "Antimalarial reducing anti-phospholipid antibody titres and thrombosis risk in APS, particularly in obstetric APS.",
+        drugApproval: "FDA Approved",
+        pubchemId: "3652",
+      },
+      {
+        gene: "PLCG2",
+        protein:
+          "1-phosphatidylinositol 4,5-bisphosphate phosphodiesterase gamma-2",
+        uniprotId: "P16885",
+        function:
+          "Platelet signaling enzyme activated by anti-β2GPI antibodies driving thrombus formation.",
+        drug: "Aspirin",
+        drugMechanism:
+          "Antiplatelet COX-1 inhibitor reducing thromboxane A2; combined with anticoagulants in high-risk APS.",
+        drugApproval: "FDA Approved",
+        pubchemId: "2244",
+      },
+    ],
+  },
+
   // Default fallback
   default: {
     pathways: [
@@ -8978,6 +11119,104 @@ const DISEASE_ALIASES: Record<string, string> = {
   adrenoleukodystrophy: "X-linked adrenoleukodystrophy",
   adrenomyeloneuropathy: "X-linked adrenoleukodystrophy",
   amn: "X-linked adrenoleukodystrophy",
+  // new disease aliases
+  migraine: "migraine",
+  "migraine headache": "migraine",
+  "chronic migraine": "migraine",
+  cgrp: "migraine",
+  narcolepsy: "narcolepsy",
+  "sleep disorder": "narcolepsy",
+  "excessive daytime sleepiness": "narcolepsy",
+  eds: "narcolepsy",
+  "tourette syndrome": "tourette syndrome",
+  "tourette's syndrome": "tourette syndrome",
+  tourette: "tourette syndrome",
+  gts: "tourette syndrome",
+  "tic disorder": "tourette syndrome",
+  "myasthenia gravis": "myasthenia gravis",
+  mg: "myasthenia gravis",
+  "neuromuscular junction disease": "myasthenia gravis",
+  sarcoidosis: "sarcoidosis",
+  "pulmonary sarcoidosis": "sarcoidosis",
+  "pulmonary arterial hypertension": "pulmonary arterial hypertension",
+  pah: "pulmonary arterial hypertension",
+  "primary pulmonary hypertension": "pulmonary arterial hypertension",
+  "dengue fever": "dengue fever",
+  dengue: "dengue fever",
+  "dengue hemorrhagic fever": "dengue fever",
+  dhf: "dengue fever",
+  "lyme disease": "lyme disease",
+  lyme: "lyme disease",
+  borreliosis: "lyme disease",
+  "alopecia areata": "alopecia areata",
+  alopecia: "alopecia areata",
+  "spot baldness": "alopecia areata",
+  vitiligo: "vitiligo",
+  "skin depigmentation": "vitiligo",
+  "pemphigus vulgaris": "pemphigus vulgaris",
+  pemphigus: "pemphigus vulgaris",
+  "behcet's disease": "behcet's disease",
+  "behcet disease": "behcet's disease",
+  behcet: "behcet's disease",
+  "silk road disease": "behcet's disease",
+  galactosemia: "galactosemia",
+  galactosaemia: "galactosemia",
+  "galt deficiency": "galactosemia",
+  "classic galactosemia": "galactosemia",
+  homocystinuria: "homocystinuria",
+  "cbs deficiency": "homocystinuria",
+  hyperhomocysteinemia: "homocystinuria",
+  "batten disease": "batten disease",
+  ncl: "batten disease",
+  "neuronal ceroid lipofuscinosis": "batten disease",
+  "batten-spielmeyer-vogt disease": "batten disease",
+  "stargardt disease": "stargardt disease",
+  stargardt: "stargardt disease",
+  stgd: "stargardt disease",
+  "stargardt macular dystrophy": "stargardt disease",
+  "usher syndrome": "usher syndrome",
+  usher: "usher syndrome",
+  ush: "usher syndrome",
+  "retinitis pigmentosa deafblindness": "usher syndrome",
+  "williams syndrome": "williams syndrome",
+  "williams-beuren syndrome": "williams syndrome",
+  wbs: "williams syndrome",
+  "alport syndrome": "alport syndrome",
+  "hereditary nephritis": "alport syndrome",
+  "cerebral palsy": "cerebral palsy",
+  cp: "cerebral palsy",
+  "spastic diplegia": "cerebral palsy",
+  "hepatitis a": "hepatitis a",
+  "hav infection": "hepatitis a",
+  "spinal cord injury": "spinal cord injury",
+  sci: "spinal cord injury",
+  "von hippel-lindau disease": "von hippel-lindau disease",
+  vhl: "von hippel-lindau disease",
+  "vhl disease": "von hippel-lindau disease",
+  "antiphospholipid syndrome": "antiphospholipid syndrome",
+  aps: "antiphospholipid syndrome",
+  "antiphospholipid antibody syndrome": "antiphospholipid syndrome",
+  "hughes syndrome": "antiphospholipid syndrome",
+
+  // leukemia subtypes
+  aml: "leukemia",
+  "acute myeloid leukemia": "leukemia",
+  "acute myeloid leukaemia": "leukemia",
+  cml: "leukemia",
+  "chronic myeloid leukemia": "leukemia",
+  "chronic myeloid leukaemia": "leukemia",
+  cll: "leukemia",
+  "chronic lymphocytic leukemia": "leukemia",
+  "chronic lymphocytic leukaemia": "leukemia",
+  all: "leukemia",
+  "acute lymphoblastic leukemia": "leukemia",
+  "acute lymphoblastic leukaemia": "leukemia",
+  "acute lymphocytic leukemia": "leukemia",
+  "blood cancer": "leukemia",
+  leukaemia: "leukemia",
+  apl: "leukemia",
+  "acute promyelocytic leukemia": "leukemia",
+  "philadelphia chromosome": "leukemia",
 };
 
 // ─── Lookup helper ────────────────────────────────────────────────────────────

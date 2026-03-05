@@ -158,7 +158,7 @@ export function HeroSection({
             },
             {
               label: "Diseases Covered",
-              value: "120+",
+              value: "150+",
               color: "oklch(0.75 0.20 155)",
               glow: "oklch(0.75 0.20 155 / 0.35)",
             },
