@@ -16,7 +16,7 @@ interface DatabaseConfig {
   ocidKey: string;
 }
 
-const DATABASES: DatabaseConfig[] = [
+const CORE_DATABASES: DatabaseConfig[] = [
   {
     id: "kegg",
     name: "KEGG",
@@ -72,6 +72,149 @@ const DATABASES: DatabaseConfig[] = [
       `https://www.ncbi.nlm.nih.gov/search/all/?term=${encodeURIComponent(term)}`,
     placeholder: "Search genes, proteins, literature...",
     ocidKey: "database.ncbi.button",
+  },
+  {
+    id: "pubmed",
+    name: "PubMed",
+    fullName: "PubMed Biomedical Literature Database",
+    description:
+      "PubMed comprises more than 37 million citations for biomedical literature from MEDLINE, life science journals, and online books. It provides free access to abstracts, and full texts for many articles through PubMed Central.",
+    color: "oklch(0.72 0.18 45)",
+    glowColor: "oklch(0.72 0.18 45 / 0.3)",
+    homeUrl: "https://pubmed.ncbi.nlm.nih.gov",
+    searchUrl: (term) =>
+      `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(term)}&sort=relevance`,
+    placeholder: "Search articles, diseases, treatments...",
+    ocidKey: "database.pubmed.button",
+  },
+  {
+    id: "pubchem",
+    name: "PubChem",
+    fullName: "PubChem — Open Chemistry Database (NCBI)",
+    description:
+      "PubChem is the world's largest collection of freely accessible chemical information. Search by chemical name, molecular formula, structure, or identifiers. Covers bioactivities, drug targets, and chemical safety.",
+    color: "oklch(0.60 0.22 330)",
+    glowColor: "oklch(0.60 0.22 330 / 0.3)",
+    homeUrl: "https://pubchem.ncbi.nlm.nih.gov",
+    searchUrl: (term) =>
+      `https://pubchem.ncbi.nlm.nih.gov/#query=${encodeURIComponent(term)}`,
+    placeholder: "Search compounds, structures, bioactivities...",
+    ocidKey: "database.pubchem.button",
+  },
+];
+
+const SPECIALIZED_DATABASES: DatabaseConfig[] = [
+  {
+    id: "disgenet",
+    name: "DisGeNET",
+    fullName: "Disease–Gene Association Database",
+    description:
+      "DisGeNET is a comprehensive discovery platform integrating information on human disease-associated genes and variants, curated from expert databases and the biomedical literature.",
+    color: "oklch(0.72 0.20 25)",
+    glowColor: "oklch(0.72 0.20 25 / 0.3)",
+    homeUrl: "https://www.disgenet.org",
+    searchUrl: (term) =>
+      `https://www.disgenet.org/search/#genes/${encodeURIComponent(term)}/1`,
+    placeholder: "Search diseases, genes, variants...",
+    ocidKey: "database.disgenet.button",
+  },
+  {
+    id: "omim",
+    name: "OMIM",
+    fullName: "Online Mendelian Inheritance in Man",
+    description:
+      "OMIM is a comprehensive, authoritative compendium of human genes and genetic phenotypes, updated daily, providing detailed disease-gene relationships and molecular basis.",
+    color: "oklch(0.65 0.22 300)",
+    glowColor: "oklch(0.65 0.22 300 / 0.3)",
+    homeUrl: "https://www.omim.org",
+    searchUrl: (term) =>
+      `https://www.omim.org/search/?search=${encodeURIComponent(term)}`,
+    placeholder: "Search genetic diseases, genes...",
+    ocidKey: "database.omim.button",
+  },
+  {
+    id: "string",
+    name: "STRING",
+    fullName: "Protein Interaction Network Database",
+    description:
+      "STRING provides known and predicted protein-protein interaction networks, integrating direct (physical) and indirect (functional) associations from experimental data, co-expression, and literature mining.",
+    color: "oklch(0.82 0.17 198)",
+    glowColor: "oklch(0.82 0.17 198 / 0.3)",
+    homeUrl: "https://string-db.org",
+    searchUrl: (term) =>
+      `https://string-db.org/search/0/${encodeURIComponent(term)}`,
+    placeholder: "Search proteins, genes...",
+    ocidKey: "database.string.button",
+  },
+  {
+    id: "biogrid",
+    name: "BioGRID",
+    fullName: "Biological General Repository for Interaction Datasets",
+    description:
+      "BioGRID is a curated biological database of protein, genetic, and chemical interactions for all major model organism species including humans, maintained by the Saccharina Informatics team.",
+    color: "oklch(0.75 0.20 155)",
+    glowColor: "oklch(0.75 0.20 155 / 0.3)",
+    homeUrl: "https://thebiogrid.org",
+    searchUrl: (term) =>
+      `https://thebiogrid.org/search.php?search=${encodeURIComponent(term)}&organism=9606`,
+    placeholder: "Search proteins, genes, interactions...",
+    ocidKey: "database.biogrid.button",
+  },
+  {
+    id: "chembl",
+    name: "ChEMBL",
+    fullName: "Bioactivity Database of Drug-like Molecules",
+    description:
+      "ChEMBL is a manually curated chemical database of bioactive molecules with drug-like properties, containing binding, functional, and ADMET information for millions of compounds.",
+    color: "oklch(0.72 0.20 170)",
+    glowColor: "oklch(0.72 0.20 170 / 0.3)",
+    homeUrl: "https://www.ebi.ac.uk/chembl/",
+    searchUrl: (term) =>
+      `https://www.ebi.ac.uk/chembl/#search_results/all/query=${encodeURIComponent(term)}`,
+    placeholder: "Search compounds, targets, drugs...",
+    ocidKey: "database.chembl.button",
+  },
+  {
+    id: "ttd",
+    name: "TTD",
+    fullName: "Therapeutic Target Database",
+    description:
+      "TTD provides information on known and explored therapeutic protein and nucleic acid targets, drugs, and pathways to facilitate target discovery and drug design.",
+    color: "oklch(0.68 0.18 280)",
+    glowColor: "oklch(0.68 0.18 280 / 0.3)",
+    homeUrl: "https://db.idrblab.net/ttd/",
+    searchUrl: (term) =>
+      `https://db.idrblab.net/ttd/search/ttd/target?query=${encodeURIComponent(term)}`,
+    placeholder: "Search targets, drugs, pathways...",
+    ocidKey: "database.ttd.button",
+  },
+  {
+    id: "reactome",
+    name: "Reactome",
+    fullName: "Curated Pathway Knowledgebase",
+    description:
+      "Reactome is a free, open-source, curated and peer-reviewed pathway database providing intuitive bioinformatics tools for the visualisation, interpretation and analysis of pathway knowledge.",
+    color: "oklch(0.75 0.18 40)",
+    glowColor: "oklch(0.75 0.18 40 / 0.3)",
+    homeUrl: "https://reactome.org",
+    searchUrl: (term) =>
+      `https://reactome.org/content/query?q=${encodeURIComponent(term)}&types=Pathway`,
+    placeholder: "Search pathways, reactions, proteins...",
+    ocidKey: "database.reactome.button",
+  },
+  {
+    id: "wikipathways",
+    name: "WikiPathways",
+    fullName: "Community Curated Pathway Database",
+    description:
+      "WikiPathways is a community curated pathway database for biological pathways analysis and visualization, with over 3,000 pathways for more than 30 species contributed by the research community.",
+    color: "oklch(0.65 0.20 145)",
+    glowColor: "oklch(0.65 0.20 145 / 0.3)",
+    homeUrl: "https://www.wikipathways.org",
+    searchUrl: (term) =>
+      `https://www.wikipathways.org/search.html#q=${encodeURIComponent(term)}`,
+    placeholder: "Search pathways, genes, diseases...",
+    ocidKey: "database.wikipathways.button",
   },
 ];
 
@@ -193,9 +336,33 @@ function DatabaseCard({ db }: { db: DatabaseConfig }) {
   );
 }
 
+function SectionHeader({
+  title,
+  subtitle,
+}: { title: string; subtitle: string }) {
+  return (
+    <div className="space-y-1">
+      <h3
+        className="font-display text-xl font-bold"
+        style={{
+          background:
+            "linear-gradient(135deg, oklch(0.82 0.17 198), oklch(0.55 0.22 295))",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+        }}
+      >
+        {title}
+      </h3>
+      <p className="text-xs" style={{ color: "oklch(0.5 0.06 260)" }}>
+        {subtitle}
+      </p>
+    </div>
+  );
+}
+
 export function DatabasesPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Header */}
       <div className="text-center space-y-3">
         <h2
@@ -213,67 +380,54 @@ export function DatabasesPage() {
           className="text-sm max-w-xl mx-auto"
           style={{ color: "oklch(0.6 0.06 260)" }}
         >
-          Access curated databases for genes, proteins, pathways, and drugs
-          directly from this platform.
+          Access 14 curated databases for diseases, genes, proteins, pathways,
+          interactions, and drugs directly from this platform.
         </p>
       </div>
 
-      {/* Database cards grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {DATABASES.map((db) => (
-          <DatabaseCard key={db.id} db={db} />
-        ))}
-      </div>
-
-      {/* PubChem bonus card */}
-      <div
-        className="rounded-2xl p-6"
-        style={{
-          background: "oklch(0.10 0.035 270 / 0.5)",
-          border: "1px solid oklch(0.60 0.22 330 / 0.2)",
-          backdropFilter: "blur(12px)",
-        }}
-      >
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="space-y-1">
-            <div
-              className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-mono font-bold mb-2"
-              style={{
-                background: "oklch(0.60 0.22 330 / 0.1)",
-                color: "oklch(0.75 0.15 330)",
-                border: "1px solid oklch(0.60 0.22 330 / 0.3)",
-              }}
-            >
-              PubChem
-            </div>
-            <h3
-              className="font-display font-semibold text-sm"
-              style={{ color: "oklch(0.85 0.04 240)" }}
-            >
-              PubChem — Open Chemistry Database
-            </h3>
-            <p className="text-xs" style={{ color: "oklch(0.6 0.06 260)" }}>
-              World's largest collection of freely accessible chemical
-              information. Search chemical structures, properties, and
-              bioactivities.
-            </p>
-          </div>
-          <a
-            href="https://pubchem.ncbi.nlm.nih.gov"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200"
-            style={{
-              background: "oklch(0.60 0.22 330 / 0.1)",
-              color: "oklch(0.75 0.15 330)",
-              border: "1px solid oklch(0.60 0.22 330 / 0.3)",
-            }}
-          >
-            <ExternalLink className="w-4 h-4" />
-            Open PubChem
-          </a>
+      {/* Core Databases */}
+      <div className="space-y-4">
+        <SectionHeader
+          title="Core Databases"
+          subtitle="Primary databases for pathways, proteins, drugs, and literature"
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {CORE_DATABASES.map((db) => (
+            <DatabaseCard key={db.id} db={db} />
+          ))}
         </div>
       </div>
+
+      {/* Divider */}
+      <div
+        className="h-px w-full"
+        style={{
+          background:
+            "linear-gradient(to right, transparent, oklch(0.82 0.17 198 / 0.3), transparent)",
+        }}
+      />
+
+      {/* Specialized Databases */}
+      <div className="space-y-4">
+        <SectionHeader
+          title="Specialized Databases"
+          subtitle="Disease–gene associations, protein interactions, drug targets, and curated pathways"
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {SPECIALIZED_DATABASES.map((db) => (
+            <DatabaseCard key={db.id} db={db} />
+          ))}
+        </div>
+      </div>
+
+      {/* Info note */}
+      <p
+        className="text-center text-xs"
+        style={{ color: "oklch(0.45 0.05 260)" }}
+      >
+        Search results open directly in each database. PubMed literature is also
+        fetched live in disease analysis results. All links open in a new tab.
+      </p>
     </div>
   );
 }

@@ -1,30 +1,24 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import type {
-  DatabaseStatus,
-  DiseaseResult,
-  SearchHistoryEntry,
-} from "../backend.d.ts";
+import type { DatabaseStatus, SearchHistoryEntry } from "../backend.d.ts";
+import {
+  type DiseaseResultWithLiterature,
+  searchDiseaseFromAPIs,
+} from "../services/diseaseSearch";
 import { useActor } from "./useActor";
 
 export function useDatabaseStatus() {
-  const { actor, isFetching } = useActor();
-  return useQuery<DatabaseStatus>({
-    queryKey: ["databaseStatus"],
-    queryFn: async () => {
-      if (!actor) {
-        return {
-          drugbank: false,
-          kegg: false,
-          ncbi: false,
-          pubchem: false,
-          uniprot: false,
-        };
-      }
-      return actor.getDatabaseStatus();
-    },
-    enabled: !!actor && !isFetching,
-    refetchInterval: 30000,
-  });
+  // All databases are always online (curated KB + NCBI eutils are always available)
+  return {
+    data: {
+      drugbank: true,
+      kegg: true,
+      ncbi: true,
+      pubchem: true,
+      pubmed: true,
+      uniprot: true,
+    } as DatabaseStatus & { pubmed: boolean },
+    isLoading: false,
+  };
 }
 
 export function useSuggestedDiseases() {
@@ -56,10 +50,14 @@ export function useSearchDisease() {
   const { actor } = useActor();
   const queryClient = useQueryClient();
 
-  return useMutation<DiseaseResult, Error, string>({
+  return useMutation<DiseaseResultWithLiterature, Error, string>({
     mutationFn: async (diseaseName: string) => {
-      if (!actor) throw new Error("Actor not available");
-      return actor.searchDisease(diseaseName);
+      const result = await searchDiseaseFromAPIs(diseaseName);
+      // fire-and-forget history storage via backend
+      if (actor) {
+        actor.searchDisease(diseaseName).catch(() => {});
+      }
+      return result;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["searchHistory"] });

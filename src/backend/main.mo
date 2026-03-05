@@ -3,10 +3,8 @@ import List "mo:core/List";
 import Map "mo:core/Map";
 import Time "mo:core/Time";
 import Text "mo:core/Text";
-import Runtime "mo:core/Runtime";
-import Blob "mo:core/Blob";
-import Nat "mo:core/Nat";
 import Order "mo:core/Order";
+import Nat "mo:core/Nat";
 import Iter "mo:core/Iter";
 import OutCall "http-outcalls/outcall";
 

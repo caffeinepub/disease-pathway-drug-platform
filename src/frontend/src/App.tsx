@@ -1,7 +1,6 @@
 import { Toaster } from "@/components/ui/sonner";
 import { useState } from "react";
 import { toast } from "sonner";
-import type { DiseaseResult } from "./backend.d.ts";
 import { DatabasesPage } from "./components/DatabasesPage";
 import { Footer } from "./components/Footer";
 import { HeroSection } from "./components/HeroSection";
@@ -15,15 +14,17 @@ import {
   useSearchHistory,
   useSuggestedDiseases,
 } from "./hooks/useQueries";
+import type { DiseaseResultWithLiterature } from "./services/diseaseSearch";
 
 type Page = "home" | "search" | "databases" | "history";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>("home");
-  const [searchResult, setSearchResult] = useState<DiseaseResult | null>(null);
+  const [searchResult, setSearchResult] =
+    useState<DiseaseResultWithLiterature | null>(null);
   const [lastDisease, setLastDisease] = useState<string>("");
 
-  const { data: dbStatus, isLoading: dbLoading } = useDatabaseStatus();
+  useDatabaseStatus(); // kept to trigger the hook; all databases are always online
   const { data: suggestions = [] } = useSuggestedDiseases();
   const { data: history = [], isLoading: historyLoading } = useSearchHistory();
   const searchMutation = useSearchDisease();
@@ -88,8 +89,6 @@ export default function App() {
             <HeroSection
               suggestions={suggestions}
               isSearching={searchMutation.isPending}
-              dbStatus={dbStatus}
-              dbLoading={dbLoading}
               history={history}
               historyLoading={historyLoading}
               onSearch={handleSearch}

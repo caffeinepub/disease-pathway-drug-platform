@@ -1,14 +1,12 @@
 import { ChevronRight, Clock, History, Sparkles } from "lucide-react";
 import { motion } from "motion/react";
-import type { DatabaseStatus, SearchHistoryEntry } from "../backend.d.ts";
+import type { SearchHistoryEntry } from "../backend.d.ts";
 import { DatabaseStatusBar } from "./DatabaseStatusBar";
 import { SearchBar } from "./SearchBar";
 
 interface HeroSectionProps {
   suggestions: string[];
   isSearching: boolean;
-  dbStatus: DatabaseStatus | undefined;
-  dbLoading: boolean;
   history: SearchHistoryEntry[];
   historyLoading: boolean;
   onSearch: (disease: string) => void;
@@ -29,8 +27,6 @@ function formatTimestampShort(ts: bigint) {
 export function HeroSection({
   suggestions,
   isSearching,
-  dbStatus,
-  dbLoading,
   history,
   historyLoading,
   onSearch,
@@ -123,6 +119,10 @@ export function HeroSection({
             <span style={{ color: "oklch(0.88 0.18 85)", fontWeight: 600 }}>
               NCBI
             </span>
+            {" · "}
+            <span style={{ color: "oklch(0.72 0.18 45)", fontWeight: 600 }}>
+              PubMed
+            </span>
           </p>
         </motion.div>
 
@@ -139,7 +139,7 @@ export function HeroSection({
             initialValue={initialValue}
           />
           {/* Database status */}
-          <DatabaseStatusBar status={dbStatus} isLoading={dbLoading} />
+          <DatabaseStatusBar />
         </motion.div>
 
         {/* Stats */}
@@ -151,22 +151,22 @@ export function HeroSection({
         >
           {[
             {
-              label: "Curated Databases",
-              value: "5+",
+              label: "Integrated Databases",
+              value: "14+",
               color: "oklch(0.82 0.17 198)",
               glow: "oklch(0.82 0.17 198 / 0.4)",
             },
             {
-              label: "Pathway Maps",
-              value: "550K+",
+              label: "Diseases Covered",
+              value: "75+",
               color: "oklch(0.75 0.20 155)",
               glow: "oklch(0.75 0.20 155 / 0.35)",
             },
             {
-              label: "Drug Compounds",
-              value: "14K+",
-              color: "oklch(0.65 0.22 295)",
-              glow: "oklch(0.65 0.22 295 / 0.35)",
+              label: "PubMed Articles",
+              value: "37M+",
+              color: "oklch(0.72 0.18 45)",
+              glow: "oklch(0.72 0.18 45 / 0.35)",
             },
           ].map(({ label, value, color, glow }) => (
             <div
