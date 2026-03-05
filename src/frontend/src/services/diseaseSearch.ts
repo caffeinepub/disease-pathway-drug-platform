@@ -5174,52 +5174,52 @@ const DISEASE_KB: Record<string, DiseaseEntry> = {
     pathways: [
       {
         keggId: "hsa04281",
-        name: "Oxygen transport and haemoglobin function",
+        name: "Oxygen transport / haemoglobin polymerisation",
         description:
-          "HbS (E6V) β-globin mutation causes haemoglobin polymerisation under deoxygenation, triggering erythrocyte sickling, haemolytic anaemia, and vaso-occlusion.",
-        reactomeId: "R-HSA-1237044",
+          "HbS (β-Glu6Val) polymerises under hypoxia causing erythrocyte sickling, vaso-occlusion, haemolysis, and ischaemia–reperfusion injury.",
+        reactomeId: "R-HSA-2168880",
       },
       {
         keggId: "hsa04670",
         name: "Leukocyte transendothelial migration",
         description:
-          "Sickle RBCs and activated neutrophils adhere to endothelium via P-selectin and VCAM-1 triggering vaso-occlusive crises.",
+          "Sickle RBCs and activated neutrophils adhere to endothelium via P-selectin and VCAM-1, driving vaso-occlusive crisis.",
       },
       {
         keggId: "hsa04022",
         name: "cGMP-PKG signaling pathway",
         description:
-          "Haemolysis-driven NO scavenging reduces cGMP-mediated vasodilation contributing to pulmonary hypertension.",
+          "Haemolysis-driven NO scavenging reduces cGMP-mediated vasodilation contributing to pulmonary hypertension in SCD.",
       },
       {
         keggId: "hsa04210",
         name: "Apoptosis",
         description:
-          "Chronic oxidative stress and ischaemia-reperfusion injury drive erythrocyte and endothelial apoptosis in SCD.",
+          "Repeated sickling causes erythrocyte membrane damage, phosphatidylserine exposure, and haemolytic anaemia.",
       },
     ],
     genes: [
       {
         gene: "HBB",
+        protein: "Hemoglobin subunit beta (HbS variant)",
+        uniprotId: "P68871",
+        function:
+          "β-globin Glu6Val mutation creates HbS; homozygous HbSS causes sickle cell disease with chronic haemolysis and vaso-occlusion.",
+        drug: "Exagamglogene autotemcel (Casgevy)",
+        drugMechanism:
+          "CRISPR-Cas9 BCL11A enhancer editing reactivating fetal haemoglobin to inhibit HbS polymerisation; first approved CRISPR therapy.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "HBB",
         protein: "Hemoglobin subunit beta",
         uniprotId: "P68871",
         function:
-          "E6V (βS) mutation causes haemoglobin S polymerisation under deoxygenation forming rigid sickle-shaped erythrocytes.",
-        drug: "Hydroxyurea",
+          "Lentiviral addition of anti-sickling βAS3-globin gene into autologous HSCs prevents HbS polymerisation.",
+        drug: "Lovotibeglogene autotemcel (Lyfgenia)",
         drugMechanism:
-          "Ribonucleotide reductase inhibitor increasing fetal haemoglobin (HbF) to inhibit HbS polymerisation.",
-        drugApproval: "FDA Approved",
-        pubchemId: "9281",
-      },
-      {
-        gene: "BCL11A",
-        protein: "B-cell lymphoma/leukaemia 11A",
-        uniprotId: "Q9H165",
-        function:
-          "Transcriptional repressor silencing gamma-globin (fetal Hb); reduction reactivates HbF in SCD.",
-        drug: "Exagamglogene autotemcel (EXA-CEL)",
-        drugMechanism:
-          "CRISPR-based gene editing disrupting BCL11A enhancer to reactivate HbF; functional cure in trials.",
+          "Lentiviral gene therapy delivering βAS3-globin transgene in autologous HSCs for SCD.",
         drugApproval: "FDA Approved",
         pubchemId: "0",
       },
@@ -5228,31 +5228,31 @@ const DISEASE_KB: Record<string, DiseaseEntry> = {
         protein: "P-selectin",
         uniprotId: "P16109",
         function:
-          "Endothelial adhesion molecule mediating sickle cell-leukocyte-endothelial interactions triggering vaso-occlusive crises.",
-        drug: "Crizanlizumab",
+          "Endothelial adhesion molecule mediating sickle RBC and neutrophil adhesion during vaso-occlusive crisis.",
+        drug: "Crizanlizumab (Adakveo)",
         drugMechanism:
-          "Anti-P-selectin antibody reducing vaso-occlusive crises frequency in SCD.",
+          "Anti-P-selectin monoclonal antibody reducing vaso-occlusive crises in SCD.",
         drugApproval: "FDA Approved",
         pubchemId: "0",
       },
       {
-        gene: "NOS3",
-        protein: "Endothelial nitric oxide synthase",
-        uniprotId: "P29474",
+        gene: "HBB",
+        protein: "Hemoglobin subunit beta",
+        uniprotId: "P68871",
         function:
-          "eNOS-derived NO is scavenged by free haemoglobin in SCD, impairing vasodilation and contributing to pulmonary hypertension.",
-        drug: "L-glutamine (Endari)",
+          "HbS polymerisation is concentration-dependent; hydroxyurea increases HbF diluting HbS and reducing sickling.",
+        drug: "Hydroxyurea",
         drugMechanism:
-          "Amino acid reducing oxidative stress and NAD redox imbalance in SCD erythrocytes.",
+          "Ribonucleotide reductase inhibitor increasing fetal haemoglobin production, reducing vaso-occlusion and pain crises.",
         drugApproval: "FDA Approved",
-        pubchemId: "5961",
+        pubchemId: "9937",
       },
       {
         gene: "HBG1",
         protein: "Hemoglobin subunit gamma-1",
         uniprotId: "P69891",
         function:
-          "Fetal gamma-globin chains form HbF (α2γ2) which inhibits HbS polymerisation; reactivation is therapeutic goal.",
+          "Fetal γ-globin reactivation compensates for HbS; HbF >20% substantially reduces sickling frequency.",
         drug: "Voxelotor",
         drugMechanism:
           "HbS polymerisation inhibitor allosterically stabilising oxyhaemoglobin conformation reducing sickling.",
@@ -5486,55 +5486,62 @@ const DISEASE_KB: Record<string, DiseaseEntry> = {
   "spinal muscular atrophy": {
     pathways: [
       {
-        keggId: "hsa03013",
-        name: "RNA transport",
+        keggId: "hsa03040",
+        name: "Spliceosome",
         description:
-          "SMN protein deficiency impairs snRNP biogenesis and pre-mRNA splicing in motor neurons.",
+          "SMN1 deficiency impairs snRNP assembly disrupting pre-mRNA splicing globally in motor neurons, selectively depleting them.",
+        reactomeId: "R-HSA-72163",
       },
       {
         keggId: "hsa04210",
         name: "Apoptosis",
         description:
-          "Lower motor neuron apoptosis and synaptic loss result from SMN depletion in spinal cord.",
+          "Lower motor neuron apoptosis in anterior horn cells of spinal cord drives progressive muscle atrophy in SMA.",
         reactomeId: "R-HSA-109581",
+      },
+      {
+        keggId: "hsa04722",
+        name: "Neurotrophin signaling pathway",
+        description:
+          "Reduced BDNF/CNTF motor neuron trophic support accelerates anterior horn cell loss in SMA.",
       },
     ],
     genes: [
       {
         gene: "SMN1",
-        protein: "Survival motor neuron protein 1",
+        protein: "Survival of motor neuron protein 1",
         uniprotId: "Q16637",
         function:
-          "Ubiquitous RNA-binding protein essential for snRNP assembly; homozygous deletion causes SMA motor neuron death.",
-        drug: "Nusinersen (Spinraza)",
+          "Ubiquitous RNA-binding protein essential for snRNP biogenesis; homozygous deletion of SMN1 causes SMA types 1–4.",
+        drug: "Onasemnogene abeparvovec (Zolgensma)",
         drugMechanism:
-          "Intrathecal splice-switching ASO promoting SMN2 exon 7 inclusion to produce full-length SMN protein.",
+          "AAV9 gene therapy delivering functional SMN1 gene via single IV infusion; one-time potentially curative treatment.",
         drugApproval: "FDA Approved",
         pubchemId: "0",
       },
       {
         gene: "SMN2",
-        protein: "Survival motor neuron protein 2 (paralog of SMN1)",
+        protein: "Survival of motor neuron protein 2",
         uniprotId: "Q16637",
         function:
-          "SMN2 produces only ~10% full-length protein due to exon 7 skipping; copy number is the strongest SMA disease modifier. Therapeutic splicing restoration is the dominant treatment strategy.",
-        drug: "Onasemnogene abeparvovec (Zolgensma)",
+          "Paralogue of SMN1; SMN2 exon 7 splicing modifier drugs increase full-length SMN protein compensating for SMN1 loss.",
+        drug: "Nusinersen (Spinraza)",
         drugMechanism:
-          "AAV9 gene therapy delivering functional SMN1 transgene to motor neurons; single-dose cure.",
+          "Intrathecal antisense oligonucleotide modifying SMN2 splicing to include exon 7 and restore SMN protein.",
         drugApproval: "FDA Approved",
         pubchemId: "0",
       },
       {
-        gene: "NCALD",
-        protein: "Neurocalcin-delta",
-        uniprotId: "P61601",
+        gene: "SMN2",
+        protein: "Survival of motor neuron protein 2",
+        uniprotId: "Q16637",
         function:
-          "Endocytosis regulator; elevated in SMN-deficient motor neurons; neuroprotective SMA modifier gene.",
+          "SMN2 copy number correlates with SMA severity; small molecules enhancing exon 7 inclusion provide oral therapy.",
         drug: "Risdiplam (Evrysdi)",
         drugMechanism:
-          "Oral SMN2 splicing modifier increasing full-length SMN2 mRNA in all tissues.",
+          "Oral small-molecule SMN2 splicing modifier increasing systemic full-length SMN protein production.",
         drugApproval: "FDA Approved",
-        pubchemId: "0",
+        pubchemId: "2296643",
       },
     ],
   },
@@ -6089,14 +6096,20 @@ const DISEASE_KB: Record<string, DiseaseEntry> = {
         keggId: "hsa04978",
         name: "Mineral absorption",
         description:
-          "Impaired biliary copper excretion by ATP7B causes toxic copper accumulation in liver, brain, and cornea.",
+          "ATP7B deficiency impairs hepatic copper excretion into bile causing copper overload in liver, brain, kidneys, and cornea.",
+        reactomeId: "R-HSA-5619084",
+      },
+      {
+        keggId: "hsa04141",
+        name: "Protein processing in ER",
+        description:
+          "Misfolded ATP7B accumulates in ER instead of trafficking to trans-Golgi network and bile canaliculi.",
       },
       {
         keggId: "hsa04210",
         name: "Apoptosis",
         description:
-          "Copper-induced oxidative stress triggers hepatocyte mitochondrial apoptosis driving liver disease in Wilson's disease.",
-        reactomeId: "R-HSA-109581",
+          "Copper-mediated reactive oxygen species cause hepatocyte apoptosis and Kayser-Fleischer ring formation in cornea.",
       },
     ],
     genes: [
@@ -6105,36 +6118,36 @@ const DISEASE_KB: Record<string, DiseaseEntry> = {
         protein: "Copper-transporting ATPase 2",
         uniprotId: "P35670",
         function:
-          "Hepatocyte copper transporter excreting copper into bile; >600 mutations cause hepatolenticular degeneration (Wilson's disease).",
-        drug: "D-Penicillamine",
+          "Hepatic copper-transporting P-type ATPase excreting copper into bile; >700 variants cause Wilson disease with liver and neuropsychiatric disease.",
+        drug: "Penicillamine",
         drugMechanism:
-          "Copper chelating agent forming soluble Cu-penicillamine complexes for urinary excretion.",
+          "Copper chelator forming stable Cu-penicillamine complex for urinary excretion; first-line de-coppering therapy.",
         drugApproval: "FDA Approved",
         pubchemId: "5852",
       },
       {
-        gene: "MT1A",
-        protein: "Metallothionein-1A",
-        uniprotId: "P04731",
+        gene: "ATP7B",
+        protein: "Copper-transporting ATPase 2",
+        uniprotId: "P35670",
         function:
-          "Cysteine-rich copper-binding protein; induced by copper; zinc upregulates MT limiting intestinal copper absorption.",
-        drug: "Zinc acetate",
+          "Alternative chelation is preferred in neurological Wilson disease to avoid initial neurological worsening with penicillamine.",
+        drug: "Trientine (Syprine)",
         drugMechanism:
-          "Zinc induces intestinal metallothionein binding copper and blocking absorption; maintenance therapy in Wilson's disease.",
+          "Copper chelator with lower side-effect profile than penicillamine; preferred for neurological Wilson disease.",
         drugApproval: "FDA Approved",
-        pubchemId: "2724253",
+        pubchemId: "3052",
       },
       {
-        gene: "COMMD1",
-        protein: "COMM domain-containing protein 1",
-        uniprotId: "Q8IX15",
+        gene: "CP",
+        protein: "Ceruloplasmin",
+        uniprotId: "P00450",
         function:
-          "Copper metabolism regulator interacting with ATP7B; COMMD1 deficiency causes copper toxicosis.",
-        drug: "Trientine",
+          "Copper-binding plasma glycoprotein; low ceruloplasmin (<20 mg/dL) is a diagnostic marker for Wilson disease.",
+        drug: "Zinc acetate (Galzin)",
         drugMechanism:
-          "Copper chelating agent used when penicillamine is not tolerated; prevents copper reabsorption.",
+          "Oral zinc induces intestinal metallothionein blocking dietary copper absorption; maintenance therapy in Wilson disease.",
         drugApproval: "FDA Approved",
-        pubchemId: "5460557",
+        pubchemId: "11192",
       },
     ],
   },
@@ -6142,41 +6155,59 @@ const DISEASE_KB: Record<string, DiseaseEntry> = {
   "gaucher disease": {
     pathways: [
       {
-        keggId: "hsa04142",
-        name: "Lysosome",
-        description:
-          "GBA1 enzyme deficiency causes glucocerebroside accumulation in lysosomes of macrophages leading to Gaucher cells in liver, spleen, and bone marrow.",
-        reactomeId: "R-HSA-9657689",
-      },
-      {
         keggId: "hsa00600",
         name: "Sphingolipid metabolism",
         description:
-          "GBA1-catalysed hydrolysis of glucocerebrosides is blocked; substrate storage activates macrophage inflammatory pathways.",
+          "GBA1 deficiency causes glucosylceramide accumulation in macrophage lysosomes (Gaucher cells) infiltrating spleen, liver, and bone marrow.",
+        reactomeId: "R-HSA-428157",
+      },
+      {
+        keggId: "hsa04142",
+        name: "Lysosome",
+        description:
+          "Lysosomal glucosylceramide overload impairs macrophage function causing organomegaly and cytopenia.",
+      },
+      {
+        keggId: "hsa04151",
+        name: "PI3K-Akt signaling pathway",
+        description:
+          "Glucosylceramide-induced inflammatory cytokines (IL-6, TNF) activate PI3K-Akt in Gaucher macrophages.",
       },
     ],
     genes: [
       {
         gene: "GBA",
-        protein: "Lysosomal acid beta-glucosidase (GCase)",
+        protein: "Lysosomal acid beta-glucocerebrosidase",
         uniprotId: "P04062",
         function:
-          "Lysosomal enzyme cleaving glucosylceramide; biallelic GBA1 mutations cause Gaucher disease (most common lysosomal storage disorder).",
-        drug: "Imiglucerase",
+          "Lysosomal enzyme cleaving glucosylceramide to ceramide; biallelic mutations cause Gaucher disease; heterozygous mutations are top genetic risk for Parkinson's.",
+        drug: "Imiglucerase (Cerezyme)",
         drugMechanism:
-          "Recombinant GCase (Cerezyme) replacing deficient enzyme; dramatically reduces hepatosplenomegaly and haematological manifestations.",
+          "Mannose-terminated recombinant glucocerebrosidase ERT targeting macrophage mannose receptors to clear Gb1 substrate.",
         drugApproval: "FDA Approved",
         pubchemId: "0",
       },
       {
-        gene: "PSAP",
-        protein: "Prosaposin",
-        uniprotId: "P07602",
+        gene: "GBA",
+        protein: "Lysosomal acid beta-glucocerebrosidase",
+        uniprotId: "P04062",
         function:
-          "Sphingolipid activator protein (Saposin C) required for GCase activity; rare PSAP mutations cause GCase insufficiency.",
+          "Oral substrate reduction is an alternative for patients intolerant of ERT or in mild-moderate Type 1 Gaucher disease.",
+        drug: "Eliglustat (Cerdelga)",
+        drugMechanism:
+          "Glucosylceramide synthase inhibitor reducing substrate production; oral first-line for Type 1 Gaucher disease.",
+        drugApproval: "FDA Approved",
+        pubchemId: "16219282",
+      },
+      {
+        gene: "GBA",
+        protein: "Lysosomal acid beta-glucocerebrosidase",
+        uniprotId: "P04062",
+        function:
+          "Pharmacological chaperones stabilise amenable GBA mutants increasing residual lysosomal enzyme activity.",
         drug: "Miglustat",
         drugMechanism:
-          "Substrate reduction therapy inhibiting glucosylceramide synthase to reduce glycolipid storage.",
+          "Substrate reduction therapy inhibiting glucosylceramide synthase; approved for Type 1 Gaucher disease when ERT is unsuitable.",
         drugApproval: "FDA Approved",
         pubchemId: "72384",
       },
@@ -6468,6 +6499,2217 @@ const DISEASE_KB: Record<string, DiseaseEntry> = {
       },
     ],
   },
+
+  // ─── Genetic Disorders with Approved Gene Therapies ──────────────────────
+
+  phenylketonuria: {
+    pathways: [
+      {
+        keggId: "hsa00360",
+        name: "Phenylalanine metabolism",
+        description:
+          "PAH deficiency blocks conversion of phenylalanine to tyrosine, causing toxic Phe accumulation in brain impairing myelination and neurodevelopment.",
+        reactomeId: "R-HSA-71240",
+        wikiPathwaysId: "WP3584",
+      },
+      {
+        keggId: "hsa00400",
+        name: "Phenylalanine, tyrosine and tryptophan biosynthesis",
+        description:
+          "Phenylalanine hydroxylase (PAH) catalyses hydroxylation to tyrosine using tetrahydrobiopterin (BH4) as cofactor.",
+      },
+      {
+        keggId: "hsa04726",
+        name: "Serotonergic synapse",
+        description:
+          "Phenylalanine accumulation competitively inhibits large neutral amino acid transport into the brain, depleting dopamine and serotonin synthesis.",
+      },
+    ],
+    genes: [
+      {
+        gene: "PAH",
+        protein: "Phenylalanine hydroxylase",
+        uniprotId: "P00439",
+        function:
+          "Hepatic enzyme hydroxylating phenylalanine to tyrosine using BH4; loss-of-function mutations cause PKU.",
+        drug: "Pegvaliase (Palynziq)",
+        drugMechanism:
+          "PEGylated phenylalanine ammonia lyase (PAL) enzyme substitution therapy metabolising excess Phe in PKU.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "PAH",
+        protein: "Phenylalanine hydroxylase",
+        uniprotId: "P00439",
+        function:
+          "BH4-dependent PAH; BH4-responsive PKU variants can be treated with sapropterin.",
+        drug: "Sapropterin (Kuvan)",
+        drugMechanism:
+          "Synthetic BH4 cofactor stabilising residual PAH activity in BH4-responsive PKU mutations.",
+        drugApproval: "FDA Approved",
+        pubchemId: "441243",
+      },
+      {
+        gene: "GCH1",
+        protein: "GTP cyclohydrolase 1",
+        uniprotId: "P30793",
+        function:
+          "Rate-limiting enzyme in BH4 biosynthesis; GCH1 mutations cause BH4-deficient PKU.",
+        drug: "Dietary Phe restriction + Phe-free amino acid formula",
+        drugMechanism:
+          "Metabolic diet reducing Phe substrate; cornerstone of PKU management alongside pharmacotherapy.",
+        drugApproval: "Standard of Care",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "fabry disease": {
+    pathways: [
+      {
+        keggId: "hsa00600",
+        name: "Sphingolipid metabolism",
+        description:
+          "α-Galactosidase A deficiency causes globotriaosylceramide (Gb3) accumulation in lysosomes of vascular endothelium, kidney, heart, and nervous system.",
+        reactomeId: "R-HSA-428157",
+      },
+      {
+        keggId: "hsa04142",
+        name: "Lysosome",
+        description:
+          "Lysosomal storage of Gb3 triggers ER stress, autophagy impairment, and cell death in Fabry disease.",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Gb3 accumulation activates ceramide-mediated apoptosis in renal and cardiac cells.",
+      },
+    ],
+    genes: [
+      {
+        gene: "GLA",
+        protein: "Alpha-galactosidase A",
+        uniprotId: "P06280",
+        function:
+          "Lysosomal enzyme cleaving terminal galactose from Gb3; X-linked mutations cause Fabry disease.",
+        drug: "Agalsidase beta (Fabrazyme)",
+        drugMechanism:
+          "Enzyme replacement therapy supplying recombinant α-galactosidase A to clear Gb3 substrate.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "GLA",
+        protein: "Alpha-galactosidase A",
+        uniprotId: "P06280",
+        function:
+          "Amenable GLA mutations retain some residual enzyme activity that can be pharmacologically stabilised.",
+        drug: "Migalastat (Galafold)",
+        drugMechanism:
+          "Pharmacological chaperone stabilising amenable GLA mutants enabling proper lysosomal trafficking.",
+        drugApproval: "FDA Approved",
+        pubchemId: "72467",
+      },
+      {
+        gene: "LAMP2",
+        protein: "Lysosome-associated membrane protein 2",
+        uniprotId: "P13473",
+        function:
+          "Lysosomal membrane glycoprotein; LAMP2 deficiency co-occurs with similar lysosomal glycolipid pathology.",
+        drug: "Agalsidase alfa (Replagal)",
+        drugMechanism:
+          "Human cell-derived α-galactosidase A ERT; approved outside USA for Fabry disease.",
+        drugApproval: "EMA Approved",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "pompe disease": {
+    pathways: [
+      {
+        keggId: "hsa05012",
+        name: "Glycogen metabolism / lysosomal degradation",
+        description:
+          "GAA deficiency causes glycogen accumulation in lysosomes of cardiac, skeletal, and smooth muscle, leading to progressive myopathy and respiratory failure.",
+        reactomeId: "R-HSA-70221",
+        wikiPathwaysId: "WP2333",
+      },
+      {
+        keggId: "hsa04142",
+        name: "Lysosome",
+        description:
+          "Lysosomal glycogen overload disrupts autophagy flux and triggers muscle cell death in Pompe disease.",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Chronic lysosomal stress activates caspase-dependent apoptosis in GAA-deficient muscle fibers.",
+      },
+    ],
+    genes: [
+      {
+        gene: "GAA",
+        protein: "Lysosomal acid alpha-glucosidase",
+        uniprotId: "P10253",
+        function:
+          "Lysosomal enzyme degrading glycogen to glucose; biallelic loss-of-function mutations cause Pompe disease (GSD II).",
+        drug: "Alglucosidase alfa (Myozyme/Lumizyme)",
+        drugMechanism:
+          "Recombinant human GAA enzyme replacement therapy reducing lysosomal glycogen accumulation.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "GAA",
+        protein: "Lysosomal acid alpha-glucosidase",
+        uniprotId: "P10253",
+        function:
+          "Next-generation ERT target with improved M6P receptor uptake via GILT-tag technology.",
+        drug: "Avalglucosidase alfa (Nexviazyme)",
+        drugMechanism:
+          "High M6P content GAA ERT with superior lysosomal uptake and muscle penetration vs. alglucosidase alfa.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "LAMP1",
+        protein: "Lysosome-associated membrane glycoprotein 1",
+        uniprotId: "P11279",
+        function:
+          "Lysosomal integrity marker; expanded autolysosomes marked by LAMP1 are hallmark of Pompe muscle pathology.",
+        drug: "Cipaglucosidase alfa + miglustat (Pombiliti+Opfolda)",
+        drugMechanism:
+          "Co-formulated ERT with pharmacological chaperone stabilising cipaglucosidase alfa for improved delivery.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  mucopolysaccharidosis: {
+    pathways: [
+      {
+        keggId: "hsa00531",
+        name: "Glycosaminoglycan degradation",
+        description:
+          "Lysosomal enzyme deficiencies (IDUA, IDS, HGSNAT, etc.) cause heparan/dermatan/keratan sulfate accumulation in multiple tissues.",
+        reactomeId: "R-HSA-2206279",
+      },
+      {
+        keggId: "hsa04142",
+        name: "Lysosome",
+        description:
+          "GAG overload triggers lysosomal dysfunction, secondary inflammation, and multi-organ damage in MPS syndromes.",
+      },
+      {
+        keggId: "hsa04668",
+        name: "TNF signaling pathway",
+        description:
+          "Accumulated GAG fragments act as TLR4 agonists triggering sterile inflammation in MPS I–VII.",
+      },
+    ],
+    genes: [
+      {
+        gene: "IDUA",
+        protein: "Alpha-L-iduronidase",
+        uniprotId: "P35475",
+        function:
+          "Lysosomal enzyme cleaving iduronyl residues from heparan and dermatan sulfate; deficiency causes MPS I (Hurler/Scheie).",
+        drug: "Laronidase (Aldurazyme)",
+        drugMechanism:
+          "Recombinant human IDUA ERT reducing urinary GAG and tissue substrate in MPS I.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "IDS",
+        protein: "Iduronate-2-sulfatase",
+        uniprotId: "P22304",
+        function:
+          "X-linked lysosomal sulfatase; mutations cause MPS II (Hunter syndrome) with GAG accumulation.",
+        drug: "Idursulfase (Elaprase)",
+        drugMechanism:
+          "Recombinant IDS ERT reducing hepatosplenomegaly and respiratory symptoms in MPS II.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "NAGLU",
+        protein: "Alpha-N-acetylglucosaminidase",
+        uniprotId: "P54802",
+        function:
+          "Lysosomal enzyme degrading heparan sulfate; mutations cause MPS III B (Sanfilippo B) with CNS-predominant disease.",
+        drug: "Vestronidase alfa (Mepsevii)",
+        drugMechanism:
+          "Recombinant beta-glucuronidase ERT for MPS VII (Sly syndrome) clearing glucuronidated GAG substrates.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "duchenne muscular dystrophy": {
+    pathways: [
+      {
+        keggId: "hsa05410",
+        name: "Hypertrophic cardiomyopathy",
+        description:
+          "Dystrophin deficiency disrupts the DGC complex causing sarcolemmal fragility, calcium influx, and progressive muscle fibre necrosis in DMD.",
+        reactomeId: "R-HSA-5576891",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Calcium-activated calpain and mitochondrial apoptosis drive cardiomyocyte and skeletal muscle fibre death in DMD.",
+      },
+      {
+        keggId: "hsa04064",
+        name: "NF-kappa B signaling pathway",
+        description:
+          "Chronic NF-κB activation in dystrophin-deficient muscle drives inflammatory infiltration and fibrosis.",
+      },
+    ],
+    genes: [
+      {
+        gene: "DMD",
+        protein: "Dystrophin",
+        uniprotId: "P11532",
+        function:
+          "Cytoskeletal protein linking actin cytoskeleton to extracellular matrix via DGC; absent in DMD causing progressive muscle wasting.",
+        drug: "Eteplirsen (Exondys 51)",
+        drugMechanism:
+          "Antisense oligonucleotide inducing exon 51 skipping to restore truncated but functional dystrophin.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "DMD",
+        protein: "Dystrophin",
+        uniprotId: "P11532",
+        function:
+          "Exon 53 skipping restores reading frame in ~8% of DMD patients with amenable mutations.",
+        drug: "Golodirsen (Vyondys 53)",
+        drugMechanism:
+          "Phosphorodiamidate morpholino oligomer inducing exon 53 skipping increasing dystrophin production.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "DMD",
+        protein: "Dystrophin",
+        uniprotId: "P11532",
+        function:
+          "Nonsense mutations in DMD (~13%) introduce premature stop codons amenable to readthrough therapy.",
+        drug: "Ataluren (Translarna)",
+        drugMechanism:
+          "Ribosomal readthrough agent allowing translation past nonsense mutations to produce full-length dystrophin.",
+        drugApproval: "EMA Approved (conditional)",
+        pubchemId: "11975634",
+      },
+      {
+        gene: "SGCA",
+        protein: "Alpha-sarcoglycan",
+        uniprotId: "Q16586",
+        function:
+          "DGC component; mutations cause limb-girdle muscular dystrophy type 2D with overlapping DMD features.",
+        drug: "Delandistrogene moxeparvovec (Elevidys)",
+        drugMechanism:
+          "AAV rh74 gene therapy delivering micro-dystrophin transgene to skeletal and cardiac muscle.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "hemophilia a": {
+    pathways: [
+      {
+        keggId: "hsa04610",
+        name: "Complement and coagulation cascades",
+        description:
+          "Factor VIII deficiency prevents tenase complex formation blocking intrinsic coagulation pathway and causing prolonged haemorrhage.",
+        reactomeId: "R-HSA-140877",
+      },
+      {
+        keggId: "hsa04611",
+        name: "Platelet activation",
+        description:
+          "Platelet plug forms normally in haemophilia A but fibrin reinforcement is absent without FVIII.",
+      },
+    ],
+    genes: [
+      {
+        gene: "F8",
+        protein: "Coagulation factor VIII",
+        uniprotId: "P00451",
+        function:
+          "Procoagulant cofactor in intrinsic Xase complex (with FIXa and FX); absent or dysfunctional in haemophilia A.",
+        drug: "Fitusiran",
+        drugMechanism:
+          "siRNA targeting antithrombin III to rebalance coagulation in haemophilia A and B without factor replacement.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "F8",
+        protein: "Coagulation factor VIII",
+        uniprotId: "P00451",
+        function:
+          "Recombinant FVIII replacement therapy has been the standard of care; extended half-life products improve dosing.",
+        drug: "Valoctocogene roxaparvovec (Roctavian)",
+        drugMechanism:
+          "AAV5 gene therapy delivering B-domain deleted F8 transgene achieving sustained FVIII expression.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "SERPINC1",
+        protein: "Antithrombin III",
+        uniprotId: "P01008",
+        function:
+          "Serine protease inhibitor of thrombin and FXa; fitusiran lowers its level to rebalance haemostasis.",
+        drug: "Emicizumab (Hemlibra)",
+        drugMechanism:
+          "Bispecific antibody mimicking FVIII function by bridging FIXa and FX; approved for HA with and without inhibitors.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "hemophilia b": {
+    pathways: [
+      {
+        keggId: "hsa04610",
+        name: "Complement and coagulation cascades",
+        description:
+          "Factor IX deficiency blocks intrinsic tenase complex formation causing Christmas disease (haemophilia B).",
+        reactomeId: "R-HSA-140877",
+      },
+      {
+        keggId: "hsa04611",
+        name: "Platelet activation",
+        description:
+          "Platelet-surface tenase complex is non-functional without FIX, impairing thrombus consolidation.",
+      },
+    ],
+    genes: [
+      {
+        gene: "F9",
+        protein: "Coagulation factor IX",
+        uniprotId: "P00740",
+        function:
+          "Serine protease in intrinsic pathway activated by FXIa or FVIIa/TF; deficiency causes haemophilia B.",
+        drug: "Etranacogene dezaparvovec (Hemgenix)",
+        drugMechanism:
+          "AAV5 gene therapy delivering gain-of-function FIX Padua variant achieving sustained high-level FIX expression.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "F9",
+        protein: "Coagulation factor IX",
+        uniprotId: "P00740",
+        function:
+          "Standard ERT target; FIX Padua (R338L) variant used in gene therapy for 8x higher activity.",
+        drug: "Fidanacogene elaparvovec (Beqvez)",
+        drugMechanism:
+          "AAV vector gene therapy with FIX-Padua transgene achieving durable haemostasis in haemophilia B adults.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "SERPINC1",
+        protein: "Antithrombin III",
+        uniprotId: "P01008",
+        function:
+          "Natural anticoagulant; fitusiran reduces antithrombin enabling bypassing therapy-independent haemostasis.",
+        drug: "Fitusiran",
+        drugMechanism:
+          "GalNAc-siRNA conjugate subcutaneously delivered, silencing hepatic antithrombin to restore thrombin generation.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "beta thalassemia": {
+    pathways: [
+      {
+        keggId: "hsa04281",
+        name: "Oxygen transport / haemoglobin assembly",
+        description:
+          "β-globin chain deficiency causes excess unpaired α-globin chains precipitating in erythroid precursors driving ineffective erythropoiesis and haemolysis.",
+        reactomeId: "R-HSA-2168880",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Excess α-globin precipitates activate caspase-mediated erythroid precursor apoptosis causing ineffective erythropoiesis.",
+      },
+      {
+        keggId: "hsa04152",
+        name: "AMPK signaling pathway",
+        description:
+          "Erythropoietin receptor signaling through JAK2-STAT5 and AMPK is hyperactivated in thalassaemia driving compensatory extramedullary haematopoiesis.",
+      },
+    ],
+    genes: [
+      {
+        gene: "HBB",
+        protein: "Hemoglobin subunit beta",
+        uniprotId: "P68871",
+        function:
+          "β-globin chain of adult haemoglobin; >300 pathogenic variants cause β-thalassaemia of varying severity.",
+        drug: "Betibeglogene autotemcel (Zynteglo)",
+        drugMechanism:
+          "Lentiviral gene therapy adding functional βT87Q-globin gene into autologous haematopoietic stem cells.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "BCL11A",
+        protein: "B-cell lymphoma/leukemia 11A",
+        uniprotId: "Q9H165",
+        function:
+          "Transcriptional repressor of fetal γ-globin; BCL11A silencing reactivates HbF compensating for β-globin deficiency.",
+        drug: "Luspatercept (Reblozyl)",
+        drugMechanism:
+          "TGF-β ligand trap reducing ineffective erythropoiesis and transfusion burden in β-thalassaemia.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "HBG1",
+        protein: "Hemoglobin subunit gamma-1 (fetal Hb)",
+        uniprotId: "P69891",
+        function:
+          "Fetal γ-globin reactivation compensates for absent β-globin in HPFH and after BCL11A silencing.",
+        drug: "Exagamglogene autotemcel (Casgevy)",
+        drugMechanism:
+          "CRISPR-Cas9 gene editing disrupting BCL11A erythroid enhancer to reactivate fetal haemoglobin; first approved CRISPR therapy.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "marfan syndrome": {
+    pathways: [
+      {
+        keggId: "hsa04350",
+        name: "TGF-beta signaling pathway",
+        description:
+          "FBN1 mutations release latent TGF-β from extracellular matrix causing aortic root dilatation and skeletal manifestations.",
+        reactomeId: "R-HSA-170834",
+        wikiPathwaysId: "WP366",
+      },
+      {
+        keggId: "hsa04151",
+        name: "PI3K-Akt signaling pathway",
+        description:
+          "TGF-β hyperactivation in Marfan aortae activates ERK and Smad2/3 driving smooth muscle cell apoptosis and matrix degradation.",
+      },
+      {
+        keggId: "hsa04022",
+        name: "cGMP-PKG signaling pathway",
+        description:
+          "NO-cGMP signaling regulates vascular smooth muscle tone; beta-blockers and ARBs modulate this pathway in Marfan aorta.",
+      },
+    ],
+    genes: [
+      {
+        gene: "FBN1",
+        protein: "Fibrillin-1",
+        uniprotId: "P35555",
+        function:
+          "Extracellular matrix glycoprotein of elastic microfibrils; >3000 pathogenic variants cause Marfan syndrome (aortic aneurysm, ectopia lentis, tall stature).",
+        drug: "Losartan",
+        drugMechanism:
+          "AT1R blocker reducing TGF-β-mediated aortic wall damage; slows aortic root dilatation in Marfan syndrome.",
+        drugApproval: "FDA Approved (off-label use)",
+        pubchemId: "3961",
+      },
+      {
+        gene: "TGFB2",
+        protein: "Transforming growth factor beta-2",
+        uniprotId: "P61812",
+        function:
+          "TGF-β2 is released from FBN1-deficient microfibrils and drives aortic aneurysm pathology.",
+        drug: "Atenolol",
+        drugMechanism:
+          "Cardioselective beta-blocker reducing aortic wall stress; standard prophylaxis for Marfan-related aortic dilatation.",
+        drugApproval: "FDA Approved (off-label use)",
+        pubchemId: "2249",
+      },
+      {
+        gene: "AGTR1",
+        protein: "Angiotensin II receptor type 1",
+        uniprotId: "P30556",
+        function:
+          "AT1R mediates angiotensin II-induced TGF-β activation in aortic vascular smooth muscle cells.",
+        drug: "Irbesartan",
+        drugMechanism:
+          "ARB blocking TGF-β pathway activation in Marfan aortae; studied in AIMS trial.",
+        drugApproval: "FDA Approved (off-label use)",
+        pubchemId: "3749",
+      },
+    ],
+  },
+
+  neurofibromatosis: {
+    pathways: [
+      {
+        keggId: "hsa04014",
+        name: "Ras signaling pathway",
+        description:
+          "NF1 (neurofibromin) loss activates Ras-MAPK signaling in Schwann cells and melanocytes causing benign neurofibromas and malignant MPNST.",
+        reactomeId: "R-HSA-5683057",
+        wikiPathwaysId: "WP382",
+      },
+      {
+        keggId: "hsa04151",
+        name: "PI3K-Akt signaling pathway",
+        description:
+          "Ras hyperactivation in NF1 simultaneously activates PI3K-Akt-mTOR promoting tumour cell survival.",
+      },
+      {
+        keggId: "hsa04010",
+        name: "MAPK signaling pathway",
+        description:
+          "RAS-RAF-MEK-ERK cascade drives Schwann cell hyperproliferation and neurofibroma growth in NF1.",
+      },
+    ],
+    genes: [
+      {
+        gene: "NF1",
+        protein: "Neurofibromin",
+        uniprotId: "P21359",
+        function:
+          "Ras-GAP tumour suppressor converting active Ras-GTP to inactive Ras-GDP; biallelic NF1 loss causes plexiform neurofibromas and NF1 syndrome.",
+        drug: "Selumetinib (Koselugo)",
+        drugMechanism:
+          "MEK1/2 inhibitor blocking Ras-driven ERK signaling; approved for symptomatic inoperable plexiform neurofibromas in NF1.",
+        drugApproval: "FDA Approved",
+        pubchemId: "10127622",
+      },
+      {
+        gene: "NF2",
+        protein: "Merlin (Schwannomin)",
+        uniprotId: "P35240",
+        function:
+          "Tumour suppressor linking membrane receptors to cytoskeleton; biallelic NF2 loss causes bilateral vestibular schwannomas (NF2 disease).",
+        drug: "Bevacizumab",
+        drugMechanism:
+          "Anti-VEGF antibody reducing vestibular schwannoma volume and hearing loss in NF2.",
+        drugApproval: "FDA Approved (off-label NF2)",
+        pubchemId: "0",
+      },
+      {
+        gene: "MTOR",
+        protein: "Serine/threonine-protein kinase mTOR",
+        uniprotId: "P42345",
+        function:
+          "mTORC1 downstream of Ras-PI3K; overactivated in NF1-deficient cells driving tumour growth.",
+        drug: "Everolimus",
+        drugMechanism:
+          "mTORC1 inhibitor reducing subependymal giant cell astrocytoma size; used off-label for NF1-related tumours.",
+        drugApproval: "FDA Approved (TSC/SEGA)",
+        pubchemId: "5284616",
+      },
+    ],
+  },
+
+  "tuberous sclerosis": {
+    pathways: [
+      {
+        keggId: "hsa04150",
+        name: "mTOR signaling pathway",
+        description:
+          "TSC1/TSC2 complex is a key negative regulator of mTORC1; biallelic loss constitutively activates mTOR driving hamartoma growth in brain, kidney, lung, and skin.",
+        reactomeId: "R-HSA-165159",
+        wikiPathwaysId: "WP1471",
+      },
+      {
+        keggId: "hsa04727",
+        name: "GABAergic synapse",
+        description:
+          "mTOR hyperactivation causes cortical tuber formation impairing GABAergic synaptic development and causing TSC-associated epilepsy.",
+      },
+      {
+        keggId: "hsa04151",
+        name: "PI3K-Akt signaling pathway",
+        description:
+          "PI3K-Akt phosphorylates and inactivates TSC2 integrating growth factor signals to mTORC1.",
+      },
+    ],
+    genes: [
+      {
+        gene: "TSC1",
+        protein: "Hamartin",
+        uniprotId: "Q92574",
+        function:
+          "Forms heterodimeric TSC1/TSC2 complex acting as Rheb-GAP; loss activates mTORC1 causing TSC benign tumours.",
+        drug: "Everolimus (Afinitor)",
+        drugMechanism:
+          "mTORC1 inhibitor reducing SEGA, renal AML, and lung LAM volume in TSC patients.",
+        drugApproval: "FDA Approved",
+        pubchemId: "5284616",
+      },
+      {
+        gene: "TSC2",
+        protein: "Tuberin",
+        uniprotId: "P49815",
+        function:
+          "GTPase-activating protein for Rheb; TSC2 mutations more frequent and severe than TSC1; drives mTOR-dependent hamartomas.",
+        drug: "Sirolimus (Rapamune)",
+        drugMechanism:
+          "mTORC1 allosteric inhibitor (rapamycin) reducing LAM progression and renal AML in TSC.",
+        drugApproval: "FDA Approved",
+        pubchemId: "5284616",
+      },
+      {
+        gene: "MTOR",
+        protein: "mTOR kinase",
+        uniprotId: "P42345",
+        function:
+          "Central kinase in PI3K-Akt-mTOR axis; somatic mTOR gain-of-function mutations in brain malformations overlap with TSC.",
+        drug: "Cannabidiol (Epidiolex)",
+        drugMechanism:
+          "Plant-derived cannabidiol with multiple anti-epileptic mechanisms; FDA-approved for TSC-associated seizures.",
+        drugApproval: "FDA Approved",
+        pubchemId: "644019",
+      },
+    ],
+  },
+
+  "lysosomal acid lipase deficiency": {
+    pathways: [
+      {
+        keggId: "hsa01212",
+        name: "Fatty acid metabolism",
+        description:
+          "LAL deficiency causes lysosomal accumulation of cholesteryl esters and triglycerides in hepatocytes and macrophages causing liver disease and atherosclerosis.",
+      },
+      {
+        keggId: "hsa04142",
+        name: "Lysosome",
+        description:
+          "Cholesteryl ester overload in lysosomes drives foam cell formation in vasculature and hepatic steatosis/fibrosis.",
+      },
+      {
+        keggId: "hsa04152",
+        name: "AMPK signaling pathway",
+        description:
+          "Impaired lysosomal cholesterol sensing deregulates AMPK-mTOR-SREBP lipid homeostasis axis.",
+      },
+    ],
+    genes: [
+      {
+        gene: "LIPA",
+        protein: "Lysosomal acid lipase",
+        uniprotId: "P38571",
+        function:
+          "Lysosomal enzyme hydrolyzing cholesteryl esters and triglycerides; mutations cause Wolman disease (infantile) or CESD (later-onset).",
+        drug: "Sebelipase alfa (Kanuma)",
+        drugMechanism:
+          "Recombinant human LAL ERT reducing hepatic cholesteryl ester and triglyceride accumulation.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "LDLR",
+        protein: "Low-density lipoprotein receptor",
+        uniprotId: "P01130",
+        function:
+          "LDL uptake receptor; impaired cholesterol recycling from lysosomes downregulates LDLR increasing cardiovascular risk.",
+        drug: "Statins (Atorvastatin)",
+        drugMechanism:
+          "HMG-CoA reductase inhibitor adjunctively reducing LDL in CESD patients alongside ERT.",
+        drugApproval: "FDA Approved (adjunct)",
+        pubchemId: "60823",
+      },
+    ],
+  },
+
+  "transthyretin amyloidosis": {
+    pathways: [
+      {
+        keggId: "hsa04141",
+        name: "Protein processing in ER",
+        description:
+          "Mutant or wild-type TTR misfolds and dissociates from homotetramers forming amyloid fibrils depositing in heart, nerves, and other organs.",
+        reactomeId: "R-HSA-381038",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Extracellular TTR amyloid fibrils and soluble oligomers induce cardiomyocyte and neuron apoptosis in ATTR amyloidosis.",
+      },
+      {
+        keggId: "hsa04022",
+        name: "cGMP-PKG signaling pathway",
+        description:
+          "Amyloid infiltration impairs cardiac contractility and cGMP signaling causing restrictive cardiomyopathy.",
+      },
+    ],
+    genes: [
+      {
+        gene: "TTR",
+        protein: "Transthyretin",
+        uniprotId: "P02766",
+        function:
+          "Hepatic tetramer transporting thyroxine and retinol; >100 pathogenic variants and wild-type TTR cause ATTR amyloidosis affecting heart and peripheral nervous system.",
+        drug: "Tafamidis (Vyndaqel/Vyndamax)",
+        drugMechanism:
+          "TTR tetramer stabiliser preventing dissociation and amyloid fibril formation; FDA-approved for ATTR cardiomyopathy.",
+        drugApproval: "FDA Approved",
+        pubchemId: "9908635",
+      },
+      {
+        gene: "TTR",
+        protein: "Transthyretin",
+        uniprotId: "P02766",
+        function:
+          "Hepatic TTR silencing eliminates the primary source of amyloidogenic TTR in both mutant and wild-type ATTR.",
+        drug: "Patisiran (Onpattro)",
+        drugMechanism:
+          "First approved siRNA therapeutic; LNP-delivered siRNA targeting TTR mRNA reducing serum TTR by >80%.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "TTR",
+        protein: "Transthyretin",
+        uniprotId: "P02766",
+        function:
+          "GalNAc-conjugated TTR siRNA enables subcutaneous delivery for hereditary and wild-type ATTR amyloidosis.",
+        drug: "Vutrisiran (Amvuttra)",
+        drugMechanism:
+          "Enhanced stabilization chemistry siRNA silencing TTR expression; subcutaneous quarterly dosing.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "alpha-1 antitrypsin deficiency": {
+    pathways: [
+      {
+        keggId: "hsa04141",
+        name: "Protein processing in ER",
+        description:
+          "Z-AAT (Glu342Lys) misfolded polymer accumulates in hepatocyte ER causing liver cirrhosis while deficient circulating AAT allows neutrophil elastase to destroy lung parenchyma.",
+        reactomeId: "R-HSA-381038",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Misfolded Z-AAT polymer activates hepatocyte ER stress and apoptosis pathway causing AAT-related liver disease.",
+      },
+      {
+        keggId: "hsa04064",
+        name: "NF-kappa B signaling pathway",
+        description:
+          "Unchecked neutrophil elastase activates NF-κB in lung epithelium driving COPD/emphysema in AATD.",
+      },
+    ],
+    genes: [
+      {
+        gene: "SERPINA1",
+        protein: "Alpha-1-antitrypsin",
+        uniprotId: "P01009",
+        function:
+          "Serine protease inhibitor of neutrophil elastase; Z allele (Glu342Lys) causes polymerisation and deficiency causing emphysema and liver disease.",
+        drug: "Alpha-1 proteinase inhibitor (Prolastin/Zemaira)",
+        drugMechanism:
+          "Weekly IV augmentation therapy with pooled human AAT to raise lung epithelial lining fluid AAT above protective threshold.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "SERPINA1",
+        protein: "Alpha-1-antitrypsin",
+        uniprotId: "P01009",
+        function:
+          "Z-AAT polymer accumulation in hepatocytes is the target for AAT gene therapy to restore normal secretion.",
+        drug: "Fazirsiran",
+        drugMechanism:
+          "GalNAc-siRNA hepatocyte-targeting conjugate silencing Z-SERPINA1 mRNA to reduce polymer accumulation and liver damage.",
+        drugApproval: "Clinical Trial (Phase 3)",
+        pubchemId: "0",
+      },
+      {
+        gene: "ELANE",
+        protein: "Neutrophil elastase",
+        uniprotId: "P08246",
+        function:
+          "Serine protease destroying alveolar walls in AATD; its unchecked activity drives panacinar emphysema.",
+        drug: "Alvelestat",
+        drugMechanism:
+          "Oral neutrophil elastase inhibitor reducing lung tissue destruction in AATD-related emphysema.",
+        drugApproval: "Clinical Trial (Phase 2)",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "retinitis pigmentosa": {
+    pathways: [
+      {
+        keggId: "hsa04744",
+        name: "Phototransduction",
+        description:
+          "Rhodopsin and photoreceptor protein mutations disrupt the phototransduction cascade causing progressive rod photoreceptor degeneration in RP.",
+        reactomeId: "R-HSA-2187338",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Photoreceptor apoptosis via caspase-7 and AIF pathways drives progressive retinal degeneration in RP.",
+      },
+      {
+        keggId: "hsa04141",
+        name: "Protein processing in ER",
+        description:
+          "Rhodopsin P23H and other misfolded RP-causing mutant proteins trigger ER stress and UPR in rod photoreceptors.",
+      },
+    ],
+    genes: [
+      {
+        gene: "RPE65",
+        protein: "Retinal pigment epithelium-specific 65 kDa protein",
+        uniprotId: "P23380",
+        function:
+          "Essential isomerase in the visual cycle converting all-trans-retinyl esters to 11-cis-retinol; RPE65 mutations cause Leber congenital amaurosis and RP.",
+        drug: "Voretigene neparvovec (Luxturna)",
+        drugMechanism:
+          "AAV2 gene therapy delivering functional RPE65 to RPE cells; first FDA-approved in vivo gene therapy for a genetic disease.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "RPGR",
+        protein: "Retinitis pigmentosa GTPase regulator",
+        uniprotId: "P51824",
+        function:
+          "Ciliary protein regulating photoreceptor ciliary transport; RPGR mutations cause X-linked RP (most severe form).",
+        drug: "Botaretigene sparoparvovec",
+        drugMechanism:
+          "AAV8 gene therapy delivering RPGR to rods and cones in X-linked RP; Phase 3 trials ongoing.",
+        drugApproval: "Clinical Trial (Phase 3)",
+        pubchemId: "0",
+      },
+      {
+        gene: "CNGB3",
+        protein: "Cyclic nucleotide-gated channel beta-3",
+        uniprotId: "Q9UBM7",
+        function:
+          "Cone photoreceptor channel subunit; CNGB3 mutations cause achromatopsia (complete colour blindness) with photophobia.",
+        drug: "CPCB-RPE1 (subretinal cell transplant)",
+        drugMechanism:
+          "Human embryonic stem cell-derived RPE transplantation to rescue cone photoreceptors; investigational.",
+        drugApproval: "Investigational",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "hereditary transthyretin polyneuropathy": {
+    pathways: [
+      {
+        keggId: "hsa04141",
+        name: "Protein processing in ER",
+        description:
+          "Mutant TTR (Val30Met and >100 other variants) forms amyloid fibrils depositing in peripheral nerves causing length-dependent axonal neuropathy.",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "TTR amyloid oligomers induce Schwann cell and dorsal root ganglion neuron apoptosis causing sensorimotor and autonomic neuropathy.",
+      },
+    ],
+    genes: [
+      {
+        gene: "TTR",
+        protein: "Transthyretin",
+        uniprotId: "P02766",
+        function:
+          "Val30Met and other TTR mutations cause hereditary ATTR polyneuropathy (hATTR-PN); Val30Met most common worldwide.",
+        drug: "Eplontersen (Wainua)",
+        drugMechanism:
+          "GalNAc-conjugated antisense oligonucleotide silencing hepatic TTR for hATTR polyneuropathy; monthly subcutaneous dosing.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "TTR",
+        protein: "Transthyretin",
+        uniprotId: "P02766",
+        function:
+          "Liver transplantation was the only treatment before 2018; RNA interference provides targeted TTR silencing.",
+        drug: "Inotersen (Tegsedi)",
+        drugMechanism:
+          "Antisense oligonucleotide reducing hepatic TTR production improving neuropathy in hATTR-PN.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "familial hypercholesterolemia": {
+    pathways: [
+      {
+        keggId: "hsa04976",
+        name: "Bile secretion",
+        description:
+          "LDL receptor pathway deficiency impairs hepatic LDL clearance causing severe hypercholesterolaemia and premature cardiovascular disease.",
+        reactomeId: "R-HSA-9612973",
+      },
+      {
+        keggId: "hsa04151",
+        name: "PI3K-Akt signaling pathway",
+        description:
+          "Sterol regulatory element-binding protein (SREBP) activation in LDLR-deficient hepatocytes drives LDL overproduction.",
+      },
+      {
+        keggId: "hsa05415",
+        name: "Diabetic cardiomyopathy",
+        description:
+          "Chronic LDL-C elevation drives arterial wall cholesterol deposition, foam cell formation, and premature atherosclerosis in FH.",
+      },
+    ],
+    genes: [
+      {
+        gene: "LDLR",
+        protein: "Low-density lipoprotein receptor",
+        uniprotId: "P01130",
+        function:
+          "Hepatic receptor mediating LDL endocytosis; >2000 pathogenic LDLR mutations cause heterozygous and homozygous FH.",
+        drug: "Evinacumab (Evkeeza)",
+        drugMechanism:
+          "Anti-ANGPTL3 antibody reducing LDL-C and triglycerides via LPL/EL-independent mechanism; approved for homozygous FH.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "PCSK9",
+        protein: "Proprotein convertase subtilisin/kexin type 9",
+        uniprotId: "Q8NBP7",
+        function:
+          "Binds and targets LDLR for lysosomal degradation; gain-of-function variants cause FH; loss-of-function confers protection.",
+        drug: "Evolocumab (Repatha)",
+        drugMechanism:
+          "Anti-PCSK9 monoclonal antibody preventing LDLR degradation, markedly reducing LDL-C in FH.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "APOB",
+        protein: "Apolipoprotein B-100",
+        uniprotId: "P04114",
+        function:
+          "Structural protein of LDL and VLDL particles; APOB mutations cause familial defective ApoB and FH-like hypercholesterolaemia.",
+        drug: "Inclisiran (Leqvio)",
+        drugMechanism:
+          "GalNAc-siRNA silencing hepatic PCSK9 production with twice-yearly dosing for sustained LDL-C reduction.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  achondroplasia: {
+    pathways: [
+      {
+        keggId: "hsa04151",
+        name: "PI3K-Akt signaling pathway",
+        description:
+          "FGFR3 Gly380Arg gain-of-function constitutively activates RAS-MAPK and STAT1 in chondrocytes suppressing chondrocyte proliferation and endochondral ossification.",
+      },
+      {
+        keggId: "hsa04022",
+        name: "cGMP-PKG signaling pathway",
+        description:
+          "CNP-cGMP signaling promotes chondrocyte proliferation and endochondral bone growth; vosoritide mimics CNP bypassing mutant FGFR3.",
+      },
+      {
+        keggId: "hsa04010",
+        name: "MAPK signaling pathway",
+        description:
+          "FGFR3-RAS-ERK suppresses chondrocyte differentiation; MEK inhibition normalises growth plate signaling in achondroplasia models.",
+      },
+    ],
+    genes: [
+      {
+        gene: "FGFR3",
+        protein: "Fibroblast growth factor receptor 3",
+        uniprotId: "P22607",
+        function:
+          "Gly380Arg gain-of-function mutation (>99% achondroplasia cases) constitutively activates FGFR3 suppressing chondrocyte growth.",
+        drug: "Vosoritide (Voxzogo)",
+        drugMechanism:
+          "CNP analogue activating NPR-B/cGMP pathway to overcome FGFR3-mediated growth plate suppression and increase bone growth.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "FGFR3",
+        protein: "Fibroblast growth factor receptor 3",
+        uniprotId: "P22607",
+        function:
+          "Inhibiting mutant FGFR3 tyrosine kinase directly with small molecules reduces skeletal dysplasia in preclinical models.",
+        drug: "Infigratinib",
+        drugMechanism:
+          "FGFR1-3 selective TKI being studied for achondroplasia and FGFR3-driven cancers.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  // ─── NEW DISEASES & GENETIC DISORDERS (added for accuracy expansion) ──────────
+
+  "rett syndrome": {
+    pathways: [
+      {
+        keggId: "hsa04724",
+        name: "Glutamatergic synapse",
+        description:
+          "MeCP2 dysfunction dysregulates synaptic gene expression in glutamatergic and GABAergic neurons causing neurological regression in Rett syndrome.",
+        reactomeId: "R-HSA-112314",
+      },
+      {
+        keggId: "hsa04727",
+        name: "GABAergic synapse",
+        description:
+          "Reduced GABAergic inhibitory interneuron activity due to MeCP2 loss-of-function causes seizures and autonomic instability.",
+      },
+      {
+        keggId: "hsa04722",
+        name: "Neurotrophin signaling pathway",
+        description:
+          "MeCP2 regulates BDNF transcription; reduced BDNF-TrkB signaling impairs synaptic plasticity and neuronal survival in Rett syndrome.",
+        reactomeId: "R-HSA-9612973",
+      },
+    ],
+    genes: [
+      {
+        gene: "MECP2",
+        protein: "Methyl-CpG-binding protein 2",
+        uniprotId: "P51608",
+        function:
+          "X-linked transcriptional regulator binding methylated DNA; loss-of-function mutations cause >95% of Rett syndrome cases.",
+        drug: "Trofinetide (Daybue)",
+        drugMechanism:
+          "Synthetic analogue of IGF-1 tripeptide GPE modulating synaptic signaling and reducing neuroinflammation; first FDA-approved treatment for Rett syndrome (2023).",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "MECP2",
+        protein: "Methyl-CpG-binding protein 2",
+        uniprotId: "P51608",
+        function:
+          "MeCP2 gene therapy via AAV9 vector rescues neurological phenotype in preclinical Rett models.",
+        drug: "TSHA-102 (gene therapy)",
+        drugMechanism:
+          "Self-complementary AAV9 delivering MECP2 with a miRNA-based regulation system to prevent MECP2 overexpression toxicity; Phase 1/2 (REVEAL trial).",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+      {
+        gene: "BDNF",
+        protein: "Brain-derived neurotrophic factor",
+        uniprotId: "P23560",
+        function:
+          "Neurotrophin whose expression is directly regulated by MeCP2; reduced in Rett syndrome brains contributing to synaptic loss.",
+        drug: "Ketamine",
+        drugMechanism:
+          "NMDA receptor antagonist that acutely increases BDNF release; investigated for symptom relief in Rett syndrome.",
+        drugApproval: "Investigational (Rett)",
+        pubchemId: "3821",
+      },
+    ],
+  },
+
+  "angelman syndrome": {
+    pathways: [
+      {
+        keggId: "hsa04727",
+        name: "GABAergic synapse",
+        description:
+          "UBE3A deficiency impairs GABA receptor trafficking and inhibitory synapse function, causing seizures and intellectual disability in Angelman syndrome.",
+      },
+      {
+        keggId: "hsa04120",
+        name: "Ubiquitin-mediated proteolysis",
+        description:
+          "UBE3A E3 ubiquitin ligase targets substrates for proteasomal degradation; its loss causes accumulation of proteins disrupting synaptic function.",
+        reactomeId: "R-HSA-983168",
+      },
+      {
+        keggId: "hsa04724",
+        name: "Glutamatergic synapse",
+        description:
+          "AMPA receptor subunit GluA1 is a UBE3A substrate; its accumulation enhances excitatory signaling contributing to seizure susceptibility.",
+      },
+    ],
+    genes: [
+      {
+        gene: "UBE3A",
+        protein: "Ubiquitin-protein ligase E3A",
+        uniprotId: "Q05086",
+        function:
+          "Maternally-imprinted E3 ubiquitin ligase; loss of maternal UBE3A expression causes Angelman syndrome.",
+        drug: "Gaboxadol (THIP)",
+        drugMechanism:
+          "Extrasynaptic GABA-A receptor agonist compensating for reduced inhibitory tone; showed improved sleep in Angelman syndrome trials.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "3446",
+      },
+      {
+        gene: "UBE3A",
+        protein: "Ubiquitin-protein ligase E3A",
+        uniprotId: "Q05086",
+        function:
+          "Paternal UBE3A is silenced by antisense RNA (UBE3A-ATS); unsilencing it is a key therapeutic strategy.",
+        drug: "GTX-102 (antisense oligonucleotide)",
+        drugMechanism:
+          "Intrathecal ASO targeting UBE3A-ATS to unsilence paternal UBE3A allele restoring full UBE3A expression; Phase 1/2 (HAZEL trial).",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+      {
+        gene: "GABRA1",
+        protein: "GABA-A receptor subunit alpha-1",
+        uniprotId: "P14867",
+        function:
+          "Major inhibitory receptor subunit; reduced membrane expression in Angelman syndrome contributes to seizure burden.",
+        drug: "Clonazepam",
+        drugMechanism:
+          "Benzodiazepine allosteric modulator of GABA-A receptors used for seizure management in Angelman syndrome.",
+        drugApproval: "FDA Approved",
+        pubchemId: "2802",
+      },
+    ],
+  },
+
+  "prader-willi syndrome": {
+    pathways: [
+      {
+        keggId: "hsa04920",
+        name: "Adipocytokine signaling pathway",
+        description:
+          "Hypothalamic dysfunction caused by loss of paternal 15q11-q13 loci disrupts ghrelin, leptin, and GLP-1 signaling causing hyperphagia and obesity.",
+      },
+      {
+        keggId: "hsa04726",
+        name: "Serotonergic synapse",
+        description:
+          "Reduced serotonin signaling from hypothalamic SNORD115 RNA loss contributes to hyperphagia, mood instability, and compulsive behaviour.",
+      },
+      {
+        keggId: "hsa04060",
+        name: "Cytokine-cytokine receptor interaction",
+        description:
+          "Growth hormone deficiency from hypothalamic GHRH insensitivity causes short stature and abnormal body composition in Prader-Willi syndrome.",
+      },
+    ],
+    genes: [
+      {
+        gene: "SNRPN",
+        protein: "Small nuclear ribonucleoprotein-associated protein N",
+        uniprotId: "P63162",
+        function:
+          "Paternally-expressed imprinted gene in 15q11-q13; deletion or maternal uniparental disomy disrupts SNRPN expression in PWS.",
+        drug: "Growth hormone (Somatropin)",
+        drugMechanism:
+          "Recombinant human GH improving height, muscle mass, and cognitive function; standard-of-care in PWS.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "GHRL",
+        protein: "Ghrelin",
+        uniprotId: "Q9UBU3",
+        function:
+          "Appetite-stimulating hormone markedly elevated in PWS causing pathological hyperphagia; its suppression is a primary therapeutic goal.",
+        drug: "Diazoxide choline (DCCR)",
+        drugMechanism:
+          "KATP channel activator reducing ghrelin and hyperphagia in PWS; FDA Breakthrough Therapy designation.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "3025",
+      },
+      {
+        gene: "MC4R",
+        protein: "Melanocortin receptor 4",
+        uniprotId: "P32245",
+        function:
+          "Hypothalamic satiety receptor; reduced activity in PWS contributes to hyperphagia and metabolic dysregulation.",
+        drug: "Setmelanotide",
+        drugMechanism:
+          "MC4R agonist reducing hyperphagia in PWS patients; FDA Breakthrough Therapy designation for PWS.",
+        drugApproval: "FDA Approved (some MC4R deficiencies)",
+        pubchemId: "56843749",
+      },
+    ],
+  },
+
+  "fragile x syndrome": {
+    pathways: [
+      {
+        keggId: "hsa04724",
+        name: "Glutamatergic synapse",
+        description:
+          "Loss of FMRP causes overactivation of mGluR5 receptor-mediated protein synthesis in dendritic spines, producing exaggerated long-term depression and synaptic pathology.",
+        reactomeId: "R-HSA-112314",
+      },
+      {
+        keggId: "hsa04010",
+        name: "MAPK signaling pathway",
+        description:
+          "ERK1/2 signaling is elevated downstream of mGluR5 in FXS neurons, contributing to aberrant synaptic protein synthesis.",
+      },
+      {
+        keggId: "hsa04727",
+        name: "GABAergic synapse",
+        description:
+          "Reduced GABA-A receptor expression and inhibitory synapse density in FXS causes anxiety, seizures, and hyperexcitability.",
+      },
+    ],
+    genes: [
+      {
+        gene: "FMR1",
+        protein: "Fragile X mental retardation protein 1 (FMRP)",
+        uniprotId: "Q06787",
+        function:
+          "RNA-binding protein suppressing translation of synaptic mRNAs at dendritic spines; CGG trinucleotide repeat expansion silences FMR1 in Fragile X syndrome.",
+        drug: "Metformin",
+        drugMechanism:
+          "AMPK activator that reduces mTORC1 and ERK signaling correcting excessive synaptic protein synthesis; Phase 2 trials in FXS.",
+        drugApproval: "Clinical Trial (FXS)",
+        pubchemId: "4091",
+        chemblId: "CHEMBL1431",
+      },
+      {
+        gene: "GRM5",
+        protein: "Metabotropic glutamate receptor 5 (mGluR5)",
+        uniprotId: "P41594",
+        function:
+          "Group I mGluR overactivated in FXS neurons; its antagonism corrects exaggerated LTD and improves synaptic plasticity.",
+        drug: "Mavoglurant (AFQ056)",
+        drugMechanism:
+          "mGluR5 negative allosteric modulator reducing excessive synaptic protein synthesis in FXS; Phase 2 trials.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+      {
+        gene: "GABRA1",
+        protein: "GABA-A receptor subunit alpha-1",
+        uniprotId: "P14867",
+        function:
+          "Inhibitory synapse component reduced in FXS; GABA-A augmentation is a compensatory therapeutic strategy.",
+        drug: "Arbaclofen",
+        drugMechanism:
+          "GABA-B receptor agonist reducing glutamate release and hyperexcitability in FXS; Phase 3 trials ongoing.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "65783",
+      },
+    ],
+  },
+
+  "niemann-pick disease": {
+    pathways: [
+      {
+        keggId: "hsa01100",
+        name: "Metabolic pathways",
+        description:
+          "Sphingomyelinase (SMPD1) deficiency (NPC type A/B) or NPC1/NPC2 cholesterol transporter dysfunction causes lysosomal sphingomyelin and cholesterol accumulation.",
+      },
+      {
+        keggId: "hsa04141",
+        name: "Protein processing in ER",
+        description:
+          "Lysosomal storage overload triggers ER stress and UPR-mediated apoptosis in hepatocytes and neurons in Niemann-Pick disease.",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Lysosomal membrane permeabilisation and cathepsin release drives neuronal apoptosis in Niemann-Pick type C.",
+        reactomeId: "R-HSA-109581",
+      },
+    ],
+    genes: [
+      {
+        gene: "SMPD1",
+        protein: "Sphingomyelin phosphodiesterase 1 (acid sphingomyelinase)",
+        uniprotId: "P17405",
+        function:
+          "Lysosomal enzyme hydrolyzing sphingomyelin to ceramide and phosphocholine; deficiency causes NPC type A (severe neuronopathic) and type B (visceral) disease.",
+        drug: "Olipudase alfa (Xenpozyme)",
+        drugMechanism:
+          "Recombinant acid sphingomyelinase enzyme replacement therapy for non-neuronopathic Niemann-Pick type B; FDA-approved 2022.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "NPC1",
+        protein: "Niemann-Pick C1 protein",
+        uniprotId: "O15118",
+        function:
+          "Lysosomal cholesterol transporter; loss-of-function mutations cause NPC1 disease with progressive neurodegeneration.",
+        drug: "Miglustat",
+        drugMechanism:
+          "Iminosugar inhibiting glycosphingolipid biosynthesis; approved for Niemann-Pick type C to slow neurological progression.",
+        drugApproval: "FDA Approved",
+        pubchemId: "68249",
+      },
+      {
+        gene: "NPC2",
+        protein: "Niemann-Pick C2 protein",
+        uniprotId: "P61916",
+        function:
+          "Lysosomal soluble protein transferring cholesterol to NPC1; NPC2 mutations cause same phenotype as NPC1 (~5% of NPC cases).",
+        drug: "Arimoclomol",
+        drugMechanism:
+          "Heat shock protein co-inducer amplifying HSP70/HSP90 chaperone activity to partially rescue NPC1 protein folding; Phase 2/3 trial.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "krabbe disease": {
+    pathways: [
+      {
+        keggId: "hsa00600",
+        name: "Sphingolipid metabolism",
+        description:
+          "GALC deficiency causes accumulation of psychosine (galactosylsphingosine), a cytotoxic lipid that destroys myelinating oligodendrocytes and Schwann cells in Krabbe disease.",
+        reactomeId: "R-HSA-428157",
+      },
+      {
+        keggId: "hsa04141",
+        name: "Protein processing in ER",
+        description:
+          "ER stress triggered by psychosine accumulation activates UPR and apoptotic cascades in oligodendrocytes.",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Oligodendrocyte and Schwann cell apoptosis via mitochondrial pathway drives progressive demyelination in Krabbe disease.",
+        reactomeId: "R-HSA-109581",
+      },
+    ],
+    genes: [
+      {
+        gene: "GALC",
+        protein: "Galactocerebrosidase (GALC)",
+        uniprotId: "P54803",
+        function:
+          "Lysosomal enzyme hydrolyzing galactocerebroside and psychosine; biallelic loss-of-function mutations cause Krabbe disease (globoid cell leukodystrophy).",
+        drug: "Hematopoietic stem cell transplantation (HSCT)",
+        drugMechanism:
+          "Allogeneic HSCT from matched donor reconstitutes GALC-producing macrophages and microglia, slowing demyelination when performed pre-symptomatically.",
+        drugApproval: "FDA Cleared (standard of care)",
+        pubchemId: "0",
+      },
+      {
+        gene: "GALC",
+        protein: "Galactocerebrosidase",
+        uniprotId: "P54803",
+        function:
+          "AAV-delivered GALC gene therapy combined with substrate reduction is a promising curative approach in preclinical Krabbe models.",
+        drug: "AAV9-GALC (gene therapy)",
+        drugMechanism:
+          "Intrathecal or IV AAV9 delivering functional GALC complementary DNA to CNS cells; Phase 1 trials in neonatal Krabbe.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+      {
+        gene: "PSAP",
+        protein: "Prosaposin (saposin A activator)",
+        uniprotId: "P07602",
+        function:
+          "Saposin A is an essential activator co-factor for GALC enzymatic activity; saposin A deficiency causes a variant Krabbe phenotype.",
+        drug: "Substrate reduction therapy (eliglustat analogue)",
+        drugMechanism:
+          "Investigational sphingolipid synthesis inhibitors aimed at reducing psychosine production as adjunct to gene therapy.",
+        drugApproval: "Investigational",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "maple syrup urine disease": {
+    pathways: [
+      {
+        keggId: "hsa00280",
+        name: "Valine, leucine and isoleucine degradation",
+        description:
+          "Branched-chain alpha-keto acid dehydrogenase (BCKDH) complex deficiency blocks catabolism of leucine, isoleucine, and valine, causing toxic accumulation of BCKAs and branched-chain amino acids.",
+        reactomeId: "R-HSA-70895",
+      },
+      {
+        keggId: "hsa01230",
+        name: "Biosynthesis of amino acids",
+        description:
+          "Elevated leucine competitively inhibits transport of neutral amino acids across the blood-brain barrier, depleting brain serotonin, dopamine, and other neurotransmitters.",
+      },
+      {
+        keggId: "hsa04141",
+        name: "Protein processing in ER",
+        description:
+          "BCKA-induced ER stress and mitochondrial dysfunction cause oxidative damage and cerebral oedema in MSUD metabolic crises.",
+      },
+    ],
+    genes: [
+      {
+        gene: "BCKDHA",
+        protein: "2-oxoisovalerate dehydrogenase subunit alpha (BCKDH E1α)",
+        uniprotId: "P12694",
+        function:
+          "Catalytic alpha subunit of the BCKDH complex; mutations in BCKDHA, BCKDHB, or DBT cause classic MSUD.",
+        drug: "Dietary leucine restriction (BCAA-free formula)",
+        drugMechanism:
+          "Protein-restricted diet with BCAA-free medical formula normalises plasma amino acid levels and prevents neurological crises.",
+        drugApproval: "FDA Cleared (metabolic formula)",
+        pubchemId: "0",
+      },
+      {
+        gene: "BCKDHB",
+        protein: "2-oxoisovalerate dehydrogenase subunit beta (BCKDH E1β)",
+        uniprotId: "P21953",
+        function:
+          "Beta subunit of BCKDH complex; the most commonly mutated subunit in thiamine-responsive MSUD.",
+        drug: "Thiamine (vitamin B1)",
+        drugMechanism:
+          "BCKDH cofactor; pharmacological doses activate residual BCKDH activity in thiamine-responsive MSUD variants.",
+        drugApproval: "FDA Approved (OTC supplement)",
+        pubchemId: "1130",
+      },
+      {
+        gene: "BCKDHA",
+        protein: "2-oxoisovalerate dehydrogenase subunit alpha",
+        uniprotId: "P12694",
+        function:
+          "Liver transplantation provides sufficient BCKDH enzyme activity to normalise BCAA metabolism, effectively curing metabolic crises.",
+        drug: "Liver transplantation",
+        drugMechanism:
+          "Orthotopic liver transplant restores hepatic BCKDH activity to >10% normal, preventing metabolic decompensation and allowing unrestricted diet.",
+        drugApproval: "FDA Cleared (surgical procedure)",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "methylmalonic acidemia": {
+    pathways: [
+      {
+        keggId: "hsa00630",
+        name: "Glyoxylate and dicarboxylate metabolism",
+        description:
+          "Methylmalonyl-CoA mutase (MUT) or cofactor (adenosylcobalamin) deficiency causes accumulation of methylmalonic acid, propionic acid, and propionyl-CoA, impairing mitochondrial function.",
+        reactomeId: "R-HSA-196780",
+      },
+      {
+        keggId: "hsa00640",
+        name: "Propanoate metabolism",
+        description:
+          "Propionyl-CoA carboxylase and methylmalonyl-CoA mutase pathway blockade in MMA causes mitochondrial toxicity from accumulating organic acids.",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Mitochondrial dysfunction and reactive oxygen species from methylmalonic acid accumulation trigger apoptosis in renal tubular cells and neurons.",
+      },
+    ],
+    genes: [
+      {
+        gene: "MUT",
+        protein: "Methylmalonyl-CoA mutase",
+        uniprotId: "P22033",
+        function:
+          "Mitochondrial enzyme converting methylmalonyl-CoA to succinyl-CoA using adenosylcobalamin; biallelic mutations cause classic MMA.",
+        drug: "Hydroxocobalamin (vitamin B12)",
+        drugMechanism:
+          "Cobalamin cofactor precursor; high-dose supplementation partially restores MUT activity in cobalamin-responsive MMA variants.",
+        drugApproval: "FDA Approved",
+        pubchemId: "44475588",
+      },
+      {
+        gene: "MUT",
+        protein: "Methylmalonyl-CoA mutase",
+        uniprotId: "P22033",
+        function:
+          "Liver transplant providing functional MUT enzyme cures metabolic crises though renal disease may progress.",
+        drug: "Liver or combined liver-kidney transplantation",
+        drugMechanism:
+          "Orthotopic liver transplant reduces methylmalonic acid production by >80%, preventing metabolic crisis while protecting renal function.",
+        drugApproval: "FDA Cleared (surgical)",
+        pubchemId: "0",
+      },
+      {
+        gene: "MUT",
+        protein: "Methylmalonyl-CoA mutase",
+        uniprotId: "P22033",
+        function:
+          "mRNA therapy delivering MUT mRNA to hepatocytes offers curative potential without viral vectors.",
+        drug: "mRNA-3705 (Moderna mRNA therapy)",
+        drugMechanism:
+          "Lipid nanoparticle-encapsulated MUT mRNA delivered IV to liver, transiently restoring methylmalonyl-CoA mutase enzyme activity; Phase 1/2 trial.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "friedreich's ataxia": {
+    pathways: [
+      {
+        keggId: "hsa03320",
+        name: "PPAR signaling pathway",
+        description:
+          "Frataxin deficiency impairs iron-sulfur cluster biosynthesis in mitochondria, disrupting PPAR-regulated fatty acid oxidation and mitochondrial energy production.",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Iron-mediated Fenton chemistry and oxidative stress from frataxin deficiency causes dorsal root ganglion and cardiomyocyte apoptosis.",
+        reactomeId: "R-HSA-109581",
+      },
+      {
+        keggId: "hsa04141",
+        name: "Protein processing in ER",
+        description:
+          "Mitochondrial dysfunction and oxidative stress from frataxin loss activates the unfolded protein response in FRDA cardiomyocytes.",
+      },
+    ],
+    genes: [
+      {
+        gene: "FXN",
+        protein: "Frataxin",
+        uniprotId: "Q16595",
+        function:
+          "Mitochondrial iron-chaperone required for iron-sulfur cluster assembly; GAA trinucleotide repeat expansion in intron 1 silences FXN causing Friedreich's ataxia.",
+        drug: "Omaveloxolone (Skyclarys)",
+        drugMechanism:
+          "NRF2 activator (synthetic triterpenoid) enhancing antioxidant response to reduce mitochondrial oxidative damage; first FDA-approved disease-modifying therapy for Friedreich's ataxia (2023).",
+        drugApproval: "FDA Approved",
+        pubchemId: "135565424",
+      },
+      {
+        gene: "FXN",
+        protein: "Frataxin",
+        uniprotId: "Q16595",
+        function:
+          "Frataxin protein replacement using modified frataxin protein conjugated to cell-penetrating peptide can rescue iron-sulfur cluster biogenesis.",
+        drug: "CTI-1601 (frataxin fusion protein)",
+        drugMechanism:
+          "Recombinant human frataxin fused to cell-penetrating peptide TAT delivered subcutaneously; crosses mitochondrial membrane to substitute frataxin function. Phase 1/2.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+      {
+        gene: "NFE2L2",
+        protein: "Nuclear factor erythroid 2-related factor 2 (NRF2)",
+        uniprotId: "Q16236",
+        function:
+          "Master antioxidant transcription factor; pharmacological NRF2 activation compensates for frataxin-deficient oxidative stress.",
+        drug: "Vatiquinone (EPI-743)",
+        drugMechanism:
+          "Mitochondria-targeted antioxidant reducing reactive oxygen species in frataxin-deficient neurons; Phase 3 trials ongoing.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "hereditary spastic paraplegia": {
+    pathways: [
+      {
+        keggId: "hsa04141",
+        name: "Protein processing in ER",
+        description:
+          "SPG4/SPAST (spastin) dysfunction impairs microtubule severing in cortical motor neuron axons, causing progressive upper motor neuron degeneration.",
+      },
+      {
+        keggId: "hsa04137",
+        name: "Mitophagy – animal",
+        description:
+          "REEP1/SPG31 and ATL1/SPG3A mutations disrupt ER shaping and mitochondrial transport in long corticospinal tract axons.",
+      },
+      {
+        keggId: "hsa04720",
+        name: "Long-term potentiation",
+        description:
+          "Impaired axonal transport of AMPA receptors and synaptic vesicles in HSP causes progressive corticospinal motor neuron dysfunction.",
+      },
+    ],
+    genes: [
+      {
+        gene: "SPAST",
+        protein: "Spastin",
+        uniprotId: "Q9UBB0",
+        function:
+          "AAA ATPase microtubule-severing enzyme; haploinsufficiency is the most common cause of HSP (SPG4, ~40% of autosomal dominant HSP).",
+        drug: "Nabilone",
+        drugMechanism:
+          "Synthetic cannabinoid CB1/CB2 agonist reducing spasticity; used off-label in HSP spastic paraplegia.",
+        drugApproval: "FDA Approved (spasticity)",
+        pubchemId: "5284592",
+      },
+      {
+        gene: "ATL1",
+        protein: "Atlastin-1",
+        uniprotId: "Q8WXF7",
+        function:
+          "GTPase mediating ER membrane fusion; ATL1 mutations cause SPG3A (second most common HSP in childhood).",
+        drug: "Baclofen",
+        drugMechanism:
+          "GABA-B receptor agonist reducing upper motor neuron spasticity; standard symptomatic treatment for HSP.",
+        drugApproval: "FDA Approved",
+        pubchemId: "2284",
+      },
+      {
+        gene: "REEP1",
+        protein: "Receptor expression-enhancing protein 1",
+        uniprotId: "Q9H902",
+        function:
+          "ER-shaping protein; REEP1 mutations cause SPG31, an autosomal dominant HSP with motor neuropathy.",
+        drug: "Physical therapy / Tizanidine",
+        drugMechanism:
+          "Tizanidine is a central alpha-2 agonist reducing spasticity in HSP; no disease-modifying drug exists for SPG31.",
+        drugApproval: "FDA Approved (spasticity)",
+        pubchemId: "5487",
+      },
+    ],
+  },
+
+  "myotonic dystrophy": {
+    pathways: [
+      {
+        keggId: "hsa05010",
+        name: "Neurodegeneration pathway",
+        description:
+          "CTG or CCTG repeat expansions produce toxic RNA foci sequestering MBNL splicing regulators, causing widespread alternative splicing defects in muscle, heart, and CNS.",
+      },
+      {
+        keggId: "hsa04530",
+        name: "Tight junction",
+        description:
+          "Mis-splicing of CLCN1 chloride channel causes myotonia by reducing chloride conductance and prolonging muscle depolarisation in DM1.",
+      },
+      {
+        keggId: "hsa05410",
+        name: "Hypertrophic cardiomyopathy",
+        description:
+          "Cardiac conduction defects from mis-spliced SCN5A and CACNA1C sodium/calcium channels cause arrhythmia and sudden death in myotonic dystrophy.",
+      },
+    ],
+    genes: [
+      {
+        gene: "DMPK",
+        protein: "Myotonin-protein kinase",
+        uniprotId: "Q09013",
+        function:
+          "CTG repeat expansion in 3'-UTR of DMPK causes myotonic dystrophy type 1 (DM1) via toxic RNA gain-of-function sequestering MBNL1/2 splicing factors.",
+        drug: "Mexiletine",
+        drugMechanism:
+          "Sodium channel blocker reducing myotonia (muscle stiffness) in DM1 by suppressing repetitive muscle action potentials.",
+        drugApproval: "FDA Approved",
+        pubchemId: "4178",
+      },
+      {
+        gene: "MBNL1",
+        protein: "Muscleblind-like protein 1",
+        uniprotId: "Q9NR56",
+        function:
+          "RNA splicing factor sequestered in CUG/CCUG toxic RNA foci causing aberrant splicing of hundreds of target transcripts in DM.",
+        drug: "IONIS-DMPKRX (antisense oligonucleotide)",
+        drugMechanism:
+          "ASO targeting the CUG repeat expansion in DMPK pre-mRNA to dissolve toxic foci and restore MBNL1 activity; Phase 2/3 trial.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+      {
+        gene: "CNBP",
+        protein: "Cellular nucleic acid-binding protein (CNBP/ZNF9)",
+        uniprotId: "P62633",
+        function:
+          "CCTG tetranucleotide repeat expansion in intron 1 of CNBP causes myotonic dystrophy type 2 (DM2/PROMM).",
+        drug: "Tideglusib",
+        drugMechanism:
+          "GSK3β inhibitor correcting downstream splicing defects from CNBP toxic RNA in DM2 neuromuscular models.",
+        drugApproval: "Investigational",
+        pubchemId: "9908089",
+      },
+    ],
+  },
+
+  "congenital hyperinsulinism": {
+    pathways: [
+      {
+        keggId: "hsa04930",
+        name: "Type II diabetes mellitus (inverted context)",
+        description:
+          "KATP channel subunit mutations (ABCC8/KCNJ11) prevent beta-cell membrane repolarisation, causing autonomous insulin secretion independent of blood glucose level.",
+      },
+      {
+        keggId: "hsa04910",
+        name: "Insulin signaling pathway",
+        description:
+          "Constitutive insulin oversecretion from dysfunctional KATP channels activates peripheral insulin receptors causing life-threatening hypoglycaemia.",
+        reactomeId: "R-HSA-74752",
+      },
+    ],
+    genes: [
+      {
+        gene: "ABCC8",
+        protein:
+          "ATP-binding cassette transporter sub-family C member 8 (SUR1)",
+        uniprotId: "Q09428",
+        function:
+          "Regulatory subunit of pancreatic KATP channel; biallelic loss-of-function mutations are the most common cause of congenital hyperinsulinism (CHI).",
+        drug: "Diazoxide",
+        drugMechanism:
+          "KATP channel opener hyperpolarising beta-cell membrane to suppress insulin secretion; first-line medical therapy for ABCC8-CHI.",
+        drugApproval: "FDA Approved",
+        pubchemId: "3058",
+      },
+      {
+        gene: "KCNJ11",
+        protein: "ATP-sensitive inward rectifier potassium channel 11 (Kir6.2)",
+        uniprotId: "P41172",
+        function:
+          "Pore-forming subunit of KATP channel; KCNJ11 mutations are second most common cause of CHI and also cause neonatal diabetes.",
+        drug: "Octreotide",
+        drugMechanism:
+          "Somatostatin analogue suppressing insulin secretion via Gi-coupled SST2/5 receptors; used when diazoxide-unresponsive CHI.",
+        drugApproval: "FDA Approved",
+        pubchemId: "448219",
+      },
+      {
+        gene: "GCK",
+        protein: "Glucokinase",
+        uniprotId: "P35557",
+        function:
+          "Activating GCK mutations lower the threshold for glucose-stimulated insulin secretion causing diffuse CHI (GCK-CHI).",
+        drug: "Pancreatectomy",
+        drugMechanism:
+          "Partial or near-total pancreatectomy used in focal or diffuse CHI unresponsive to medical therapy to prevent irreversible hypoglycaemic brain damage.",
+        drugApproval: "Standard of Care (surgical)",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "glycogen storage disease type 1": {
+    pathways: [
+      {
+        keggId: "hsa00010",
+        name: "Glycolysis / Gluconeogenesis",
+        description:
+          "Glucose-6-phosphatase (G6PC) deficiency blocks the final step of glycogenolysis and gluconeogenesis, causing hypoglycaemia and hepatic glycogen/fat accumulation.",
+        reactomeId: "R-HSA-70171",
+      },
+      {
+        keggId: "hsa00500",
+        name: "Starch and sucrose metabolism",
+        description:
+          "G6PC deficiency prevents release of free glucose from glycogen, causing profound fasting hypoglycaemia within hours of last meal in GSD Ia (von Gierke disease).",
+      },
+      {
+        keggId: "hsa04920",
+        name: "Adipocytokine signaling pathway",
+        description:
+          "Hepatic fat accumulation from redirected G6P to lipid synthesis causes hepatomegaly and hepatic steatosis in GSD type 1.",
+      },
+    ],
+    genes: [
+      {
+        gene: "G6PC",
+        protein: "Glucose-6-phosphatase catalytic subunit",
+        uniprotId: "P35575",
+        function:
+          "ER-membrane enzyme catalysing the terminal step of glucose production; biallelic mutations cause GSD Ia (von Gierke disease), the most common GSD.",
+        drug: "Cornstarch (raw uncooked)",
+        drugMechanism:
+          "Slowly digested complex carbohydrate acting as a sustained glucose source preventing hypoglycaemia; mainstay dietary therapy for GSD type 1.",
+        drugApproval: "FDA Cleared (medical food)",
+        pubchemId: "0",
+      },
+      {
+        gene: "G6PC",
+        protein: "Glucose-6-phosphatase catalytic subunit",
+        uniprotId: "P35575",
+        function:
+          "AAV8 gene therapy restoring hepatic G6PC expression corrects all metabolic derangements in preclinical GSD Ia models.",
+        drug: "AAV8-G6PC (gene therapy)",
+        drugMechanism:
+          "Liver-targeted AAV8 vector delivering functional G6PC cDNA; Phase 1/2 trial (FOREST study, Spark Therapeutics) demonstrating sustained glucose normalization.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+      {
+        gene: "SLC37A4",
+        protein: "Glucose-6-phosphate translocase (G6PT)",
+        uniprotId: "O43826",
+        function:
+          "ER translocase transporting G6P into the ER lumen for G6PC hydrolysis; mutations cause GSD Ib with additional neutrophil dysfunction.",
+        drug: "G-CSF (Filgrastim)",
+        drugMechanism:
+          "Granulocyte colony-stimulating factor correcting neutropenia and neutrophil dysfunction in GSD type Ib.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  "biotinidase deficiency": {
+    pathways: [
+      {
+        keggId: "hsa00780",
+        name: "Biotin metabolism",
+        description:
+          "Biotinidase enzyme deficiency prevents recycling of biotin from biocytin and biotinyl-peptides, causing systemic biotin deficiency and failure of all four biotin-dependent carboxylase enzymes.",
+        reactomeId: "R-HSA-196780",
+      },
+      {
+        keggId: "hsa00720",
+        name: "Carbon fixation pathways in prokaryotes (carboxylase pathways)",
+        description:
+          "Biotin-dependent carboxylases (PCC, MCC, PC, ACC) fail due to biotin insufficiency causing organic acidaemia and lactic acidosis.",
+      },
+    ],
+    genes: [
+      {
+        gene: "BTD",
+        protein: "Biotinidase",
+        uniprotId: "P43251",
+        function:
+          "Enzyme cleaving biotin from biocytin to recycle free biotin; biallelic mutations cause biotinidase deficiency, a treatable inborn error of metabolism screened at birth.",
+        drug: "Biotin (vitamin B7)",
+        drugMechanism:
+          "Pharmacological oral biotin (5–20 mg/day) bypasses the recycling defect by providing free biotin directly, completely preventing all clinical manifestations when started early.",
+        drugApproval: "FDA Approved (OTC supplement)",
+        pubchemId: "171548",
+      },
+      {
+        gene: "BTD",
+        protein: "Biotinidase",
+        uniprotId: "P43251",
+        function:
+          "Newborn screening using dried blood spot biotinidase enzyme assay identifies affected neonates before symptom onset; treatment with biotin is curative.",
+        drug: "Pharmacological biotin (lifelong)",
+        drugMechanism:
+          "Continuous oral biotin supplementation fully prevents seizures, developmental delay, hearing loss, and metabolic crisis in biotinidase deficiency.",
+        drugApproval: "Standard of Care",
+        pubchemId: "171548",
+      },
+    ],
+  },
+
+  "ornithine transcarbamylase deficiency": {
+    pathways: [
+      {
+        keggId: "hsa00220",
+        name: "Arginine biosynthesis / Urea cycle",
+        description:
+          "OTC enzyme catalyses ornithine + carbamoyl phosphate → citrulline in the urea cycle; X-linked OTC deficiency is the most common urea cycle disorder, causing hyperammonaemia.",
+        reactomeId: "R-HSA-70326",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Ammonia-induced NMDA receptor activation and mitochondrial dysfunction causes astrocyte swelling and hepatocyte apoptosis in hyperammonaemic crises.",
+      },
+    ],
+    genes: [
+      {
+        gene: "OTC",
+        protein: "Ornithine transcarbamylase",
+        uniprotId: "P00480",
+        function:
+          "Mitochondrial enzyme in the urea cycle; X-linked mutations (males severely affected) cause hyperammonaemia with risk of cerebral oedema and death.",
+        drug: "Sodium phenylbutyrate (Buphenyl)",
+        drugMechanism:
+          "Alternative nitrogen scavenger providing an alternative pathway for waste nitrogen excretion as phenylacetylglutamine, reducing plasma ammonia.",
+        drugApproval: "FDA Approved",
+        pubchemId: "5258",
+      },
+      {
+        gene: "OTC",
+        protein: "Ornithine transcarbamylase",
+        uniprotId: "P00480",
+        function:
+          "Glycerol phenylbutyrate is a prodrug of sodium phenylbutyrate with fewer adverse effects and more stable ammonia control.",
+        drug: "Glycerol phenylbutyrate (Ravicti)",
+        drugMechanism:
+          "Prodrug of phenylbutyric acid providing sustained alternative nitrogen disposal; FDA-approved for urea cycle disorders.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "OTC",
+        protein: "Ornithine transcarbamylase",
+        uniprotId: "P00480",
+        function:
+          "AAV8 gene therapy delivering OTC cDNA to hepatocytes offers curative potential; dose-dependent restoration of urea cycle function.",
+        drug: "AAVS3-OTC (gene therapy)",
+        drugMechanism:
+          "Liver-directed AAV gene therapy restoring OTC enzyme in hepatocytes; Phase 1/2 trials demonstrating ammonia control.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+    ],
+  },
+
+  hypophosphatasia: {
+    pathways: [
+      {
+        keggId: "hsa00790",
+        name: "Folate biosynthesis / B6 metabolism",
+        description:
+          "ALPL encodes tissue-nonspecific alkaline phosphatase (TNSALP); deficiency causes accumulation of pyridoxal-5-phosphate (PLP), phosphoethanolamine (PEA), and inorganic pyrophosphate (PPi), impairing bone mineralisation.",
+      },
+      {
+        keggId: "hsa04926",
+        name: "Relaxin signaling pathway",
+        description:
+          "Excess extracellular PPi (TNSALP substrate) inhibits hydroxyapatite crystal growth in bone matrix, causing rickets-like hypomineralisation.",
+      },
+    ],
+    genes: [
+      {
+        gene: "ALPL",
+        protein: "Tissue-nonspecific alkaline phosphatase (TNSALP)",
+        uniprotId: "P05186",
+        function:
+          "Ectoenzyme hydrolyzing PPi, PEA, and PLP at bone and liver cell surfaces; biallelic (perinatal/infantile) or monoallelic (childhood/adult) ALPL mutations cause hypophosphatasia.",
+        drug: "Asfotase alfa (Strensiq)",
+        drugMechanism:
+          "Recombinant TNSALP enzyme replacement therapy targeting bone via deca-aspartate anchor; first approved ERT for hypophosphatasia; FDA-approved 2015.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "ALPL",
+        protein: "Tissue-nonspecific alkaline phosphatase",
+        uniprotId: "P05186",
+        function:
+          "Pyridoxal-5-phosphate accumulation from TNSALP deficiency causes vitamin B6-dependent seizures in perinatal HPP.",
+        drug: "Pyridoxine (vitamin B6)",
+        drugMechanism:
+          "High-dose pyridoxine controlling seizures caused by PLP accumulation in perinatal hypophosphatasia until ERT can be initiated.",
+        drugApproval: "FDA Approved (OTC supplement)",
+        pubchemId: "1054",
+      },
+    ],
+  },
+
+  "epidermolysis bullosa": {
+    pathways: [
+      {
+        keggId: "hsa04510",
+        name: "Focal adhesion",
+        description:
+          "Mutations in COL7A1, COL17A1, LAMB3, ITGA6/B4 genes disrupt hemidesmosomal or anchoring fibril assembly, causing skin fragility and blistering at the dermo-epidermal junction.",
+        reactomeId: "R-HSA-216083",
+      },
+      {
+        keggId: "hsa04512",
+        name: "ECM-receptor interaction",
+        description:
+          "Basement membrane components (laminins, collagens, integrins) form a structural scaffold; loss of any key component causes mechanical fragility of the skin-matrix interface.",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Chronic EB wounds activate apoptotic and inflammatory pathways that promote fibrosis, secondary infection, and squamous cell carcinoma risk in DEB.",
+        reactomeId: "R-HSA-109581",
+      },
+    ],
+    genes: [
+      {
+        gene: "COL7A1",
+        protein: "Collagen type VII alpha 1 chain",
+        uniprotId: "Q02388",
+        function:
+          "Forms anchoring fibrils connecting epidermal basement membrane to dermis; biallelic COL7A1 mutations cause dystrophic EB (DEB), the most severe EB subtype.",
+        drug: "Beremagene geperpavec (Vyjuvek)",
+        drugMechanism:
+          "First FDA-approved gene therapy for EB (2023): topically applied HSV-1-based vector delivering functional COL7A1 gene to wound sites, enabling anchoring fibril formation.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "LAMB3",
+        protein: "Laminin subunit beta-3",
+        uniprotId: "P15924",
+        function:
+          "Component of laminin-332 anchoring hemidesmosomes; LAMB3 mutations cause junctional EB (JEB), including the Herlitz lethal variant.",
+        drug: "Progenitor cell gene therapy (ex vivo)",
+        drugMechanism:
+          "Autologous epidermal stem cells transduced ex vivo with retroviral LAMB3 vector generate sheets of corrected skin grafted onto wounds; first successful EB gene therapy (Hirsch et al. 2017).",
+        drugApproval: "Compassionate Use / Clinical Trial",
+        pubchemId: "0",
+      },
+      {
+        gene: "COL17A1",
+        protein: "Collagen type XVII alpha 1 chain",
+        uniprotId: "Q9UMD9",
+        function:
+          "Transmembrane hemidesmosomal protein anchoring basal keratinocytes; COL17A1 mutations cause non-Herlitz JEB.",
+        drug: "Wound dressings / Diacerein",
+        drugMechanism:
+          "Diacerein (IL-1 inhibitor) reduces blistering in simplex EB; antisense oligonucleotides and CRISPR base editing for COL17A1-JEB are in Phase 1 trials.",
+        drugApproval: "Investigational",
+        pubchemId: "3025",
+      },
+    ],
+  },
+
+  "alagille syndrome": {
+    pathways: [
+      {
+        keggId: "hsa04330",
+        name: "Notch signaling pathway",
+        description:
+          "JAG1 or NOTCH2 mutations disrupt Notch-mediated biliary specification during embryogenesis, causing bile duct paucity and cholestasis in Alagille syndrome.",
+        reactomeId: "R-HSA-157118",
+      },
+      {
+        keggId: "hsa04146",
+        name: "Peroxisome",
+        description:
+          "Chronic cholestasis in Alagille syndrome causes secondary peroxisomal and mitochondrial fatty acid oxidation defects from bile acid accumulation.",
+      },
+      {
+        keggId: "hsa04726",
+        name: "Serotonergic synapse",
+        description:
+          "Intense cholestatic pruritus from bile acid accumulation involves TGR5 and serotonergic pathways in the CNS and peripheral itch sensory neurons.",
+      },
+    ],
+    genes: [
+      {
+        gene: "JAG1",
+        protein: "Jagged-1",
+        uniprotId: "P78504",
+        function:
+          "Notch pathway ligand; haploinsufficiency (>90% of Alagille cases) causes bile duct paucity, cardiac defects, and vertebral anomalies.",
+        drug: "Maralixibat (Livmarli)",
+        drugMechanism:
+          "Ileal bile acid transporter (IBAT/ASBT) inhibitor reducing enteral bile acid reabsorption to relieve cholestatic pruritus and improve liver function; first FDA-approved for Alagille syndrome (2021).",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "JAG1",
+        protein: "Jagged-1",
+        uniprotId: "P78504",
+        function:
+          "Odevixibat (Bylvay) is an alternative IBAT inhibitor also approved for cholestatic pruritus in Alagille syndrome.",
+        drug: "Odevixibat (Bylvay)",
+        drugMechanism:
+          "IBAT inhibitor reducing bile acid enterohepatic recirculation; FDA-approved 2023 for Alagille syndrome.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "NOTCH2",
+        protein: "Neurogenic locus notch homolog protein 2",
+        uniprotId: "Q04721",
+        function:
+          "Notch2 receptor activated by JAG1; NOTCH2 mutations cause ~2% of Alagille syndrome.",
+        drug: "Ursodeoxycholic acid (UDCA)",
+        drugMechanism:
+          "Hydrophilic bile acid replacing toxic endogenous bile acids; commonly used as supportive therapy in Alagille syndrome cholestasis.",
+        drugApproval: "FDA Approved",
+        pubchemId: "31401",
+      },
+    ],
+  },
+
+  "X-linked adrenoleukodystrophy": {
+    pathways: [
+      {
+        keggId: "hsa00120",
+        name: "Primary bile acid biosynthesis / VLCFA peroxisomal oxidation",
+        description:
+          "ABCD1 deficiency blocks peroxisomal import of very long chain fatty acids (VLCFAs ≥C22), causing their accumulation in myelin, adrenal cortex, and Leydig cells disrupting membrane function.",
+        reactomeId: "R-HSA-390918",
+      },
+      {
+        keggId: "hsa04141",
+        name: "Protein processing in ER",
+        description:
+          "VLCFA accumulation triggers ER stress, oxidative damage, and neuroinflammation leading to demyelination of cerebral white matter in the childhood cerebral form of ALD.",
+      },
+      {
+        keggId: "hsa04210",
+        name: "Apoptosis",
+        description:
+          "Oligodendrocyte apoptosis from VLCFA-induced oxidative stress and neuroinflammation drives progressive cerebral demyelination in ALD.",
+      },
+    ],
+    genes: [
+      {
+        gene: "ABCD1",
+        protein: "ATP-binding cassette sub-family D member 1 (ALDP)",
+        uniprotId: "P33897",
+        function:
+          "Peroxisomal membrane transporter for VLCFA-CoA esters; X-linked ABCD1 mutations cause ALD in males and adrenomyeloneuropathy (AMN) in hemizygotes.",
+        drug: "Leriglitazone",
+        drugMechanism:
+          "Brain-penetrant PPARγ agonist reducing neuroinflammation and oxidative stress in cerebral ALD; Phase 2/3 trial.",
+        drugApproval: "Clinical Trial",
+        pubchemId: "0",
+      },
+      {
+        gene: "ABCD1",
+        protein: "ATP-binding cassette sub-family D member 1",
+        uniprotId: "P33897",
+        function:
+          "Hematopoietic stem cell gene therapy with ABCD1-transduced autologous HSCs (Skysona) arrests cerebral ALD progression.",
+        drug: "Elivaldogene autotemcel (Skysona)",
+        drugMechanism:
+          "Ex vivo lentiviral gene therapy delivering ABCD1 to autologous HSCs; reconstitutes ABCD1-expressing microglia precursors; FDA-approved 2022 for cerebral ALD.",
+        drugApproval: "FDA Approved",
+        pubchemId: "0",
+      },
+      {
+        gene: "ABCD2",
+        protein: "ATP-binding cassette sub-family D member 2 (ALDRP)",
+        uniprotId: "Q9UKU7",
+        function:
+          "Closest homolog of ABCD1; its upregulation partly compensates for ABCD1 deficiency in adrenomyeloneuropathy.",
+        drug: "4-Phenylbutyrate",
+        drugMechanism:
+          "ABCD2 inducer that upregulates peroxisomal VLCFA beta-oxidation as compensation for ABCD1 deficiency; used off-label.",
+        drugApproval: "Investigational (ALD)",
+        pubchemId: "4780",
+      },
+    ],
+  },
 };
 
 // ─── Disease Alias Map ────────────────────────────────────────────────────────
@@ -6557,10 +8799,10 @@ const DISEASE_ALIASES: Record<string, string> = {
   scd: "sickle cell disease",
   "sickle cell anaemia": "sickle cell disease",
   "sickle cell anemia": "sickle cell disease",
-  haemophilia: "haemophilia",
-  hemophilia: "haemophilia",
-  "haemophilia a": "haemophilia",
-  "hemophilia a": "haemophilia",
+  haemophilia: "hemophilia a",
+  hemophilia: "hemophilia a",
+  "haemophilia a": "hemophilia a",
+  "hemophilia a": "hemophilia a",
   als: "amyotrophic lateral sclerosis",
   "amyotrophic lateral sclerosis": "amyotrophic lateral sclerosis",
   "lou gehrig's disease": "amyotrophic lateral sclerosis",
@@ -6609,6 +8851,133 @@ const DISEASE_ALIASES: Record<string, string> = {
   "polycythemia vera": "polycythemia vera",
   pv: "polycythemia vera",
   "polycythaemia vera": "polycythemia vera",
+  // genetic disorders
+  pku: "phenylketonuria",
+  phenylketonuria: "phenylketonuria",
+  phenylketonuric: "phenylketonuria",
+  "fabry disease": "fabry disease",
+  "fabry's disease": "fabry disease",
+  "pompe disease": "pompe disease",
+  "glycogen storage disease type 2": "pompe disease",
+  "gsd ii": "pompe disease",
+  mps: "mucopolysaccharidosis",
+  mucopolysaccharidosis: "mucopolysaccharidosis",
+  "hurler syndrome": "mucopolysaccharidosis",
+  "hunter syndrome": "mucopolysaccharidosis",
+  dmd: "duchenne muscular dystrophy",
+  "duchenne muscular dystrophy": "duchenne muscular dystrophy",
+  duchenne: "duchenne muscular dystrophy",
+  "factor viii deficiency": "hemophilia a",
+  "hemophilia b": "hemophilia b",
+  "haemophilia b": "hemophilia b",
+  "christmas disease": "hemophilia b",
+  "factor ix deficiency": "hemophilia b",
+  "beta thalassemia": "beta thalassemia",
+  "beta-thalassemia": "beta thalassemia",
+  "beta thalassaemia": "beta thalassemia",
+  thalassemia: "beta thalassemia",
+  thalassaemia: "beta thalassemia",
+  "marfan syndrome": "marfan syndrome",
+  marfan: "marfan syndrome",
+  nf1: "neurofibromatosis",
+  neurofibromatosis: "neurofibromatosis",
+  "neurofibromatosis type 1": "neurofibromatosis",
+  "tuberous sclerosis": "tuberous sclerosis",
+  tsc: "tuberous sclerosis",
+  "tuberous sclerosis complex": "tuberous sclerosis",
+  "lysosomal acid lipase deficiency": "lysosomal acid lipase deficiency",
+  lald: "lysosomal acid lipase deficiency",
+  cesd: "lysosomal acid lipase deficiency",
+  "wolman disease": "lysosomal acid lipase deficiency",
+  "transthyretin amyloidosis": "transthyretin amyloidosis",
+  "attr amyloidosis": "transthyretin amyloidosis",
+  attr: "transthyretin amyloidosis",
+  "cardiac amyloidosis": "transthyretin amyloidosis",
+  "alpha-1 antitrypsin deficiency": "alpha-1 antitrypsin deficiency",
+  aatd: "alpha-1 antitrypsin deficiency",
+  "alpha 1 antitrypsin deficiency": "alpha-1 antitrypsin deficiency",
+  "retinitis pigmentosa": "retinitis pigmentosa",
+  rp: "retinitis pigmentosa",
+  "hereditary transthyretin polyneuropathy":
+    "hereditary transthyretin polyneuropathy",
+  hattrpn: "hereditary transthyretin polyneuropathy",
+  "hattr polyneuropathy": "hereditary transthyretin polyneuropathy",
+  "familial hypercholesterolemia": "familial hypercholesterolemia",
+  fh: "familial hypercholesterolemia",
+  "homozygous fh": "familial hypercholesterolemia",
+  achondroplasia: "achondroplasia",
+  dwarfism: "achondroplasia",
+  // new genetic disorders
+  "rett syndrome": "rett syndrome",
+  rett: "rett syndrome",
+  mecp2: "rett syndrome",
+  "angelman syndrome": "angelman syndrome",
+  angelman: "angelman syndrome",
+  as: "angelman syndrome",
+  "happy puppet syndrome": "angelman syndrome",
+  "prader-willi syndrome": "prader-willi syndrome",
+  "prader willi syndrome": "prader-willi syndrome",
+  pws: "prader-willi syndrome",
+  "fragile x syndrome": "fragile x syndrome",
+  "fragile x": "fragile x syndrome",
+  fxs: "fragile x syndrome",
+  "martin-bell syndrome": "fragile x syndrome",
+  "niemann-pick disease": "niemann-pick disease",
+  "niemann pick disease": "niemann-pick disease",
+  npc: "niemann-pick disease",
+  "niemann-pick type c": "niemann-pick disease",
+  "krabbe disease": "krabbe disease",
+  krabbe: "krabbe disease",
+  "globoid cell leukodystrophy": "krabbe disease",
+  gcl: "krabbe disease",
+  "maple syrup urine disease": "maple syrup urine disease",
+  msud: "maple syrup urine disease",
+  "branched chain ketoaciduria": "maple syrup urine disease",
+  "methylmalonic acidemia": "methylmalonic acidemia",
+  mma: "methylmalonic acidemia",
+  "methylmalonic aciduria": "methylmalonic acidemia",
+  "friedreich's ataxia": "friedreich's ataxia",
+  "friedreich ataxia": "friedreich's ataxia",
+  frda: "friedreich's ataxia",
+  "hereditary spastic paraplegia": "hereditary spastic paraplegia",
+  hsp: "hereditary spastic paraplegia",
+  "spastic paraplegia": "hereditary spastic paraplegia",
+  spg4: "hereditary spastic paraplegia",
+  "myotonic dystrophy": "myotonic dystrophy",
+  "steinert disease": "myotonic dystrophy",
+  "myotonia dystrophica": "myotonic dystrophy",
+  "congenital hyperinsulinism": "congenital hyperinsulinism",
+  chi: "congenital hyperinsulinism",
+  "persistent hyperinsulinaemic hypoglycaemia": "congenital hyperinsulinism",
+  "glycogen storage disease type 1": "glycogen storage disease type 1",
+  "gsd type 1": "glycogen storage disease type 1",
+  gsd1: "glycogen storage disease type 1",
+  "von gierke disease": "glycogen storage disease type 1",
+  "von gierke": "glycogen storage disease type 1",
+  "biotinidase deficiency": "biotinidase deficiency",
+  btd: "biotinidase deficiency",
+  "biotin deficiency": "biotinidase deficiency",
+  "ornithine transcarbamylase deficiency":
+    "ornithine transcarbamylase deficiency",
+  "otc deficiency": "ornithine transcarbamylase deficiency",
+  otcd: "ornithine transcarbamylase deficiency",
+  hypophosphatasia: "hypophosphatasia",
+  hpp: "hypophosphatasia",
+  "epidermolysis bullosa": "epidermolysis bullosa",
+  eb: "epidermolysis bullosa",
+  deb: "epidermolysis bullosa",
+  jeb: "epidermolysis bullosa",
+  ebs: "epidermolysis bullosa",
+  "butterfly disease": "epidermolysis bullosa",
+  "alagille syndrome": "alagille syndrome",
+  algs: "alagille syndrome",
+  "arteriohepatic dysplasia": "alagille syndrome",
+  "x-linked adrenoleukodystrophy": "X-linked adrenoleukodystrophy",
+  ald: "X-linked adrenoleukodystrophy",
+  xald: "X-linked adrenoleukodystrophy",
+  adrenoleukodystrophy: "X-linked adrenoleukodystrophy",
+  adrenomyeloneuropathy: "X-linked adrenoleukodystrophy",
+  amn: "X-linked adrenoleukodystrophy",
 };
 
 // ─── Lookup helper ────────────────────────────────────────────────────────────

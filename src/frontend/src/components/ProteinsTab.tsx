@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 
-const INITIAL_SHOW_PROTEINS = 6;
+const INITIAL_SHOW_PROTEINS = 3;
 import type { ProteinTarget } from "../backend.d.ts";
 import { ConfidenceBadge } from "./ConfidenceBar";
 

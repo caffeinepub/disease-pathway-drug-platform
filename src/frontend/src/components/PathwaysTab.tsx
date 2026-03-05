@@ -11,7 +11,7 @@ import { useMemo, useState } from "react";
 import type { ExtendedPathway } from "../services/diseaseSearch";
 import { ConfidenceBar } from "./ConfidenceBar";
 
-const INITIAL_SHOW = 4;
+const INITIAL_SHOW = 3;
 
 type ConfidenceFilter = "all" | "high" | "very_high";
 

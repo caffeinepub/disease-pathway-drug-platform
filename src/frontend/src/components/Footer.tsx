@@ -21,34 +21,45 @@ export function Footer() {
         >
           © {year} Disease–Pathway–Drug Recommendation Platform
         </p>
-        <p
-          className="text-xs flex items-center gap-1.5"
-          style={{ color: "oklch(0.45 0.06 260)" }}
-        >
-          Built with{" "}
-          <Heart
-            className="w-3 h-3 inline"
-            style={{ color: "oklch(0.65 0.22 25)" }}
-          />{" "}
-          using{" "}
-          <a
-            href={caffeineUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors duration-200"
-            style={{ color: "oklch(0.82 0.17 198 / 0.7)" }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.color =
-                "oklch(0.82 0.17 198)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.color =
-                "oklch(0.82 0.17 198 / 0.7)";
+        <div className="flex flex-col items-center sm:items-end gap-0.5">
+          <p
+            className="text-xs flex items-center gap-1.5"
+            style={{ color: "oklch(0.45 0.06 260)" }}
+          >
+            Built with{" "}
+            <Heart
+              className="w-3 h-3 inline"
+              style={{ color: "oklch(0.65 0.22 25)" }}
+            />{" "}
+            using{" "}
+            <a
+              href={caffeineUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors duration-200"
+              style={{ color: "oklch(0.82 0.17 198 / 0.7)" }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.color =
+                  "oklch(0.82 0.17 198)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.color =
+                  "oklch(0.82 0.17 198 / 0.7)";
+              }}
+            >
+              caffeine.ai
+            </a>
+          </p>
+          <p
+            style={{
+              fontSize: "0.55rem",
+              color: "oklch(0.28 0.03 260 / 0.5)",
+              letterSpacing: "0.03em",
             }}
           >
-            caffeine.ai
-          </a>
-        </p>
+            Created by Suhasini
+          </p>
+        </div>
       </div>
     </footer>
   );

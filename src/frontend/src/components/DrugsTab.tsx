@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 
-const INITIAL_SHOW_DRUGS = 6;
+const INITIAL_SHOW_DRUGS = 3;
 import type { ExtendedDrug } from "../services/diseaseSearch";
 import { ConfidenceBar } from "./ConfidenceBar";
 
