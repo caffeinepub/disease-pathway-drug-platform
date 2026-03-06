@@ -69,6 +69,38 @@ function exportProteinsCSV(proteins: ProteinTarget[]) {
   URL.revokeObjectURL(url);
 }
 
+const FUNCTION_TRUNCATE_LENGTH = 120;
+
+function ProteinFunctionCell({ text }: { text: string }) {
+  const [expanded, setExpanded] = useState(false);
+  const isLong = text.length > FUNCTION_TRUNCATE_LENGTH;
+
+  if (!text) return <span className="text-xs opacity-30">—</span>;
+
+  return (
+    <div className="text-xs" style={{ color: "oklch(0.72 0.06 260)" }}>
+      <span>
+        {isLong && !expanded
+          ? `${text.slice(0, FUNCTION_TRUNCATE_LENGTH).trimEnd()}…`
+          : text}
+      </span>
+      {isLong && (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            setExpanded((v) => !v);
+          }}
+          className="ml-1.5 text-xs font-medium underline underline-offset-2 transition-opacity hover:opacity-100"
+          style={{ color: "oklch(0.82 0.17 198)", opacity: 0.85 }}
+        >
+          {expanded ? "Show less" : "Read more"}
+        </button>
+      )}
+    </div>
+  );
+}
+
 export function ProteinsTab({ proteins, isLoading }: ProteinsTabProps) {
   const [sortDir, setSortDir] = useState<SortDir>("desc");
   const [showAllProteins, setShowAllProteins] = useState(false);
@@ -395,14 +427,11 @@ export function ProteinsTab({ proteins, isLoading }: ProteinsTabProps) {
                       <span className="text-xs opacity-30">—</span>
                     )}
                   </td>
-                  <td className="px-4 py-3 max-w-[200px]">
-                    <span
-                      className="text-xs line-clamp-2"
-                      style={{ color: "oklch(0.6 0.06 260)" }}
-                      title={protein.function}
-                    >
-                      {protein.function || "—"}
-                    </span>
+                  <td
+                    className="px-4 py-3"
+                    style={{ minWidth: "220px", maxWidth: "340px" }}
+                  >
+                    <ProteinFunctionCell text={protein.function || ""} />
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex flex-wrap items-center gap-1.5">

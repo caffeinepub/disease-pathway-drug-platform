@@ -285,22 +285,79 @@ export function NetworkGraph({ data }: NetworkGraphProps) {
       const tgt = nodes.find((n) => n.id === edge.target);
       if (!src || !tgt) continue;
 
-      const gradient = ctx.createLinearGradient(src.x, src.y, tgt.x, tgt.y);
-      gradient.addColorStop(
-        0,
-        src.glowColor.replace("0.6", "0.25").replace("0.5", "0.2"),
-      );
-      gradient.addColorStop(
-        1,
-        tgt.glowColor.replace("0.6", "0.1").replace("0.5", "0.08"),
-      );
+      // Determine edge style based on relationship type
+      let lineWidth = 2;
+      let alpha = 0.7;
+      if (src.type === "disease" && tgt.type === "pathway") {
+        lineWidth = 3;
+        alpha = 0.9;
+      } else if (src.type === "pathway" && tgt.type === "protein") {
+        lineWidth = 2.5;
+        alpha = 0.8;
+      } else if (src.type === "protein" && tgt.type === "drug") {
+        lineWidth = 2;
+        alpha = 0.75;
+      }
 
+      // Glow pass (wider, semi-transparent)
+      const glowGradient = ctx.createLinearGradient(src.x, src.y, tgt.x, tgt.y);
+      glowGradient.addColorStop(
+        0,
+        src.glowColor.replace(/[\d.]+\)$/, `${alpha * 0.5})`),
+      );
+      glowGradient.addColorStop(
+        1,
+        tgt.glowColor.replace(/[\d.]+\)$/, `${alpha * 0.4})`),
+      );
       ctx.beginPath();
       ctx.moveTo(src.x, src.y);
       ctx.lineTo(tgt.x, tgt.y);
-      ctx.strokeStyle = gradient;
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = glowGradient;
+      ctx.lineWidth = lineWidth + 4;
       ctx.stroke();
+
+      // Core line pass (sharp, bright)
+      const coreGradient = ctx.createLinearGradient(src.x, src.y, tgt.x, tgt.y);
+      coreGradient.addColorStop(
+        0,
+        `${src.color}${Math.round(alpha * 255)
+          .toString(16)
+          .padStart(2, "0")}`,
+      );
+      coreGradient.addColorStop(
+        1,
+        `${tgt.color}${Math.round(alpha * 0.85 * 255)
+          .toString(16)
+          .padStart(2, "0")}`,
+      );
+      ctx.beginPath();
+      ctx.moveTo(src.x, src.y);
+      ctx.lineTo(tgt.x, tgt.y);
+      ctx.strokeStyle = coreGradient;
+      ctx.lineWidth = lineWidth;
+      ctx.stroke();
+
+      // Arrowhead at target node edge
+      const angle = Math.atan2(tgt.y - src.y, tgt.x - src.x);
+      const arrowLen = 10;
+      const arrowWidth = 0.45;
+      const ax = tgt.x - Math.cos(angle) * (tgt.radius + 3);
+      const ay = tgt.y - Math.sin(angle) * (tgt.radius + 3);
+      ctx.beginPath();
+      ctx.moveTo(ax, ay);
+      ctx.lineTo(
+        ax - Math.cos(angle - arrowWidth) * arrowLen,
+        ay - Math.sin(angle - arrowWidth) * arrowLen,
+      );
+      ctx.lineTo(
+        ax - Math.cos(angle + arrowWidth) * arrowLen,
+        ay - Math.sin(angle + arrowWidth) * arrowLen,
+      );
+      ctx.closePath();
+      ctx.fillStyle = `${tgt.color}${Math.round(alpha * 255)
+        .toString(16)
+        .padStart(2, "0")}`;
+      ctx.fill();
     }
 
     // Draw nodes
