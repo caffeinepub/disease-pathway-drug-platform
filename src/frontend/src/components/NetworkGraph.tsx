@@ -68,8 +68,9 @@ export function NetworkGraph({ data }: NetworkGraphProps) {
   const buildGraph = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const w = canvas.width;
-    const h = canvas.height;
+    const dpr = window.devicePixelRatio || 1;
+    const w = canvas.width / dpr;
+    const h = canvas.height / dpr;
     const cx = w / 2;
     const cy = h / 2;
 
@@ -270,7 +271,8 @@ export function NetworkGraph({ data }: NetworkGraphProps) {
     if (!ctx) return;
     const { x: tx, y: ty, scale } = transformRef.current;
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const dpr = window.devicePixelRatio || 1;
+    ctx.clearRect(0, 0, canvas.width / dpr, canvas.height / dpr);
 
     ctx.save();
     ctx.translate(tx, ty);
@@ -400,20 +402,42 @@ export function NetworkGraph({ data }: NetworkGraphProps) {
       // Label
       const maxChars =
         node.type === "disease"
-          ? 14
+          ? 16
           : node.type === "pathway"
-            ? 12
+            ? 14
             : node.type === "protein"
-              ? 10
-              : 9;
+              ? 12
+              : 11;
       const label = truncateLabel(node.label, maxChars);
       const fontSize =
-        node.type === "disease" ? 11 : node.type === "pathway" ? 9 : 8;
-      ctx.font = `600 ${fontSize}px 'Sora', sans-serif`;
+        node.type === "disease" ? 13 : node.type === "pathway" ? 11 : 10;
+      ctx.font = `700 ${fontSize}px 'Inter', 'Sora', sans-serif`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
+
+      const labelY = node.y + node.radius + 13;
+      const textWidth = ctx.measureText(label).width;
+      const padX = 5;
+      const padY = 3;
+
+      // Dark pill background for contrast
+      ctx.beginPath();
+      ctx.roundRect(
+        node.x - textWidth / 2 - padX,
+        labelY - fontSize / 2 - padY,
+        textWidth + padX * 2,
+        fontSize + padY * 2,
+        4,
+      );
+      ctx.fillStyle = "rgba(4, 6, 20, 0.78)";
+      ctx.fill();
+
+      // Text shadow (glow)
+      ctx.shadowColor = node.color;
+      ctx.shadowBlur = 6;
       ctx.fillStyle = "#ffffff";
-      ctx.fillText(label, node.x, node.y + node.radius + 10);
+      ctx.fillText(label, node.x, labelY);
+      ctx.shadowBlur = 0;
     }
 
     ctx.restore();
@@ -423,19 +447,27 @@ export function NetworkGraph({ data }: NetworkGraphProps) {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    const cvs = canvas;
+    function resizeCanvas() {
+      const parent = cvs.parentElement;
+      if (!parent) return;
+      const dpr = window.devicePixelRatio || 1;
+      const w = parent.offsetWidth;
+      const h = parent.offsetHeight;
+      cvs.width = w * dpr;
+      cvs.height = h * dpr;
+      cvs.style.width = `${w}px`;
+      cvs.style.height = `${h}px`;
+      const ctx2 = cvs.getContext("2d");
+      if (ctx2) ctx2.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
     const resizeObserver = new ResizeObserver(() => {
-      const parent = canvas.parentElement;
-      if (parent) {
-        canvas.width = parent.offsetWidth;
-        canvas.height = parent.offsetHeight;
-      }
+      resizeCanvas();
     });
 
     const parent = canvas.parentElement;
-    if (parent) {
-      canvas.width = parent.offsetWidth;
-      canvas.height = parent.offsetHeight;
-    }
+    resizeCanvas();
 
     if (parent) resizeObserver.observe(parent);
 

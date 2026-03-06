@@ -13,13 +13,13 @@ import {
 import { useMemo, useState } from "react";
 
 const INITIAL_SHOW_PROTEINS = 3;
-import type { ProteinTarget } from "../backend.d.ts";
+import type { ExtendedProtein } from "../services/diseaseSearch";
 import { ConfidenceBadge } from "./ConfidenceBar";
 
 type ConfidenceFilter = "all" | "high" | "very_high";
 
 interface ProteinsTabProps {
-  proteins: ProteinTarget[];
+  proteins: ExtendedProtein[];
   isLoading?: boolean;
 }
 
@@ -44,7 +44,7 @@ function ProteinRowSkeleton() {
   );
 }
 
-function exportProteinsCSV(proteins: ProteinTarget[]) {
+function exportProteinsCSV(proteins: ExtendedProtein[]) {
   const headers = [
     "Protein Name",
     "Gene",
@@ -501,6 +501,79 @@ export function ProteinsTab({ proteins, isLoading }: ProteinsTabProps) {
                         >
                           <ExternalLink className="w-3 h-3" />
                           BioGRID
+                        </a>
+                      )}
+                      {/* OMIM — for human genes */}
+                      {protein.omimId ? (
+                        <a
+                          href={`https://www.omim.org/entry/${protein.omimId}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium transition-all"
+                          style={{
+                            background: "oklch(0.72 0.18 30 / 0.1)",
+                            color: "oklch(0.82 0.18 30)",
+                            border: "1px solid oklch(0.72 0.18 30 / 0.3)",
+                          }}
+                          title="View on OMIM"
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                          OMIM
+                        </a>
+                      ) : protein.geneName &&
+                        !protein.geneName.startsWith("HCV") &&
+                        !protein.geneName.startsWith("HBV") &&
+                        !protein.geneName.startsWith("HIV") ? (
+                        <a
+                          href={`https://www.omim.org/search/?index=entry&search=${encodeURIComponent(protein.geneName)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium transition-all"
+                          style={{
+                            background: "oklch(0.72 0.18 30 / 0.1)",
+                            color: "oklch(0.82 0.18 30)",
+                            border: "1px solid oklch(0.72 0.18 30 / 0.3)",
+                          }}
+                          title="Search on OMIM"
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                          OMIM
+                        </a>
+                      ) : null}
+                      {/* DisGeNET */}
+                      {protein.geneName && (
+                        <a
+                          href={`https://www.disgenet.org/search/#/gene/${encodeURIComponent(protein.geneName)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium transition-all"
+                          style={{
+                            background: "oklch(0.68 0.20 320 / 0.1)",
+                            color: "oklch(0.78 0.18 320)",
+                            border: "1px solid oklch(0.68 0.20 320 / 0.3)",
+                          }}
+                          title="View gene-disease associations on DisGeNET"
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                          DisGeNET
+                        </a>
+                      )}
+                      {/* NCBI Protein — for viral proteins */}
+                      {protein.ncbiProteinId && (
+                        <a
+                          href={`https://www.ncbi.nlm.nih.gov/protein/${protein.ncbiProteinId}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium transition-all"
+                          style={{
+                            background: "oklch(0.88 0.18 85 / 0.1)",
+                            color: "oklch(0.88 0.18 85)",
+                            border: "1px solid oklch(0.88 0.18 85 / 0.3)",
+                          }}
+                          title="View on NCBI Protein"
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                          NCBI Protein
                         </a>
                       )}
                     </div>

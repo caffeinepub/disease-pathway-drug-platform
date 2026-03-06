@@ -501,6 +501,43 @@ export function DrugsTab({ drugs, isLoading }: DrugsTabProps) {
                   <ExternalLink className="w-3 h-3" />
                   TTD
                 </a>
+                {/* FDA/EMA/ClinicalTrials fallback — shown for biologics & gene therapies without a small-mol ID */}
+                {drug.fdaLabel &&
+                  !drug.drugbankId &&
+                  !drug.chemblId &&
+                  (!drug.pubchemId || drug.pubchemId === "0") && (
+                    <a
+                      href={drug.fdaLabel}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200"
+                      style={{
+                        background: "oklch(0.82 0.18 55 / 0.12)",
+                        color: "oklch(0.82 0.18 55)",
+                        border: "1px solid oklch(0.82 0.18 55 / 0.3)",
+                      }}
+                    >
+                      <ExternalLink className="w-3 h-3" />
+                      FDA / Trial
+                    </a>
+                  )}
+                {/* Also show FDA label link for approved biologics that also have DrugBank */}
+                {drug.fdaLabel && (drug.drugbankId || drug.chemblId) && (
+                  <a
+                    href={drug.fdaLabel}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200"
+                    style={{
+                      background: "oklch(0.82 0.18 55 / 0.08)",
+                      color: "oklch(0.78 0.15 55)",
+                      border: "1px solid oklch(0.82 0.18 55 / 0.2)",
+                    }}
+                  >
+                    <ExternalLink className="w-3 h-3" />
+                    FDA Label
+                  </a>
+                )}
               </div>
             </div>
           );

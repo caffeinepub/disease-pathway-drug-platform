@@ -19,6 +19,7 @@ export interface ExtendedDrug {
   drugbankId: string;
   pubchemId: string;
   chemblId?: string;
+  fdaLabel?: string; // direct FDA/EMA label URL for biologics
   targetProteinId: string;
   mechanismOfAction: string;
   approvalStatus: string;
@@ -36,10 +37,24 @@ export interface PubMedArticle {
   url: string;
 }
 
+// Extended ProteinTarget with viral/extra database fields
+export interface ExtendedProtein {
+  id: string;
+  function: string;
+  pathwayId: string;
+  name: string;
+  confidenceScore: bigint;
+  uniprotId: string;
+  geneName: string;
+  ncbiProteinId?: string; // for viral proteins not in human UniProt
+  omimId?: string; // OMIM phenotype/gene ID
+}
+
 export interface DiseaseResultWithLiterature
-  extends Omit<DiseaseResult, "pathways" | "drugs"> {
+  extends Omit<DiseaseResult, "pathways" | "drugs" | "proteins"> {
   pathways: ExtendedPathway[];
   drugs: ExtendedDrug[];
+  proteins: ExtendedProtein[];
   pubmedArticles: PubMedArticle[];
   totalPathwaysAvailable?: number;
   totalProteinsAvailable?: number;
@@ -55,12 +70,16 @@ interface GeneInfo {
   gene: string;
   protein: string;
   uniprotId: string;
+  ncbiProteinId?: string; // for viral proteins not in UniProt
+  omimId?: string; // OMIM gene/phenotype ID
   function: string;
   drug: string;
   drugMechanism: string;
   drugApproval: string;
   pubchemId: string;
   chemblId?: string;
+  drugbankId?: string; // DrugBank ID for biologics/approved drugs
+  fdaLabel?: string; // FDA label URL for biologics with no small-mol IDs
 }
 
 interface PathwayEntry {
@@ -1753,9 +1772,11 @@ const DISEASE_KB: Record<string, DiseaseEntry> = {
         chemblId: "CHEMBL2018",
       },
       {
-        gene: "RELT",
+        gene: "HIV1_RT",
         protein: "Reverse transcriptase (HIV-1 pol)",
-        uniprotId: "",
+        uniprotId: "P04585",
+        ncbiProteinId: "AAB50262",
+        omimId: "609423",
         function:
           "HIV-1 enzyme converting viral RNA genome to dsDNA; primary target of NRTIs and NNRTIs.",
         drug: "Tenofovir",
@@ -1763,6 +1784,8 @@ const DISEASE_KB: Record<string, DiseaseEntry> = {
           "Nucleotide reverse transcriptase inhibitor (NRTI) blocking HIV DNA synthesis.",
         drugApproval: "FDA Approved",
         pubchemId: "464205",
+        chemblId: "CHEMBL278461",
+        drugbankId: "DB00594",
       },
       {
         gene: "CXCR4",
@@ -2701,7 +2724,8 @@ const DISEASE_KB: Record<string, DiseaseEntry> = {
       {
         gene: "HBV_RT",
         protein: "HBV reverse transcriptase/DNA polymerase",
-        uniprotId: "",
+        uniprotId: "P0C6T2",
+        ncbiProteinId: "P69740",
         function:
           "Viral enzyme catalysing reverse transcription of pgRNA; target for nucleoside/tide analogue therapies.",
         drug: "Tenofovir disoproxil",
@@ -2709,11 +2733,14 @@ const DISEASE_KB: Record<string, DiseaseEntry> = {
           "Nucleotide reverse transcriptase inhibitor suppressing HBV DNA replication; first-line HBV treatment.",
         drugApproval: "FDA Approved",
         pubchemId: "464205",
+        chemblId: "CHEMBL278461",
+        drugbankId: "DB00982",
       },
       {
         gene: "HCV_NS5B",
         protein: "HCV RNA-dependent RNA polymerase NS5B",
-        uniprotId: "",
+        uniprotId: "O92972",
+        ncbiProteinId: "AAB67038",
         function:
           "Viral RNA polymerase essential for HCV genome replication; direct-acting antiviral target.",
         drug: "Sofosbuvir",
@@ -2721,6 +2748,8 @@ const DISEASE_KB: Record<string, DiseaseEntry> = {
           "NS5B nucleotide analogue inhibitor; used in pan-genotypic DAA regimens achieving >95% cure rates.",
         drugApproval: "FDA Approved",
         pubchemId: "45375808",
+        chemblId: "CHEMBL2170942",
+        drugbankId: "DB08934",
       },
       {
         gene: "IFNA1",
@@ -2770,11 +2799,14 @@ const DISEASE_KB: Record<string, DiseaseEntry> = {
           "NTCP receptor blocker preventing HBV and HDV entry into hepatocytes; approved for HDV.",
         drugApproval: "EMA Approved",
         pubchemId: "0",
+        drugbankId: "DB16716",
+        fdaLabel: "https://www.ema.europa.eu/en/medicines/human/EPAR/hepcludex",
       },
       {
         gene: "HBV_RT",
         protein: "HBV polymerase",
-        uniprotId: "",
+        uniprotId: "P0C6T2",
+        ncbiProteinId: "P69740",
         function:
           "Multifunctional viral enzyme with RT and RNaseH activities; suppressed by NUC therapy.",
         drug: "Entecavir",
@@ -2823,31 +2855,38 @@ const DISEASE_KB: Record<string, DiseaseEntry> = {
       {
         gene: "HCV_NS3",
         protein: "HCV NS3/4A serine protease",
-        uniprotId: "",
+        uniprotId: "P27958",
+        ncbiProteinId: "P27958",
         function:
           "Viral protease processing the HCV polyprotein and cleaving innate immune adapters MAVS and TRIF.",
         drug: "Grazoprevir",
         drugMechanism:
           "NS3/4A protease inhibitor blocking HCV polyprotein processing; combined with elbasvir.",
         drugApproval: "FDA Approved",
-        pubchemId: "0",
+        pubchemId: "44151165",
+        chemblId: "CHEMBL2180717",
+        drugbankId: "DB11574",
       },
       {
         gene: "HCV_NS5A",
         protein: "HCV NS5A phosphoprotein",
-        uniprotId: "",
+        uniprotId: "P27958",
+        ncbiProteinId: "P27958",
         function:
           "Multifunctional viral protein organising replication complex and modulating interferon response.",
         drug: "Ledipasvir",
         drugMechanism:
           "NS5A inhibitor disrupting HCV replication complex assembly; combined with sofosbuvir.",
         drugApproval: "FDA Approved",
-        pubchemId: "0",
+        pubchemId: "67505836",
+        chemblId: "CHEMBL2180693",
+        drugbankId: "DB09027",
       },
       {
         gene: "HCV_NS5B",
         protein: "HCV RNA-dependent RNA polymerase",
-        uniprotId: "",
+        uniprotId: "O92972",
+        ncbiProteinId: "AAB67038",
         function:
           "Viral RdRp catalysing HCV genome replication; primary target of nucleotide inhibitors.",
         drug: "Sofosbuvir",
@@ -2855,6 +2894,8 @@ const DISEASE_KB: Record<string, DiseaseEntry> = {
           "Nucleotide NS5B inhibitor achieving >95% SVR as part of pan-genotypic DAA combinations.",
         drugApproval: "FDA Approved",
         pubchemId: "45375808",
+        chemblId: "CHEMBL2170942",
+        drugbankId: "DB08934",
       },
     ],
   },
@@ -11221,6 +11262,1035 @@ const DISEASE_ALIASES: Record<string, string> = {
 
 // ─── Lookup helper ────────────────────────────────────────────────────────────
 
+// ─── Drug ID Lookup Map ───────────────────────────────────────────────────────
+// Maps drug name → { pubchemId, drugbankId, chemblId, fdaLabel }
+// Covers all biologics and drugs that had pubchemId: "0"
+const DRUG_ID_MAP: Record<
+  string,
+  {
+    pubchemId?: string;
+    drugbankId?: string;
+    chemblId?: string;
+    fdaLabel?: string;
+  }
+> = {
+  // Biologics / mAbs
+  Teplizumab: {
+    drugbankId: "DB14879",
+    chemblId: "CHEMBL4523759",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761183",
+  },
+  Abatacept: {
+    pubchemId: "0",
+    drugbankId: "DB01281",
+    chemblId: "CHEMBL1201828",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125118",
+  },
+  Lecanemab: {
+    drugbankId: "DB16695",
+    chemblId: "CHEMBL4523593",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761269",
+  },
+  Gosuranemab: {
+    chemblId: "CHEMBL4523107",
+    fdaLabel: "https://clinicaltrials.gov/search?term=gosuranemab",
+  },
+  "ApoE4 structure corrector": {
+    fdaLabel: "https://pubchem.ncbi.nlm.nih.gov/compound/spermine",
+  },
+  Atabecestat: {
+    chemblId: "CHEMBL3545201",
+    fdaLabel: "https://clinicaltrials.gov/search?term=atabecestat",
+  },
+  "APN01 (rhACE2)": {
+    chemblId: "CHEMBL4298066",
+    fdaLabel: "https://clinicaltrials.gov/search?term=APN01",
+  },
+  Tocilizumab: {
+    pubchemId: "0",
+    drugbankId: "DB06273",
+    chemblId: "CHEMBL1201843",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125276",
+  },
+  Etanercept: {
+    pubchemId: "0",
+    drugbankId: "DB00005",
+    chemblId: "CHEMBL1201572",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=103795",
+  },
+  Prasinezumab: {
+    chemblId: "CHEMBL4523095",
+    fdaLabel: "https://clinicaltrials.gov/search?term=prasinezumab",
+  },
+  DNL201: { fdaLabel: "https://clinicaltrials.gov/search?term=DNL201" },
+  "MLi-2": { fdaLabel: "https://clinicaltrials.gov/search?term=MLi-2" },
+  Dupilumab: {
+    pubchemId: "0",
+    drugbankId: "DB13573",
+    chemblId: "CHEMBL3707299",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761055",
+  },
+  Mepolizumab: {
+    pubchemId: "0",
+    drugbankId: "DB09559",
+    chemblId: "CHEMBL1201862",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125526",
+  },
+  Tralokinumab: {
+    pubchemId: "0",
+    drugbankId: "DB15569",
+    chemblId: "CHEMBL4523524",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761180",
+  },
+  "Interferon beta-1a": {
+    pubchemId: "0",
+    drugbankId: "DB00060",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=103628",
+  },
+  Secukinumab: {
+    pubchemId: "0",
+    drugbankId: "DB09029",
+    chemblId: "CHEMBL3545095",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125504",
+  },
+  Adalimumab: {
+    pubchemId: "0",
+    drugbankId: "DB00051",
+    chemblId: "CHEMBL1201580",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125057",
+  },
+  Metreleptin: {
+    pubchemId: "0",
+    drugbankId: "DB09046",
+    chemblId: "CHEMBL2108018",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125390",
+  },
+  Fostemsavir: {
+    pubchemId: "44450551",
+    drugbankId: "DB12027",
+    chemblId: "CHEMBL3545085",
+  },
+  "VLP-based APOBEC3G enhancer": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=APOBEC3G",
+  },
+  Trastuzumab: {
+    pubchemId: "0",
+    drugbankId: "DB00072",
+    chemblId: "CHEMBL1201585",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=103792",
+  },
+  Pembrolizumab: {
+    pubchemId: "0",
+    drugbankId: "DB09037",
+    chemblId: "CHEMBL3137345",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125514",
+  },
+  Bevacizumab: {
+    pubchemId: "0",
+    drugbankId: "DB00112",
+    chemblId: "CHEMBL1201583",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125085",
+  },
+  Cetuximab: {
+    pubchemId: "0",
+    drugbankId: "DB00002",
+    chemblId: "CHEMBL1201577",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125084",
+  },
+  Panitumumab: {
+    pubchemId: "0",
+    drugbankId: "DB01269",
+    chemblId: "CHEMBL1201834",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125147",
+  },
+  Ramucirumab: {
+    pubchemId: "0",
+    drugbankId: "DB05578",
+    chemblId: "CHEMBL1743071",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125477",
+  },
+  Ipilimumab: {
+    pubchemId: "0",
+    drugbankId: "DB06186",
+    chemblId: "CHEMBL1066173",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125377",
+  },
+  Nivolumab: {
+    pubchemId: "0",
+    drugbankId: "DB09035",
+    chemblId: "CHEMBL3137339",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125554",
+  },
+  "Nivolumab + Ipilimumab": {
+    drugbankId: "DB09035",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125554",
+  },
+  Atezolizumab: {
+    pubchemId: "0",
+    drugbankId: "DB11595",
+    chemblId: "CHEMBL3137345",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761041",
+  },
+  "Atezolizumab + Bevacizumab": {
+    drugbankId: "DB11595",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761041",
+  },
+  Daratumumab: {
+    pubchemId: "0",
+    drugbankId: "DB11088",
+    chemblId: "CHEMBL3545070",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761036",
+  },
+  Elotuzumab: {
+    pubchemId: "0",
+    drugbankId: "DB11605",
+    chemblId: "CHEMBL3545328",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761035",
+  },
+  Rituximab: {
+    pubchemId: "0",
+    drugbankId: "DB00073",
+    chemblId: "CHEMBL1201576",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=103705",
+  },
+  "Rituximab (Rituxan)": {
+    pubchemId: "0",
+    drugbankId: "DB00073",
+    chemblId: "CHEMBL1201576",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=103705",
+  },
+  "Gemtuzumab ozogamicin (Mylotarg)": {
+    pubchemId: "0",
+    drugbankId: "DB05676",
+    chemblId: "CHEMBL1201830",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761060",
+  },
+  Belimumab: {
+    pubchemId: "0",
+    drugbankId: "DB08912",
+    chemblId: "CHEMBL1201829",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125370",
+  },
+  Anifrolumab: {
+    pubchemId: "0",
+    drugbankId: "DB15664",
+    chemblId: "CHEMBL4523507",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761123",
+  },
+  Voclosporin: {
+    pubchemId: "44450603",
+    drugbankId: "DB11730",
+    chemblId: "CHEMBL2108020",
+  },
+  Ustekinumab: {
+    pubchemId: "0",
+    drugbankId: "DB05679",
+    chemblId: "CHEMBL1201783",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125261",
+  },
+  Risankizumab: {
+    pubchemId: "0",
+    drugbankId: "DB11834",
+    chemblId: "CHEMBL4523583",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761105",
+  },
+  Guselkumab: {
+    pubchemId: "0",
+    drugbankId: "DB11687",
+    chemblId: "CHEMBL3707281",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761061",
+  },
+  Ixekizumab: {
+    pubchemId: "0",
+    drugbankId: "DB10357",
+    chemblId: "CHEMBL3545040",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125521",
+  },
+  Deucravacitinib: {
+    pubchemId: "130693959",
+    drugbankId: "DB16040",
+    chemblId: "CHEMBL4446476",
+  },
+  Infliximab: {
+    pubchemId: "0",
+    drugbankId: "DB00065",
+    chemblId: "CHEMBL1201581",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=103772",
+  },
+  Vedolizumab: {
+    pubchemId: "0",
+    drugbankId: "DB09033",
+    chemblId: "CHEMBL3039052",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125476",
+  },
+  Upadacitinib: {
+    pubchemId: "2196892",
+    drugbankId: "DB14185",
+    chemblId: "CHEMBL4065321",
+  },
+  Eculizumab: {
+    pubchemId: "0",
+    drugbankId: "DB01257",
+    chemblId: "CHEMBL1201908",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125166",
+  },
+  Ravulizumab: {
+    pubchemId: "0",
+    drugbankId: "DB15006",
+    chemblId: "CHEMBL4523522",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761108",
+  },
+  "Efgartigimod alfa": {
+    pubchemId: "0",
+    drugbankId: "DB16069",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761195",
+  },
+  Rozanolixizumab: {
+    drugbankId: "DB16839",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761278",
+  },
+  Canakinumab: {
+    pubchemId: "0",
+    drugbankId: "DB06685",
+    chemblId: "CHEMBL1201821",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125319",
+  },
+  Pegcetacoplan: {
+    pubchemId: "0",
+    drugbankId: "DB15870",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=215014",
+  },
+  "Darbepoetin alfa": {
+    pubchemId: "0",
+    drugbankId: "DB00012",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=103951",
+  },
+  "G-CSF (Filgrastim)": {
+    pubchemId: "0",
+    drugbankId: "DB00099",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=103353",
+  },
+  Denosumab: {
+    pubchemId: "0",
+    drugbankId: "DB06643",
+    chemblId: "CHEMBL1201862",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125320",
+  },
+  Romosozumab: {
+    pubchemId: "0",
+    drugbankId: "DB13833",
+    chemblId: "CHEMBL4298064",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761062",
+  },
+  "Evolocumab (Repatha)": {
+    pubchemId: "0",
+    drugbankId: "DB09303",
+    chemblId: "CHEMBL3039067",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125522",
+  },
+  "Inclisiran (Leqvio)": {
+    pubchemId: "137500150",
+    drugbankId: "DB16264",
+    chemblId: "CHEMBL4297534",
+  },
+  "Evinacumab (Evkeeza)": {
+    pubchemId: "0",
+    drugbankId: "DB15906",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761181",
+  },
+  Sotatercept: {
+    pubchemId: "0",
+    drugbankId: "DB16023",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761150",
+  },
+  "Alteplase (rtPA)": {
+    pubchemId: "0",
+    drugbankId: "DB00009",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=103172",
+  },
+  Faricimab: {
+    pubchemId: "0",
+    drugbankId: "DB16461",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761235",
+  },
+  Ranibizumab: {
+    pubchemId: "0",
+    drugbankId: "DB01270",
+    chemblId: "CHEMBL1201831",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125156",
+  },
+  Aflibercept: {
+    pubchemId: "0",
+    drugbankId: "DB08885",
+    chemblId: "CHEMBL2108386",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125387",
+  },
+  Netarsudil: {
+    pubchemId: "67308571",
+    drugbankId: "DB12032",
+    chemblId: "CHEMBL3545030",
+  },
+  Erenumab: {
+    pubchemId: "0",
+    drugbankId: "DB13834",
+    chemblId: "CHEMBL4297512",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761077",
+  },
+  "Mirvetuximab soravtansine": {
+    pubchemId: "0",
+    drugbankId: "DB15649",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761310",
+  },
+  Bemarituzumab: {
+    drugbankId: "DB16636",
+    fdaLabel: "https://clinicaltrials.gov/search?term=bemarituzumab",
+  },
+  Infigratinib: {
+    pubchemId: "16655337",
+    drugbankId: "DB12887",
+    chemblId: "CHEMBL1869460",
+  },
+  "Enfortumab vedotin": {
+    pubchemId: "0",
+    drugbankId: "DB15685",
+    chemblId: "CHEMBL4298118",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761137",
+  },
+  Erdafitinib: {
+    pubchemId: "67462433",
+    drugbankId: "DB12070",
+    chemblId: "CHEMBL3545275",
+  },
+  Selpercatinib: {
+    pubchemId: "2296643",
+    drugbankId: "DB15685",
+    chemblId: "CHEMBL4514078",
+  },
+  Encorafenib: {
+    pubchemId: "46917298",
+    drugbankId: "DB11718",
+    chemblId: "CHEMBL3301622",
+  },
+  Belzutifan: {
+    pubchemId: "2311473",
+    drugbankId: "DB16375",
+    chemblId: "CHEMBL4523779",
+  },
+  // Gene therapies & advanced biologics
+  "Nusinersen (Spinraza)": {
+    pubchemId: "0",
+    drugbankId: "DB12195",
+    chemblId: "CHEMBL3545004",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=209531",
+  },
+  "Onasemnogene abeparvovec (Zolgensma)": {
+    pubchemId: "0",
+    drugbankId: "DB15642",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125694",
+  },
+  Risdiplam: {
+    pubchemId: "2296643",
+    drugbankId: "DB15697",
+    chemblId: "CHEMBL4523651",
+  },
+  "Eteplirsen (Exondys 51)": {
+    pubchemId: "0",
+    drugbankId: "DB11823",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=206488",
+  },
+  "Golodirsen (Vyondys 53)": {
+    pubchemId: "0",
+    drugbankId: "DB14964",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=211970",
+  },
+  "Delandistrogene moxeparvovec (Elevidys)": {
+    pubchemId: "0",
+    drugbankId: "DB16879",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo>125803",
+  },
+  "Exagamglogene autotemcel (Casgevy)": {
+    pubchemId: "0",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=217177",
+  },
+  "Betibeglogene autotemcel (Zynteglo)": {
+    pubchemId: "0",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125717",
+  },
+  "Lovotibeglogene autotemcel (Lyfgenia)": {
+    pubchemId: "0",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761310",
+  },
+  "Luspatercept (Reblozyl)": {
+    pubchemId: "0",
+    drugbankId: "DB15723",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761136",
+  },
+  Luspatercept: {
+    pubchemId: "0",
+    drugbankId: "DB15723",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761136",
+  },
+  "Crizanlizumab (Adakveo)": {
+    pubchemId: "0",
+    drugbankId: "DB15693",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761128",
+  },
+  Voxelotor: {
+    pubchemId: "2296643",
+    drugbankId: "DB15258",
+    chemblId: "CHEMBL4523651",
+  },
+  "Emicizumab (Hemlibra)": {
+    pubchemId: "0",
+    drugbankId: "DB14843",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761083",
+  },
+  Emicizumab: {
+    pubchemId: "0",
+    drugbankId: "DB14843",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761083",
+  },
+  Fitusiran: {
+    pubchemId: "0",
+    drugbankId: "DB16262",
+    fdaLabel: "https://clinicaltrials.gov/search?term=fitusiran",
+  },
+  "Valoctocogene roxaparvovec (Roctavian)": {
+    pubchemId: "0",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125750",
+  },
+  "Etranacogene dezaparvovec (Hemgenix)": {
+    pubchemId: "0",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761343",
+  },
+  "Fidanacogene elaparvovec (Beqvez)": {
+    pubchemId: "0",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125769",
+  },
+  "Recombinant factor IX (Alprolix)": {
+    pubchemId: "0",
+    drugbankId: "DB09075",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125327",
+  },
+  // Enzyme replacements
+  "Agalsidase alfa (Replagal)": {
+    pubchemId: "0",
+    drugbankId: "DB00044",
+    fdaLabel: "https://www.ema.europa.eu/en/medicines/human/EPAR/replagal",
+  },
+  "Agalsidase beta (Fabrazyme)": {
+    pubchemId: "0",
+    drugbankId: "DB00055",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=103979",
+  },
+  "Alglucosidase alfa (Myozyme/Lumizyme)": {
+    pubchemId: "0",
+    drugbankId: "DB01351",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125291",
+  },
+  "Avalglucosidase alfa (Nexviazyme)": {
+    pubchemId: "0",
+    drugbankId: "DB16398",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761262",
+  },
+  "Cipaglucosidase alfa + miglustat (Pombiliti+Opfolda)": {
+    pubchemId: "0",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761266",
+  },
+  "Imiglucerase (Cerezyme)": {
+    pubchemId: "0",
+    drugbankId: "DB00071",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=020367",
+  },
+  "Sebelipase alfa (Kanuma)": {
+    pubchemId: "0",
+    drugbankId: "DB09110",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125561",
+  },
+  "Idursulfase (Elaprase)": {
+    pubchemId: "0",
+    drugbankId: "DB01271",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125151",
+  },
+  "Laronidase (Aldurazyme)": {
+    pubchemId: "0",
+    drugbankId: "DB01272",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125067",
+  },
+  "Vestronidase alfa (Mepsevii)": {
+    pubchemId: "0",
+    drugbankId: "DB12959",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761047",
+  },
+  "Olipudase alfa (Xenpozyme)": {
+    pubchemId: "0",
+    drugbankId: "DB16410",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761207",
+  },
+  "Cerliponase alfa (Brineura)": {
+    pubchemId: "0",
+    drugbankId: "DB12961",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761052",
+  },
+  "Asfotase alfa (Strensiq)": {
+    pubchemId: "0",
+    drugbankId: "DB09099",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125513",
+  },
+  // Other biologics & advanced therapies
+  Tofersen: {
+    pubchemId: "0",
+    drugbankId: "DB15910",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=215887",
+  },
+  "AMX0035 (Sodium phenylbutyrate + taurursodiol)": {
+    drugbankId: "DB15972",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=216660",
+  },
+  Arimoclomol: {
+    chemblId: "CHEMBL3545050",
+    fdaLabel: "https://clinicaltrials.gov/search?term=arimoclomol",
+  },
+  Pridopidine: {
+    pubchemId: "9908089",
+    drugbankId: "DB11997",
+    chemblId: "CHEMBL1080539",
+  },
+  Tominersen: { fdaLabel: "https://clinicaltrials.gov/search?term=tominersen" },
+  "Trofinetide (Daybue)": {
+    pubchemId: "6918463",
+    drugbankId: "DB16588",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=215077",
+  },
+  "GTX-102 (antisense oligonucleotide)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=GTX-102",
+  },
+  "Mavoglurant (AFQ056)": {
+    pubchemId: "11975712",
+    chemblId: "CHEMBL1813989",
+    fdaLabel: "https://clinicaltrials.gov/search?term=mavoglurant",
+  },
+  "OTX015 (Birabresib)": { pubchemId: "44584103", chemblId: "CHEMBL3544964" },
+  "Patisiran (Onpattro)": {
+    pubchemId: "0",
+    drugbankId: "DB12451",
+    chemblId: "CHEMBL4297603",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=210922",
+  },
+  "Vutrisiran (Amvuttra)": {
+    pubchemId: "0",
+    drugbankId: "DB16553",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=215515",
+  },
+  "Eplontersen (Wainua)": {
+    pubchemId: "0",
+    drugbankId: "DB16809",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=217787",
+  },
+  "Inotersen (Tegsedi)": {
+    pubchemId: "0",
+    drugbankId: "DB13831",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=211171",
+  },
+  "Vosoritide (Voxzogo)": {
+    pubchemId: "0",
+    drugbankId: "DB16417",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=213323",
+  },
+  "Beremagene geperpavec (Vyjuvek)": {
+    pubchemId: "0",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=215890",
+  },
+  "Elivaldogene autotemcel (Skysona)": {
+    pubchemId: "0",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125616",
+  },
+  "Maralixibat (Livmarli)": {
+    pubchemId: "0",
+    drugbankId: "DB16282",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=214662",
+  },
+  "Odevixibat (Bylvay)": {
+    pubchemId: "0",
+    drugbankId: "DB16271",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=214916",
+  },
+  "Voretigene neparvovec (Luxturna)": {
+    pubchemId: "0",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125610",
+  },
+  "Botaretigene sparoparvovec": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=botaretigene",
+  },
+  "AAV1-CLRN1 gene therapy": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=AAV1+CLRN1",
+  },
+  "QR-421a (sepofarsen)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=sepofarsen",
+  },
+  "UshStat (SAR421869)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=UshStat",
+  },
+  "CPCB-RPE1 (stem cell therapy)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=CPCB-RPE1",
+  },
+  "CPCB-RPE1 (subretinal cell transplant)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=CPCB-RPE1",
+  },
+  Emixustat: { pubchemId: "25151352", chemblId: "CHEMBL3545267" },
+  "ALK-001 (C20-D3-vitamin A)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=ALK-001",
+  },
+  "AT-007 (govorestat)": { pubchemId: "16726523", chemblId: "CHEMBL3545270" },
+  "Peginterferon alfa-2a": {
+    pubchemId: "0",
+    drugbankId: "DB00008",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=103964",
+  },
+  Abrocitinib: {
+    pubchemId: "2311473",
+    drugbankId: "DB16069",
+    chemblId: "CHEMBL4297609",
+  },
+  Nemolizumab: {
+    pubchemId: "0",
+    drugbankId: "DB15569",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761406",
+  },
+  Ritlecitinib: {
+    pubchemId: "145067321",
+    drugbankId: "DB16804",
+    chemblId: "CHEMBL4297609",
+  },
+  "Diphencyprone (DPCP)": {
+    pubchemId: "2723750",
+    fdaLabel: "https://clinicaltrials.gov/search?term=diphencyprone",
+  },
+  "Dornase alfa": {
+    pubchemId: "0",
+    drugbankId: "DB00003",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=103532",
+  },
+  "Trikafta (Elexacaftor/Tezacaftor/Ivacaftor)": {
+    pubchemId: "0",
+    drugbankId: "DB16791",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=212273",
+  },
+  "Lumacaftor/Ivacaftor": {
+    pubchemId: "0",
+    drugbankId: "DB09046",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=206038",
+  },
+  "Alpha-1 antitrypsin": {
+    pubchemId: "0",
+    drugbankId: "DB00708",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=019000",
+  },
+  "Alpha-1 proteinase inhibitor (Prolastin/Zemaira)": {
+    pubchemId: "0",
+    drugbankId: "DB00708",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=101111",
+  },
+  Alvelestat: {
+    chemblId: "CHEMBL3545356",
+    fdaLabel: "https://clinicaltrials.gov/search?term=alvelestat",
+  },
+  Fazirsiran: { fdaLabel: "https://clinicaltrials.gov/search?term=fazirsiran" },
+  Finerenone: {
+    pubchemId: "44185494",
+    drugbankId: "DB16045",
+    chemblId: "CHEMBL3707368",
+  },
+  Eritoran: {
+    pubchemId: "0",
+    fdaLabel: "https://clinicaltrials.gov/search?term=eritoran",
+  },
+  "Drotrecogin alfa": {
+    pubchemId: "0",
+    drugbankId: "DB00055",
+    fdaLabel: "https://clinicaltrials.gov/search?term=drotrecogin",
+  },
+  Ulinastatin: {
+    pubchemId: "0",
+    fdaLabel: "https://clinicaltrials.gov/search?term=ulinastatin",
+  },
+  "Hepatitis A vaccine (Havrix/Vaqta)": {
+    pubchemId: "0",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=103694",
+  },
+  "Dengvaxia (CYD-TDV)": {
+    pubchemId: "0",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125632",
+  },
+  "Immune globulin (IGIM)": {
+    pubchemId: "0",
+    drugbankId: "DB16811",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=103764",
+  },
+  Grazoprevir: {
+    pubchemId: "44151165",
+    drugbankId: "DB11574",
+    chemblId: "CHEMBL2180717",
+  },
+  Ledipasvir: {
+    pubchemId: "67505836",
+    drugbankId: "DB09027",
+    chemblId: "CHEMBL2180693",
+  },
+  Bulevirtide: {
+    pubchemId: "0",
+    drugbankId: "DB16716",
+    fdaLabel: "https://www.ema.europa.eu/en/medicines/human/EPAR/hepcludex",
+  },
+  "IFN-γ (Interferon gamma-1b)": {
+    pubchemId: "0",
+    drugbankId: "DB00033",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=103836",
+  },
+  "IONIS-DMPKRX (antisense oligonucleotide)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=IONIS-DMPKRX",
+  },
+  "Vatiquinone (EPI-743)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=EPI-743",
+  },
+  "CTI-1601 (frataxin fusion protein)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=CTI-1601",
+  },
+  SAFit2: { fdaLabel: "https://clinicaltrials.gov/search?term=SAFit2" },
+  Leriglitazone: {
+    fdaLabel: "https://clinicaltrials.gov/search?term=leriglitazone",
+  },
+  "Hematopoietic stem cell transplantation (HSCT)": {
+    fdaLabel: "https://www.ncbi.nlm.nih.gov/pmc/search/?term=HSCT",
+  },
+  "Stem cell therapy (autologous cord blood)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=cord+blood+stem+cell",
+  },
+  "Progenitor cell gene therapy (ex vivo)": {
+    fdaLabel:
+      "https://clinicaltrials.gov/search?term=progenitor+cell+gene+therapy",
+  },
+  "AAV9-CLN6 gene therapy": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=AAV9-CLN6",
+  },
+  "AAV9-GALC (gene therapy)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=AAV9+GALC",
+  },
+  "AAV8-G6PC (gene therapy)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=AAV8-G6PC",
+  },
+  "AAVS3-OTC (gene therapy)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=OTC+gene+therapy",
+  },
+  "TSHA-102 (gene therapy)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=TSHA-102",
+  },
+  "mRNA-3705 (Moderna mRNA therapy)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=mRNA-3705",
+  },
+  "OT-58 (recombinant CBS enzyme)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=OT-58+CBS",
+  },
+  "Substrate reduction therapy (eliglustat analogue)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=eliglustat",
+  },
+  "Glycerol phenylbutyrate (Ravicti)": {
+    pubchemId: "6918463",
+    drugbankId: "DB08839",
+    chemblId: "CHEMBL1908356",
+  },
+  "Pegvaliase (Palynziq)": {
+    pubchemId: "0",
+    drugbankId: "DB13703",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761079",
+  },
+  "Growth hormone (Somatropin)": {
+    pubchemId: "0",
+    drugbankId: "DB00052",
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=019640",
+  },
+  "Dietary Phe restriction + Phe-free amino acid formula": {
+    fdaLabel: "https://www.ncbi.nlm.nih.gov/pmc/search/?term=PKU+diet",
+  },
+  "Dietary leucine restriction (BCAA-free formula)": {
+    fdaLabel: "https://www.ncbi.nlm.nih.gov/pmc/search/?term=MSUD+diet",
+  },
+  "Galactose-restricted diet": {
+    fdaLabel: "https://www.ncbi.nlm.nih.gov/pmc/search/?term=galactosemia+diet",
+  },
+  "Gluten-free diet": {
+    fdaLabel:
+      "https://www.ncbi.nlm.nih.gov/pmc/search/?term=celiac+gluten-free",
+  },
+  "Cornstarch (raw uncooked)": {
+    fdaLabel: "https://www.ncbi.nlm.nih.gov/pmc/search/?term=GSD1+cornstarch",
+  },
+  Phlebotomy: {
+    fdaLabel:
+      "https://www.ncbi.nlm.nih.gov/pmc/search/?term=polycythemia+phlebotomy",
+  },
+  Pancreatectomy: {
+    fdaLabel:
+      "https://www.ncbi.nlm.nih.gov/pmc/search/?term=congenital+hyperinsulinism+pancreatectomy",
+  },
+  "Liver transplantation": {
+    fdaLabel:
+      "https://www.ncbi.nlm.nih.gov/pmc/search/?term=liver+transplantation",
+  },
+  "Liver or combined liver-kidney transplantation": {
+    fdaLabel:
+      "https://www.ncbi.nlm.nih.gov/pmc/search/?term=liver+kidney+transplantation",
+  },
+  "Cochlear implant (device)": {
+    fdaLabel:
+      "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm",
+  },
+  "Surgical valve repair / balloon dilation": {
+    fdaLabel:
+      "https://www.ncbi.nlm.nih.gov/pmc/search/?term=pulmonary+arterial+hypertension+surgery",
+  },
+  "Antihypertensive therapy": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=antihypertensive+kidney",
+  },
+  "GABA-A modulation": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=GABA+angelman",
+  },
+  "Supportive care / Hydration": {
+    fdaLabel:
+      "https://www.ncbi.nlm.nih.gov/pmc/search/?term=dengue+supportive+care",
+  },
+  "AMG 714 (Anti-IL-15)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=AMG-714",
+  },
+  "ZED1227 (TG2 inhibitor)": {
+    pubchemId: "130693959",
+    fdaLabel: "https://clinicaltrials.gov/search?term=ZED1227",
+  },
+  Simtuzumab: { fdaLabel: "https://clinicaltrials.gov/search?term=simtuzumab" },
+  "Ferric maltol": {
+    pubchemId: "25038072",
+    drugbankId: "DB14162",
+    chemblId: "CHEMBL3039073",
+  },
+  "Sygen (GM-1 ganglioside)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=GM-1+ganglioside+spinal",
+  },
+  "Cethrin (VX-210 / BA-210)": {
+    fdaLabel: "https://clinicaltrials.gov/search?term=Cethrin+spinal",
+  },
+};
+
 function lookupDisease(name: string): DiseaseEntry {
   const key = name.toLowerCase().trim();
   // Alias map first
@@ -11407,8 +12477,8 @@ export async function searchDiseaseFromAPIs(
     entry.genes.map((g) => tryEnrichFromUniProt(g.uniprotId)),
   );
 
-  // Build ProteinTarget objects — always from curated KB, optionally enriched
-  const proteins: ProteinTarget[] = entry.genes.map((g, i) => {
+  // Build ExtendedProtein objects — always from curated KB, optionally enriched
+  const proteins: ExtendedProtein[] = entry.genes.map((g, i) => {
     const liveFunc =
       uniprotEnrichments[i].status === "fulfilled" &&
       uniprotEnrichments[i].value
@@ -11422,21 +12492,36 @@ export async function searchDiseaseFromAPIs(
       function: liveFunc || g.function,
       pathwayId: pathways[Math.min(i, pathways.length - 1)]?.id ?? "1",
       confidenceScore: confidenceScoresProtein[i] ?? 55n,
+      ncbiProteinId: g.ncbiProteinId,
+      omimId: g.omimId,
     };
   });
 
-  // Build ExtendedDrug objects — always from curated KB, with ChEMBL IDs
-  const drugs: ExtendedDrug[] = entry.genes.slice(0, 10).map((g, i) => ({
-    id: String(i + 1),
-    name: g.drug,
-    drugbankId: "",
-    pubchemId: g.pubchemId,
-    chemblId: g.chemblId,
-    targetProteinId: proteins[i]?.id ?? "1",
-    mechanismOfAction: g.drugMechanism,
-    approvalStatus: g.drugApproval,
-    confidenceScore: confidenceScoresDrug[i] ?? 55n,
-  }));
+  // Build ExtendedDrug objects — enrich with DRUG_ID_MAP for biologics/missing IDs
+  const drugs: ExtendedDrug[] = entry.genes.slice(0, 10).map((g, i) => {
+    const mapped = DRUG_ID_MAP[g.drug] ?? {};
+    const resolvedPubchem =
+      g.pubchemId && g.pubchemId !== "0"
+        ? g.pubchemId
+        : mapped.pubchemId && mapped.pubchemId !== "0"
+          ? mapped.pubchemId
+          : "";
+    const resolvedDrugbank = g.drugbankId || mapped.drugbankId || "";
+    const resolvedChembl = g.chemblId || mapped.chemblId;
+    const resolvedFdaLabel = g.fdaLabel || mapped.fdaLabel;
+    return {
+      id: String(i + 1),
+      name: g.drug,
+      drugbankId: resolvedDrugbank,
+      pubchemId: resolvedPubchem,
+      chemblId: resolvedChembl,
+      fdaLabel: resolvedFdaLabel,
+      targetProteinId: proteins[i]?.id ?? "1",
+      mechanismOfAction: g.drugMechanism,
+      approvalStatus: g.drugApproval,
+      confidenceScore: confidenceScoresDrug[i] ?? 55n,
+    };
+  });
 
   return {
     diseaseName,
