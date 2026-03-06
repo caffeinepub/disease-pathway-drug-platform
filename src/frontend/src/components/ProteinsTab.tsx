@@ -471,7 +471,7 @@ export function ProteinsTab({ proteins, isLoading }: ProteinsTabProps) {
                       )}
                       {protein.geneName && (
                         <a
-                          href={`https://string-db.org/search/0/${protein.geneName}`}
+                          href={`https://string-db.org/cgi/network?identifier=${encodeURIComponent(protein.geneName)}&species=9606`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium transition-all"
@@ -541,23 +541,26 @@ export function ProteinsTab({ proteins, isLoading }: ProteinsTabProps) {
                         </a>
                       ) : null}
                       {/* DisGeNET */}
-                      {protein.geneName && (
-                        <a
-                          href={`https://www.disgenet.org/search/#/gene/${encodeURIComponent(protein.geneName)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium transition-all"
-                          style={{
-                            background: "oklch(0.68 0.20 320 / 0.1)",
-                            color: "oklch(0.78 0.18 320)",
-                            border: "1px solid oklch(0.68 0.20 320 / 0.3)",
-                          }}
-                          title="View gene-disease associations on DisGeNET"
-                        >
-                          <ExternalLink className="w-3 h-3" />
-                          DisGeNET
-                        </a>
-                      )}
+                      {protein.geneName &&
+                        !protein.geneName.startsWith("HCV") &&
+                        !protein.geneName.startsWith("HBV") &&
+                        !protein.geneName.startsWith("HIV") && (
+                          <a
+                            href={`https://www.disgenet.org/gene/${encodeURIComponent(protein.geneName)}/summary/`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium transition-all"
+                            style={{
+                              background: "oklch(0.68 0.20 320 / 0.1)",
+                              color: "oklch(0.78 0.18 320)",
+                              border: "1px solid oklch(0.68 0.20 320 / 0.3)",
+                            }}
+                            title="View gene-disease associations on DisGeNET"
+                          >
+                            <ExternalLink className="w-3 h-3" />
+                            DisGeNET
+                          </a>
+                        )}
                       {/* NCBI Protein — for viral proteins */}
                       {protein.ncbiProteinId && (
                         <a

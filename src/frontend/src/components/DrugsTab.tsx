@@ -487,20 +487,23 @@ export function DrugsTab({ drugs, isLoading }: DrugsTabProps) {
                     ChEMBL
                   </a>
                 )}
-                <a
-                  href={`https://db.idrblab.net/ttd/search/ttd/target?query=${encodeURIComponent(drug.name)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200"
-                  style={{
-                    background: "oklch(0.68 0.18 280 / 0.12)",
-                    color: "oklch(0.68 0.18 280)",
-                    border: "1px solid oklch(0.68 0.18 280 / 0.3)",
-                  }}
-                >
-                  <ExternalLink className="w-3 h-3" />
-                  TTD
-                </a>
+                {/* TTD — only shown when no DrugBank or ChEMBL link is available, as a fallback */}
+                {!drug.drugbankId && !drug.chemblId && (
+                  <a
+                    href={`https://db.idrblab.net/ttd/search/ttd/target?query=${encodeURIComponent(drug.name)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200"
+                    style={{
+                      background: "oklch(0.68 0.18 280 / 0.12)",
+                      color: "oklch(0.68 0.18 280)",
+                      border: "1px solid oklch(0.68 0.18 280 / 0.3)",
+                    }}
+                  >
+                    <ExternalLink className="w-3 h-3" />
+                    TTD
+                  </a>
+                )}
                 {/* FDA/EMA/ClinicalTrials fallback — shown for biologics & gene therapies without a small-mol ID */}
                 {drug.fdaLabel &&
                   !drug.drugbankId &&
